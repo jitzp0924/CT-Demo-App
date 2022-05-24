@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".HomeScreen"
+    >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:padding="25dp"
+        tools:ignore="MissingConstraints">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Push Notification"
+            android:textSize="30dp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:layout_marginBottom="40dp"
+            android:layout_marginTop="30dp"
+            />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Default Push"
+            android:id="@+id/defPush"
+            android:layout_margin="10dp"
+            />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Custom Render"
+            android:layout_margin="10dp"
+            android:id="@+id/custRender"
+            />
+
+    </LinearLayout>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end|bottom"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        >
+
+        <TextView
+            android:id="@+id/inboxText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:text="@string/app_inbox"
+            app:layout_constraintBottom_toBottomOf="@+id/inboxFab"
+            app:layout_constraintEnd_toStartOf="@+id/inboxFab"
+            app:layout_constraintTop_toTopOf="@+id/inboxFab" />
+
+
+        <TextView
+            android:id="@+id/inappText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:text="@string/in_app"
+            app:layout_constraintBottom_toBottomOf="@+id/inappFab"
+            app:layout_constraintEnd_toStartOf="@+id/inappFab"
+            app:layout_constraintTop_toTopOf="@+id/inappFab" />
+
+        <!--Action name text for the add alarm button-->
+        <!--Make sure that you are constraining this Text to
+            the add Alarm FAB button-->
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/menuFab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:src="@drawable/plus_white"
+            app:fabSize="normal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/inappFab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            app:fabSize="normal"
+            app:layout_constraintBottom_toTopOf="@+id/inboxFab"
+            app:layout_constraintEnd_toEndOf="@+id/inboxFab"
+            app:layout_constraintStart_toStartOf="@+id/inboxFab"
+            app:srcCompat="@drawable/ic_person_add_black_24dp" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/inboxFab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            app:fabSize="normal"
+            app:layout_constraintBottom_toTopOf="@+id/menuFab"
+            app:layout_constraintEnd_toEndOf="@+id/menuFab"
+            app:layout_constraintStart_toStartOf="@+id/menuFab"
+            app:srcCompat="@drawable/ic_add_alarm_black_24dp" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
