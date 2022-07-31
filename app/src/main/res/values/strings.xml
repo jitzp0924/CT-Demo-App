@@ -3,5 +3,7 @@
     <string name="menu">Menu</string>
     <string name="in_app">In-App</string>
     <string name="app_inbox">App Inbox</string>
+    <string name="web_view">Web View</string>
+
 
 </resources>

@@ -35,7 +35,7 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/accId"
+            android:id="@+id/identity"
             />
         <TextView
             android:layout_width="wrap_content"
@@ -45,9 +45,21 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/accToken"
+            android:id="@+id/email"
             android:inputType="textEmailAddress"
             />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Phone :"
+            />
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/phone"
+            android:inputType="textEmailAddress"
+            />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -58,8 +70,8 @@
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:onClick="accountCred"
-                android:id="@+id/accountCredBtn"
+                android:onClick="loginClick"
+                android:id="@+id/loginClick"
                 android:text="Login"
                 />
         </LinearLayout>
@@ -72,8 +84,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Go To Anonymous Screen"
-                android:onClick="defCred"
-                android:id="@+id/defCredTxt"
+                android:onClick="defPage"
+                android:id="@+id/defPage"
                 />
         </LinearLayout>
         <LinearLayout

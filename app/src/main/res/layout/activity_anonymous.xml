@@ -65,6 +65,7 @@
                     android:layout_gravity="fill_horizontal"
                     android:layout_columnWeight="1"
                     android:hint="Property Name"
+                    android:id="@+id/propName"
                     />
                 <EditText
                     android:hint="Property Value"
@@ -72,6 +73,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="fill_horizontal"
                     android:layout_columnWeight="1"
+                    android:id="@+id/propVal"
                     />
             </GridLayout>
             <Button

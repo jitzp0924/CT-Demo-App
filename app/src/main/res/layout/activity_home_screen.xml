@@ -50,6 +50,16 @@
         >
 
         <TextView
+            android:id="@+id/webViewText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:text="@string/web_view"
+            app:layout_constraintBottom_toBottomOf="@+id/webView"
+            app:layout_constraintEnd_toStartOf="@+id/webView"
+            app:layout_constraintTop_toTopOf="@+id/webView" />
+
+        <TextView
             android:id="@+id/inboxText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -94,8 +104,7 @@
             app:fabSize="normal"
             app:layout_constraintBottom_toTopOf="@+id/inboxFab"
             app:layout_constraintEnd_toEndOf="@+id/inboxFab"
-            app:layout_constraintStart_toStartOf="@+id/inboxFab"
-            app:srcCompat="@drawable/ic_person_add_black_24dp" />
+            app:layout_constraintStart_toStartOf="@+id/inboxFab" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/inboxFab"
@@ -103,10 +112,22 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="24dp"
             app:fabSize="normal"
+            app:layout_constraintBottom_toTopOf="@+id/webView"
+            app:layout_constraintEnd_toEndOf="@+id/webView"
+            app:layout_constraintStart_toStartOf="@+id/webView"
+            />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/webView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            app:fabSize="normal"
+            android:src="@drawable/webview"
             app:layout_constraintBottom_toTopOf="@+id/menuFab"
             app:layout_constraintEnd_toEndOf="@+id/menuFab"
             app:layout_constraintStart_toStartOf="@+id/menuFab"
-            app:srcCompat="@drawable/ic_add_alarm_black_24dp" />
+            />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
