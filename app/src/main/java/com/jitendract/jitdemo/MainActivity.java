@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity implements CTPushNotificatio
         CleverTapAPI.setDebugLevel(CleverTapAPI.LogLevel.VERBOSE);
         clevertapDefaultInstance.setCTPushNotificationListener(this);
         CleverTapAPI.createNotificationChannel(getApplicationContext(),"JitDemo","JitDemo","JitDemo", NotificationManager.IMPORTANCE_MAX,true);
-        CleverTapAPI.createNotificationChannel(getApplicationContext(),"r2d2","r2d2","r2d2 sound", NotificationManager.IMPORTANCE_MAX,true,"r2d2.mp3");
+        CleverTapAPI.createNotificationChannel(getApplicationContext(),"r2d2","r2d2","r2d2 sound bad", NotificationManager.IMPORTANCE_MAX,true,"r2d2.mp3");
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity implements CTPushNotificatio
 
         CleverTapAPI clevertapDefaultInstance = CleverTapAPI.getDefaultInstance(getApplicationContext());
 
-        HashMap<String, Object> profileUpdate = new HashMap<String, Object>();
+        HashMap<String, Object> profileUpdate = new HashMap<>();
         profileUpdate.put("Identity",Identity);      // String or number
         profileUpdate.put("Email",Email);
         profileUpdate.put("Phone",Phone);
@@ -64,6 +64,6 @@ public class MainActivity extends AppCompatActivity implements CTPushNotificatio
 
     @Override
     public void onNotificationClickedPayloadReceived(HashMap<String, Object> payload) {
-        Toast.makeText(this, (CharSequence) payload,Toast.LENGTH_LONG);
+        Toast.makeText(this, (CharSequence) payload,Toast.LENGTH_LONG).show();
     }
 }

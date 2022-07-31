@@ -42,45 +42,38 @@ public class HomeScreen extends AppCompatActivity {
         inboxFab.setVisibility(View.GONE);
         webView.setVisibility(View.GONE);
 
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        fab.setOnClickListener(view -> {
 
-                if (!isAllFabsVisible){
-                    webViewText.setVisibility(View.VISIBLE);
-                    inboxText.setVisibility(View.VISIBLE);
-                    inappText.setVisibility(View.VISIBLE);
-                    inappFab.show();
-                    inboxFab.show();
-                    webView.show();
+            if (!isAllFabsVisible){
+                webViewText.setVisibility(View.VISIBLE);
+                inboxText.setVisibility(View.VISIBLE);
+                inappText.setVisibility(View.VISIBLE);
+                inappFab.show();
+                inboxFab.show();
+                webView.show();
 
-                    isAllFabsVisible = true;
-                    Snackbar.make(view, "Visible", Snackbar.LENGTH_SHORT)
-                            .setAction("Action", null).show();
-                }
-                else{
-                    webViewText.setVisibility(View.GONE);
-                    inboxText.setVisibility(View.GONE);
-                    inappText.setVisibility(View.GONE);
-                    inappFab.hide();
-                    inboxFab.hide();
-                    webView.hide();
+                isAllFabsVisible = true;
+                Snackbar.make(view, "Visible", Snackbar.LENGTH_SHORT)
+                        .setAction("Action", null).show();
+            }
+            else{
+                webViewText.setVisibility(View.GONE);
+                inboxText.setVisibility(View.GONE);
+                inappText.setVisibility(View.GONE);
+                inappFab.hide();
+                inboxFab.hide();
+                webView.hide();
 
-                    isAllFabsVisible = false;
-                    Snackbar.make(view, "Hidden", Snackbar.LENGTH_SHORT)
-                            .setAction("Action", null).show();
-                }
+                isAllFabsVisible = false;
+                Snackbar.make(view, "Hidden", Snackbar.LENGTH_SHORT)
+                        .setAction("Action", null).show();
             }
         });
 
-
-        webView.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View view) {
-                Intent di = new Intent(getApplicationContext(),webview.class);
-                startActivity(di);
-            }
+//
+        webView.setOnClickListener(view -> {
+            Intent di = new Intent(getApplicationContext(),webview.class);
+            startActivity(di);
         });
     }
 

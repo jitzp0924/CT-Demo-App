@@ -25,7 +25,7 @@ public class webview extends AppCompatActivity {
         myWebView.addJavascriptInterface(new CTWebInterface(CleverTapAPI.getDefaultInstance(this)),"CleverTap");
 
 
-
+//
 
     }
 }
