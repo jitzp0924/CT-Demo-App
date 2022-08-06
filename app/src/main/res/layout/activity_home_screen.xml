@@ -51,6 +51,16 @@
         >
 
         <TextView
+            android:id="@+id/nativeDisplayText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:text="@string/nD"
+            app:layout_constraintBottom_toBottomOf="@+id/nativeDisplay"
+            app:layout_constraintEnd_toStartOf="@+id/nativeDisplay"
+            app:layout_constraintTop_toTopOf="@+id/nativeDisplay" />
+
+        <TextView
             android:id="@+id/webViewText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -120,6 +130,18 @@
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/webView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            app:fabSize="normal"
+            android:src="@drawable/webview"
+            app:layout_constraintBottom_toTopOf="@+id/nativeDisplay"
+            app:layout_constraintEnd_toEndOf="@+id/nativeDisplay"
+            app:layout_constraintStart_toStartOf="@+id/nativeDisplay"
+            />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/nativeDisplay"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="24dp"
