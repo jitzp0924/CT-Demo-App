@@ -3,9 +3,11 @@ package com.jitendract.jitdemo;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.clevertap.android.sdk.CleverTapAPI;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -17,11 +19,19 @@ public class HomeScreen extends AppCompatActivity {
     Boolean isAllFabsVisible;
     TextView webViewText,inboxText,inappText,nativeDisplayText;
     FloatingActionButton inappFab,inboxFab,webView,nativeDisplay;
+    boolean isLoggedIN;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_screen);
+
+        String prefIdentity;
+        SharedPreferences prefs = getSharedPreferences("Login", MODE_PRIVATE);
+        isLoggedIN =prefs.getBoolean("LoggedIn",false);
+        prefIdentity = prefs.getString("Identity","default");
+
+        Toast.makeText(this,"Logged in with Identity : " + prefIdentity,Toast.LENGTH_LONG).show();
 
         isAllFabsVisible = false;
         CleverTapAPI clevertapDefaultInstance = CleverTapAPI.getDefaultInstance(getApplicationContext());

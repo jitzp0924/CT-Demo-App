@@ -3,9 +3,11 @@ package com.jitendract.jitdemo;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.NotificationManager;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -19,8 +21,12 @@ public class MainActivity extends AppCompatActivity implements CTPushNotificatio
 
     EditText identity,email,phone;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
 
         CleverTapAPI clevertapDefaultInstance = CleverTapAPI.getDefaultInstance(getApplicationContext());
         CleverTapAPI.setDebugLevel(CleverTapAPI.LogLevel.VERBOSE);
@@ -28,13 +34,14 @@ public class MainActivity extends AppCompatActivity implements CTPushNotificatio
         CleverTapAPI.createNotificationChannel(getApplicationContext(),"JitDemo","JitDemo","JitDemo", NotificationManager.IMPORTANCE_MAX,true);
         CleverTapAPI.createNotificationChannel(getApplicationContext(),"r2d2","r2d2","r2d2 sound bad", NotificationManager.IMPORTANCE_MAX,true,"r2d2.mp3");
 
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
 
         identity = findViewById(R.id.identity);
         email = findViewById(R.id.email);
         phone = findViewById(R.id.phone);
+
+
     }
+
 
     public void loginClick(View view) {
 
@@ -53,6 +60,12 @@ public class MainActivity extends AppCompatActivity implements CTPushNotificatio
 
         Intent di = new Intent(getApplicationContext(),HomeScreen.class);
         startActivity(di);
+
+        SharedPreferences.Editor editor = getSharedPreferences("Login", MODE_PRIVATE).edit();
+        editor.putBoolean("LoggedIn",true);
+        editor.putString("Identity",Identity);
+        editor.apply();
+
 
     }
 
