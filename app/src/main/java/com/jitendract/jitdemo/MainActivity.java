@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.clevertap.android.sdk.CleverTapAPI;
 import com.clevertap.android.sdk.pushnotification.CTPushNotificationListener;
+import com.clevertap.android.sdk.pushnotification.PushConstants;
 
 import java.util.HashMap;
 
@@ -27,6 +28,7 @@ public class MainActivity extends AppCompatActivity implements CTPushNotificatio
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        CleverTapAPI.enableXiaomiPushOn(PushConstants.ALL_DEVICES);
 
         CleverTapAPI clevertapDefaultInstance = CleverTapAPI.getDefaultInstance(getApplicationContext());
         CleverTapAPI.setDebugLevel(CleverTapAPI.LogLevel.VERBOSE);
@@ -53,18 +55,20 @@ public class MainActivity extends AppCompatActivity implements CTPushNotificatio
 
         HashMap<String, Object> profileUpdate = new HashMap<>();
         profileUpdate.put("Identity",Identity);      // String or number
-        profileUpdate.put("Email",Email);
+//        profileUpdate.put("Email",Email);
         profileUpdate.put("Phone",Phone);
         clevertapDefaultInstance.onUserLogin(profileUpdate);
-
-
-        Intent di = new Intent(getApplicationContext(),HomeScreen.class);
-        startActivity(di);
 
         SharedPreferences.Editor editor = getSharedPreferences("Login", MODE_PRIVATE).edit();
         editor.putBoolean("LoggedIn",true);
         editor.putString("Identity",Identity);
         editor.apply();
+
+        Intent di = new Intent(getApplicationContext(),HomeScreen.class);
+        di.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(di);
+
+
 
 
     }

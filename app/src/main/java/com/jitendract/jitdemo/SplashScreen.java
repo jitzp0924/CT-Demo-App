@@ -14,7 +14,7 @@ import com.bumptech.glide.Glide;
 
 public class SplashScreen extends AppCompatActivity {
 
-    private static int SPLASH_SCREEN_TIME_OUT=10000;
+    private static int SPLASH_SCREEN_TIME_OUT=5000;
     boolean isLoggedIN;
     ImageView imgView;
 

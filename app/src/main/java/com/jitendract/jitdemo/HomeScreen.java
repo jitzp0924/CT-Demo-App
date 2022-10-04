@@ -106,8 +106,19 @@ public class HomeScreen extends AppCompatActivity {
             Intent di = new Intent(getApplicationContext(),displayNative.class);
             startActivity(di);
         });
+
+        clevertapDefaultInstance.pushEvent("Home Screen Load");
     }
 
 
+    public void logoutClick(View view) {
 
+        SharedPreferences.Editor editor = getSharedPreferences("Login", MODE_PRIVATE).edit();
+        editor.remove("LoggedIn").apply();
+        editor.remove("Identity").apply();
+
+        Intent di = new Intent(getApplicationContext(),MainActivity.class);
+        di.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(di);
+    }
 }
