@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "293501780855",
+    "project_id": "jitdemo-80633",
+    "storage_bucket": "jitdemo-80633.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:293501780855:android:862ac05b43df51c2c99772",
+        "android_client_info": {
+          "package_name": "com.jitendract.jitdemo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "293501780855-gp3jrfvkhdu68ge67skqal9n6if9umf3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAReaGTMllMVRzlBAmsGB3Rb5C4o8oQRUI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "293501780855-gp3jrfvkhdu68ge67skqal9n6if9umf3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
