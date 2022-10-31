@@ -8,6 +8,7 @@ android {
     defaultConfig {
         applicationId "com.jitendract.jitdemo"
         minSdk 28
+        //noinspection ExpiringTargetSdkVersion
         targetSdk 32
         versionCode 1
         versionName "1.0"
