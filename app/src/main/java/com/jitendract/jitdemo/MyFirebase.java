@@ -17,8 +17,10 @@ public class MyFirebase extends FirebaseMessagingService {
 
     @Override
     public void onMessageReceived(@NonNull RemoteMessage remoteMessage) {
-        super.onMessageReceived(remoteMessage);
+
         new CTFcmMessageHandler().createNotification(getApplicationContext(), remoteMessage);
+        super.onMessageReceived(remoteMessage);
+
 
     }
 

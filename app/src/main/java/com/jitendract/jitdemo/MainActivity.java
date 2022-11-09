@@ -11,6 +11,7 @@ import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -39,36 +40,33 @@ public class MainActivity extends AppCompatActivity implements CTPushNotificatio
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
         CleverTapAPI.enableXiaomiPushOn(PushConstants.ALL_DEVICES);
         CleverTapAPI clevertapDefaultInstance = CleverTapAPI.getDefaultInstance(getApplicationContext());
-        CleverTapAPI.setDebugLevel(CleverTapAPI.LogLevel.VERBOSE);
-        if (clevertapDefaultInstance != null) {
-            clevertapDefaultInstance.setPushPermissionNotificationResponseListener(this);
-        }
-        clevertapDefaultInstance.setCTPushNotificationListener(this);
-
-
 
         identity = findViewById(R.id.identity);
         email = findViewById(R.id.email);
         phone = findViewById(R.id.phone);
+        if (Build.VERSION.SDK_INT >= 32){
+            if (clevertapDefaultInstance != null) {
+                clevertapDefaultInstance.setPushPermissionNotificationResponseListener(this);
+            }
+            clevertapDefaultInstance.setCTPushNotificationListener(this);
 
-        @SuppressLint("RestrictedApi") JSONObject jsonObject = CTLocalInApp.builder()
-                .setInAppType(CTLocalInApp.InAppType.HALF_INTERSTITIAL)
-                .setTitleText("Get Latest Offers & Promotions")
-                .setMessageText("Click on allow to get the latest updates from us !!!!!")
-                .followDeviceOrientation(true)
-                .setPositiveBtnText("Let's Do THis!")
-                .setNegativeBtnText("Maybe Later.")
-                .setBackgroundColor(Constants.WHITE)
-                .setBtnBorderColor("#FFD700")
-                .setTitleTextColor(Constants.WHITE)
-                .setMessageTextColor(Constants.BLACK)
-                .setBtnTextColor(Constants.WHITE)
-                .setImageUrl("https://media-exp1.licdn.com/dms/image/C5622AQFo1izBws7Lhw/feedshare-shrink_2048_1536/0/1658384964241?e=2147483647&v=beta&t=lkJWbHD_8n5v27GtOg4gynsRu_PunE1Z33XY0jJetDQ")
-                .setBtnBackgroundColor(Constants.BLACK)
-                .build();
+            @SuppressLint("RestrictedApi") JSONObject jsonObject = CTLocalInApp.builder()
+                    .setInAppType(CTLocalInApp.InAppType.HALF_INTERSTITIAL)
+                    .setTitleText("Get Latest Offers & Promotions")
+                    .setMessageText("Click on allow to get the latest updates from us !!!!!")
+                    .followDeviceOrientation(true)
+                    .setPositiveBtnText("Let's Do THis!")
+                    .setNegativeBtnText("Maybe Later.")
+                    .setBackgroundColor(Constants.WHITE)
+                    .setBtnBorderColor("#FFD700")
+                    .setTitleTextColor(Constants.WHITE)
+                    .setMessageTextColor(Constants.BLACK)
+                    .setBtnTextColor(Constants.WHITE)
+                    .setImageUrl("https://media-exp1.licdn.com/dms/image/C5622AQFo1izBws7Lhw/feedshare-shrink_2048_1536/0/1658384964241?e=2147483647&v=beta&t=lkJWbHD_8n5v27GtOg4gynsRu_PunE1Z33XY0jJetDQ")
+                    .setBtnBackgroundColor(Constants.BLACK)
+                    .build();
 //                .setInAppType(CTLocalInApp.InAppType.ALERT)
 //                .setTitleText("Get Notified")
 //                .setMessageText("Enable Notification permission")
@@ -76,11 +74,20 @@ public class MainActivity extends AppCompatActivity implements CTPushNotificatio
 //                .setPositiveBtnText("Allow")
 //                .setNegativeBtnText("Cancel")
 //                .build();
-        clevertapDefaultInstance.promptPushPrimer(jsonObject);
+            clevertapDefaultInstance.promptPushPrimer(jsonObject);
 //        clevertapDefaultInstance.promptForPushPermission(true);
+
+        }
+        else{
+            CleverTapAPI.createNotificationChannel(getApplicationContext(),"r2d2","r2d2","r2d2 sound bad", NotificationManager.IMPORTANCE_MAX,true,"r2d2.mp3");
+        }
+
 
 
     }
+
+
+
     @Override
     public void onPushPermissionResponse(boolean accepted) {
         CleverTapAPI clevertapDefaultInstance = CleverTapAPI.getDefaultInstance(getApplicationContext());

@@ -13,6 +13,7 @@ public class application extends Application {
     public void onCreate() {
 
         ActivityLifecycleCallback.register(this);
+        CleverTapAPI.setDebugLevel(CleverTapAPI.LogLevel.VERBOSE);
         CleverTapAPI.setNotificationHandler((NotificationHandler) new PushTemplateNotificationHandler());
 
         super.onCreate();
