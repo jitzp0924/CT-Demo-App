@@ -6,6 +6,18 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
+<!--    Android 13-->
+
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
+<!--    Geofence-->
+
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+
+
     <application
         android:name=".application"
         android:allowBackup="true"
@@ -58,6 +70,8 @@
         <meta-data
             android:name="CLEVERTAP_NOTIFICATION_ICON"
             android:value="smicon"/>
+
+
     </application>
 
 </manifest>
