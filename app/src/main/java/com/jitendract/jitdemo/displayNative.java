@@ -21,6 +21,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Objects;
 
 public class displayNative extends AppCompatActivity implements DisplayUnitListener {
 
@@ -47,6 +48,7 @@ public class displayNative extends AppCompatActivity implements DisplayUnitListe
             CleverTapDisplayUnit unit = units.get(i);
             try {
                 prepareDisplayView(unit);
+                Objects.requireNonNull(CleverTapAPI.getDefaultInstance(this)).pushDisplayUnitViewedEventForID(unit.getUnitID());
             } catch (JSONException e) {
                 e.printStackTrace();
             }

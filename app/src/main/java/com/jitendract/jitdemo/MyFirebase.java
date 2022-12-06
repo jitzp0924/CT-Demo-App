@@ -1,6 +1,7 @@
 package com.jitendract.jitdemo;
 
-import android.app.Service;
+import android.os.Bundle;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 
@@ -12,13 +13,35 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
+import java.util.Map;
 
 public class MyFirebase extends FirebaseMessagingService {
 
     @Override
     public void onMessageReceived(@NonNull RemoteMessage remoteMessage) {
 
-        new CTFcmMessageHandler().createNotification(getApplicationContext(), remoteMessage);
+        try {
+            if (remoteMessage.getData().size() > 0) {
+                Bundle extras = new Bundle();
+                for (Map.Entry<String, String> entry : remoteMessage.getData().entrySet()) {
+                    extras.putString(entry.getKey(), entry.getValue());
+                }
+                String key = extras.getString("prog");
+                Log.d("KEY23",key);
+                if (key.equals("timer2")) {
+
+                    new ProgressTimer().createT(getApplicationContext(),extras);
+
+                } else {
+                    // NOt a progress bar timer template
+                    new CTFcmMessageHandler().createNotification(getApplicationContext(), remoteMessage);
+                }
+            }
+        } catch (Throwable t) {
+            Log.d("MYFCMLIST", "Error parsing FCM message", t);
+        }
+
+
         super.onMessageReceived(remoteMessage);
 
 

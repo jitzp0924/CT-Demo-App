@@ -12,6 +12,8 @@ import android.widget.Toast;
 import com.clevertap.android.sdk.CleverTapAPI;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
+import java.util.Date;
+import java.util.HashMap;
 
 public class HomeScreen extends AppCompatActivity {
 
@@ -107,7 +109,10 @@ public class HomeScreen extends AppCompatActivity {
             startActivity(di);
         });
 
-        clevertapDefaultInstance.pushEvent("Home Screen Load");
+        HashMap<String, Object> homeScreen = new HashMap<String, Object>();
+        homeScreen.put("Date",new Date());
+
+        clevertapDefaultInstance.pushEvent("Home Screen Load",homeScreen);
     }
 
 

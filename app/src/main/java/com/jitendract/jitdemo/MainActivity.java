@@ -104,7 +104,7 @@ public class MainActivity extends AppCompatActivity implements CTPushNotificatio
     }
 
 
-    public void loginClimck(View view) {
+    public void loginClick(View view) {
 
         String Email = email.getText().toString();
         String Identity = identity.getText().toString();
