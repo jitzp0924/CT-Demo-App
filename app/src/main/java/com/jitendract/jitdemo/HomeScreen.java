@@ -9,13 +9,14 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.clevertap.android.sdk.CTInboxListener;
 import com.clevertap.android.sdk.CleverTapAPI;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import java.util.Date;
 import java.util.HashMap;
 
-public class HomeScreen extends AppCompatActivity {
+public class HomeScreen extends AppCompatActivity{
 
     FloatingActionButton fab;
     Boolean isAllFabsVisible;
@@ -109,6 +110,13 @@ public class HomeScreen extends AppCompatActivity {
             startActivity(di);
         });
 
+        inboxFab.setOnClickListener(view ->{
+            clevertapDefaultInstance.pushEvent("App-Inbox Event");
+//            Intent inbox = new Intent(getApplicationContext(),CustomAppInbox.class);
+//            startActivity(inbox);
+
+        });
+
         HashMap<String, Object> homeScreen = new HashMap<String, Object>();
         homeScreen.put("Date",new Date());
 
@@ -126,4 +134,5 @@ public class HomeScreen extends AppCompatActivity {
         di.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(di);
     }
+
 }
