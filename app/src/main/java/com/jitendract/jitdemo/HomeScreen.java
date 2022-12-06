@@ -114,6 +114,7 @@ public class HomeScreen extends AppCompatActivity{
             clevertapDefaultInstance.pushEvent("App-Inbox Event");
 //            Intent inbox = new Intent(getApplicationContext(),CustomAppInbox.class);
 //            startActivity(inbox);
+
         });
 
         HashMap<String, Object> homeScreen = new HashMap<String, Object>();
