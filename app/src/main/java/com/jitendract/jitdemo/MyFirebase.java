@@ -26,9 +26,8 @@ public class MyFirebase extends FirebaseMessagingService {
                 for (Map.Entry<String, String> entry : remoteMessage.getData().entrySet()) {
                     extras.putString(entry.getKey(), entry.getValue());
                 }
-                String key = extras.getString("prog");
-                Log.d("KEY23",key);
-                if (key.equals("timer2")) {
+
+                if (extras.containsKey("prog")) {
 
                     new ProgressTimer().createT(getApplicationContext(),extras);
 
