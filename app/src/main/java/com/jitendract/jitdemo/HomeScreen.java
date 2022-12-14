@@ -117,6 +117,18 @@ public class HomeScreen extends AppCompatActivity{
 
         });
 
+        inboxFab.setOnClickListener(view ->{
+            clevertapDefaultInstance.pushEvent("App-Inbox Event");
+            try {
+                Thread.sleep(3000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+//            Intent inbox = new Intent(getApplicationContext(),CustomAppInbox.class);
+//            startActivity(inbox);
+
+        });
+
         HashMap<String, Object> homeScreen = new HashMap<String, Object>();
         homeScreen.put("Date",new Date());
 
