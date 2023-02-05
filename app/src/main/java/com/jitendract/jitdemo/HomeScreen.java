@@ -1,7 +1,10 @@
 package com.jitendract.jitdemo;
 
+import static com.clevertap.android.geofence.CTGeofenceSettings.FETCH_CURRENT_LOCATION_PERIODIC;
+
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -9,21 +12,29 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.clevertap.android.geofence.CTGeofenceAPI;
+import com.clevertap.android.geofence.CTGeofenceSettings;
+import com.clevertap.android.geofence.Logger;
 import com.clevertap.android.sdk.CTInboxListener;
 import com.clevertap.android.sdk.CleverTapAPI;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.analytics.FirebaseAnalytics;
+
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Objects;
 
-public class HomeScreen extends AppCompatActivity{
+public class HomeScreen extends AppCompatActivity {
 
     FloatingActionButton fab;
+    private FirebaseAnalytics mFirebaseAnalytics;
     Boolean isAllFabsVisible;
     TextView webViewText,inboxText,inappText,nativeDisplayText;
     FloatingActionButton inappFab,inboxFab,webView,nativeDisplay;
     boolean isLoggedIN;
 
+    @SuppressLint("WrongThread")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,6 +50,9 @@ public class HomeScreen extends AppCompatActivity{
         isAllFabsVisible = false;
         CleverTapAPI clevertapDefaultInstance = CleverTapAPI.getDefaultInstance(getApplicationContext());
         CleverTapAPI.setDebugLevel(CleverTapAPI.LogLevel.VERBOSE);
+
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
+        mFirebaseAnalytics.setUserProperty("ct_objectId", Objects.requireNonNull(CleverTapAPI.getDefaultInstance(this)).getCleverTapID());
 
         fab = findViewById(R.id.menuFab);
         webViewText = findViewById(R.id.webViewText);
@@ -133,6 +147,14 @@ public class HomeScreen extends AppCompatActivity{
         homeScreen.put("Date",new Date());
 
         clevertapDefaultInstance.pushEvent("Home Screen Load",homeScreen);
+        CTGeofenceSettings ctGeofenceSettings = new CTGeofenceSettings.Builder()
+                .enableBackgroundLocationUpdates(true)//boolean to enable background location updates
+                .setLogLevel(Logger.VERBOSE)//Log Level
+                .setLocationAccuracy(CTGeofenceSettings.ACCURACY_HIGH )//byte value for Location Accuracy
+                .setLocationFetchMode(FETCH_CURRENT_LOCATION_PERIODIC )//byte value for Fetch Mode
+                .setInterval(180000)
+                .build();
+        CTGeofenceAPI.getInstance(getApplicationContext()).init(ctGeofenceSettings,clevertapDefaultInstance);
     }
 
 

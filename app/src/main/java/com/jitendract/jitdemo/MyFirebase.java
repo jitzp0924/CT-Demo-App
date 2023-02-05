@@ -29,7 +29,7 @@ public class MyFirebase extends FirebaseMessagingService {
 
                 if (extras.containsKey("prog")) {
 
-                    new ProgressTimer().createT(getApplicationContext(),extras);
+                    //new ProgressTimer().createT(getApplicationContext(),extras);
 
                 } else {
                     // NOt a progress bar timer template
