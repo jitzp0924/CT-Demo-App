@@ -100,6 +100,7 @@ public class MainActivity extends AppCompatActivity implements CTPushNotificatio
         }
         else{
             clevertapDefaultInstance.pushEvent("Push Opted-out");
+
         }
     }
 
@@ -114,7 +115,7 @@ public class MainActivity extends AppCompatActivity implements CTPushNotificatio
 
         HashMap<String, Object> profileUpdate = new HashMap<>();
         profileUpdate.put("Identity",Identity);      // String or number
-//        profileUpdate.put("Email",Email);
+        profileUpdate.put("Email",Email);
         profileUpdate.put("Phone",Phone);
         clevertapDefaultInstance.onUserLogin(profileUpdate);
 
