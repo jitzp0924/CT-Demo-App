@@ -135,6 +135,10 @@ public class HomeScreen extends AppCompatActivity implements CTInboxListener {
 //            startActivity(inbox);
 
         });
+        inappFab.setOnClickListener(View ->{
+            Intent inapp=new Intent(getApplicationContext(),temp.class);
+            startActivity(inapp);
+        });
 
 
         HashMap<String, Object> homeScreen = new HashMap<String, Object>();
