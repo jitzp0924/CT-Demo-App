@@ -16,16 +16,18 @@ import com.clevertap.android.geofence.CTGeofenceAPI;
 import com.clevertap.android.geofence.CTGeofenceSettings;
 import com.clevertap.android.geofence.Logger;
 import com.clevertap.android.sdk.CTInboxListener;
+import com.clevertap.android.sdk.CTInboxStyleConfig;
 import com.clevertap.android.sdk.CleverTapAPI;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.analytics.FirebaseAnalytics;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Objects;
 
-public class HomeScreen extends AppCompatActivity {
+public class HomeScreen extends AppCompatActivity implements CTInboxListener {
 
     FloatingActionButton fab;
     private FirebaseAnalytics mFirebaseAnalytics;
@@ -114,7 +116,10 @@ public class HomeScreen extends AppCompatActivity {
 
         nativeDisplay.setOnClickListener(view -> {
 
-            clevertapDefaultInstance.pushEvent("Native Event");
+            HashMap<String, Object> nt = new HashMap<String, Object>();
+            nt.put("Date",new Date());
+            nt.put("Screen","HomeScreen FAB");
+            clevertapDefaultInstance.pushEvent("Native Event",nt);
             try {
                 Thread.sleep(3000);
             } catch (InterruptedException e) {
@@ -131,17 +136,6 @@ public class HomeScreen extends AppCompatActivity {
 
         });
 
-        inboxFab.setOnClickListener(view ->{
-            clevertapDefaultInstance.pushEvent("App-Inbox Event");
-            try {
-                Thread.sleep(3000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-//            Intent inbox = new Intent(getApplicationContext(),CustomAppInbox.class);
-//            startActivity(inbox);
-
-        });
 
         HashMap<String, Object> homeScreen = new HashMap<String, Object>();
         homeScreen.put("Date",new Date());
@@ -155,6 +149,13 @@ public class HomeScreen extends AppCompatActivity {
                 .setInterval(180000)
                 .build();
         CTGeofenceAPI.getInstance(getApplicationContext()).init(ctGeofenceSettings,clevertapDefaultInstance);
+
+        if (clevertapDefaultInstance != null) {
+            //Set the Notification Inbox Listener
+            clevertapDefaultInstance.setCTNotificationInboxListener(this);
+            //Initialize the inbox and wait for callbacks on overridden methods
+            clevertapDefaultInstance.initializeInbox();
+        }
     }
 
 
@@ -169,4 +170,45 @@ public class HomeScreen extends AppCompatActivity {
         startActivity(di);
     }
 
+    @Override
+    public void inboxDidInitialize() {
+
+        CleverTapAPI clevertapDefaultInstance = CleverTapAPI.getDefaultInstance(getApplicationContext());
+        inboxFab.setOnClickListener(v -> {
+
+            clevertapDefaultInstance.pushEvent("App-Inbox Event");
+            try {
+                Thread.sleep(3000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+
+            ArrayList<String> tabs = new ArrayList<>();
+            tabs.add("Promotions");
+            tabs.add("Offers");//We support upto 2 tabs only. Additional tabs will be ignored
+
+            CTInboxStyleConfig styleConfig = new CTInboxStyleConfig();
+            styleConfig.setFirstTabTitle("First Tab");
+            styleConfig.setTabs(tabs);//Do not use this if you don't want to use tabs
+            styleConfig.setTabBackgroundColor("#FF0000");
+            styleConfig.setSelectedTabIndicatorColor("#0000FF");
+            styleConfig.setSelectedTabColor("#0000FF");
+            styleConfig.setUnselectedTabColor("#FFFFFF");
+            styleConfig.setBackButtonColor("#FF0000");
+            styleConfig.setNavBarTitleColor("#FF0000");
+            styleConfig.setNavBarTitle("MY INBOX");
+            styleConfig.setNavBarColor("#FFFFFF");
+            styleConfig.setInboxBackgroundColor("#ADD8E6");
+            if (clevertapDefaultInstance != null) {
+                clevertapDefaultInstance.showAppInbox(styleConfig); //With Tabs
+            }
+            //ct.showAppInbox();//Opens Activity with default style configs
+        });
+    }
+
+    @Override
+    public void inboxMessagesDidUpdate() {
+
+    }
 }

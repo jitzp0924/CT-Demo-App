@@ -6,6 +6,8 @@ import android.app.NotificationManager;
 import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -15,8 +17,11 @@ import com.clevertap.android.pushtemplates.PushTemplateNotificationHandler;
 import com.clevertap.android.sdk.ActivityLifecycleCallback;
 import com.clevertap.android.sdk.CleverTapAPI;
 import com.clevertap.android.sdk.interfaces.NotificationHandler;
+import com.clevertap.android.sdk.pushnotification.CTPushNotificationListener;
 
-public class application extends MultiDexApplication implements Application.ActivityLifecycleCallbacks {
+import java.util.HashMap;
+
+public class application extends MultiDexApplication implements Application.ActivityLifecycleCallbacks, CTPushNotificationListener {
 
     @Override
     public void onCreate() {
@@ -24,6 +29,9 @@ public class application extends MultiDexApplication implements Application.Acti
         ActivityLifecycleCallback.register(this);
         CleverTapAPI.setDebugLevel(CleverTapAPI.LogLevel.VERBOSE);
         CleverTapAPI.setNotificationHandler((NotificationHandler) new PushTemplateNotificationHandler());
+        CleverTapAPI cleverTapAPI = CleverTapAPI.getDefaultInstance(getApplicationContext());
+        assert cleverTapAPI != null;
+        cleverTapAPI.setCTPushNotificationListener(this);
 
 
         super.onCreate();
@@ -73,6 +81,15 @@ public class application extends MultiDexApplication implements Application.Acti
 
     @Override
     public void onActivityDestroyed(@NonNull Activity activity) {
+
+    }
+
+    @Override
+    public void onNotificationClickedPayloadReceived(HashMap<String, Object> payload) {
+
+        Log.e("Click Bundle", String.valueOf(payload));
+        String p1 = String.valueOf(payload);
+        Toast.makeText(this,p1, Toast.LENGTH_LONG).show();
 
     }
 }

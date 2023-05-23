@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity implements CTPushNotificatio
         phone = findViewById(R.id.phone);
         if (Build.VERSION.SDK_INT >= 32){
             if (clevertapDefaultInstance != null) {
-                clevertapDefaultInstance.setPushPermissionNotificationResponseListener(this);
+                clevertapDefaultInstance.registerPushPermissionNotificationResponseListener(this);
             }
             clevertapDefaultInstance.setCTPushNotificationListener(this);
 
@@ -75,13 +75,14 @@ public class MainActivity extends AppCompatActivity implements CTPushNotificatio
 //                .setNegativeBtnText("Cancel")
 //                .build();
             clevertapDefaultInstance.promptPushPrimer(jsonObject);
-//        clevertapDefaultInstance.promptForPushPermission(true);
+
 
         }
         else{
             CleverTapAPI.createNotificationChannel(getApplicationContext(),"r2d2","r2d2","r2d2 sound bad", NotificationManager.IMPORTANCE_MAX,true,"r2d2.mp3");
         }
 
+        clevertapDefaultInstance.promptForPushPermission(true);
 
 
     }

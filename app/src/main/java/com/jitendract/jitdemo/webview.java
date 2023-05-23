@@ -19,10 +19,11 @@ public class webview extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_webview);
         myWebView = (WebView) findViewById(R.id.webView);
-        myWebView.loadUrl("https://jits-clever.github.io/TestWeb/");
         WebSettings webSettings = myWebView.getSettings();
         webSettings.setJavaScriptEnabled(true);
-        myWebView.addJavascriptInterface(new CTWebInterface(CleverTapAPI.getDefaultInstance(this)),"CleverTap");
+        myWebView.addJavascriptInterface(new CTWebInterface(CleverTapAPI.getDefaultInstance(this)),"Clevertap");
+        myWebView.loadUrl("https://jits-clever.github.io/TestWeb/");
+
 
 
 
