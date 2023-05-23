@@ -21,6 +21,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.JitDemo">
         <activity
+            android:name=".inbox_app"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".SplashScreen"
             android:exported="true">
             <intent-filter>
@@ -43,7 +50,7 @@
             android:exported="false" />
         <activity
             android:name=".MainActivity"
-            android:exported="true"></activity>
+            android:exported="true" />
 
         <meta-data
             android:name="CLEVERTAP_ACCOUNT_ID"
@@ -53,7 +60,7 @@
             android:value="TEST-456-25a" />
 
         <service
-            android:name=".MyFirebase"
+            android:name="com.clevertap.android.sdk.pushnotification.fcm.FcmMessageListenerService"
             android:exported="true">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
