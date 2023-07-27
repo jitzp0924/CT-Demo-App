@@ -50,13 +50,30 @@
             android:exported="false" />
         <activity
             android:name=".webview"
-            android:exported="false" />
+            android:exported="false" >
+            <intent-filter>
+                <data
+                    android:host="www.jitdemo.jitendract.com"
+                    android:pathPrefix="/webview"
+                    android:scheme="https" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".Anonymous"
             android:exported="false" />
         <activity
             android:name=".HomeScreen"
-            android:exported="false" />
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data
+                    android:host="www.jitdemo.jitendract.com"
+                    android:pathPrefix="/HomeScreen"
+                    android:scheme="https" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".MainActivity"
             android:exported="true" />
@@ -69,12 +86,14 @@
             android:value="TEST-456-25a" />
 
         <service
-            android:name="com.clevertap.android.sdk.pushnotification.fcm.FcmMessageListenerService"
+            android:name=".MyFirebase"
             android:exported="true" >
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
+
+        <service android:name=".ProgressTimer" />
 
         <meta-data
             android:name="CLEVERTAP_NOTIFICATION_ICON"

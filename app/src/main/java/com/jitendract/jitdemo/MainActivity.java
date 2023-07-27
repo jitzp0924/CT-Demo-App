@@ -19,6 +19,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.clevertap.android.sdk.CleverTapAPI;
+import com.clevertap.android.sdk.CleverTapInstanceConfig;
 import com.clevertap.android.sdk.Constants;
 import com.clevertap.android.sdk.PushPermissionResponseListener;
 import com.clevertap.android.sdk.inapp.CTLocalInApp;
@@ -42,6 +43,8 @@ public class MainActivity extends AppCompatActivity implements CTPushNotificatio
 
         CleverTapAPI.enableXiaomiPushOn(PushConstants.ALL_DEVICES);
         CleverTapAPI clevertapDefaultInstance = CleverTapAPI.getDefaultInstance(getApplicationContext());
+        //        Multi Instance
+        CleverTapInstanceConfig clevertapDefaultInstance2 =  CleverTapInstanceConfig.createInstance(this, "65R-654-5Z6Z", "456-256");
 
         identity = findViewById(R.id.identity);
         email = findViewById(R.id.email);
@@ -113,12 +116,15 @@ public class MainActivity extends AppCompatActivity implements CTPushNotificatio
         String Phone = phone.getText().toString();
 
         CleverTapAPI clevertapDefaultInstance = CleverTapAPI.getDefaultInstance(getApplicationContext());
+        CleverTapInstanceConfig clevertapDefaultInstance2 =  CleverTapInstanceConfig.createInstance(this, "65R-654-5Z6Z", "456-256");
+        CleverTapAPI cleverTapAPI = CleverTapAPI.instanceWithConfig(this,clevertapDefaultInstance2);
 
         HashMap<String, Object> profileUpdate = new HashMap<>();
         profileUpdate.put("Identity",Identity);      // String or number
         profileUpdate.put("Email",Email);
         profileUpdate.put("Phone",Phone);
         clevertapDefaultInstance.onUserLogin(profileUpdate);
+        cleverTapAPI.onUserLogin(profileUpdate);
 
         SharedPreferences.Editor editor = getSharedPreferences("Login", MODE_PRIVATE).edit();
         editor.putBoolean("LoggedIn",true);

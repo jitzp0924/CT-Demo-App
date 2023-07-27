@@ -24,17 +24,25 @@
             android:layout_marginBottom="40dp"
             android:layout_marginTop="30dp"
             />
-        <Button
+
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Default Push"
-            android:layout_margin="10dp"
+            android:text="Please Click on the Plus Icon below to open the menu."
             />
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Custom Render"
-            android:layout_margin="10dp" />
+
+
+<!--        <Button-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="Default Push"-->
+<!--            android:layout_margin="10dp"-->
+<!--            />-->
+<!--        <Button-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="Custom Render"-->
+<!--            android:layout_margin="10dp" />-->
 
     </LinearLayout>
     <LinearLayout
@@ -100,7 +108,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
-            android:text="@string/in_app"
+            android:text="@string/template"
             app:layout_constraintBottom_toBottomOf="@+id/inappFab"
             app:layout_constraintEnd_toStartOf="@+id/inappFab"
             app:layout_constraintTop_toTopOf="@+id/inappFab" />

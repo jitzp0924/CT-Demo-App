@@ -18,6 +18,7 @@ import com.clevertap.android.geofence.Logger;
 import com.clevertap.android.sdk.CTInboxListener;
 import com.clevertap.android.sdk.CTInboxStyleConfig;
 import com.clevertap.android.sdk.CleverTapAPI;
+import com.clevertap.android.sdk.CleverTapInstanceConfig;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.analytics.FirebaseAnalytics;
@@ -51,6 +52,9 @@ public class HomeScreen extends AppCompatActivity implements CTInboxListener {
 
         isAllFabsVisible = false;
         CleverTapAPI clevertapDefaultInstance = CleverTapAPI.getDefaultInstance(getApplicationContext());
+//        Multi Instance
+        CleverTapInstanceConfig clevertapDefaultInstance2 =  CleverTapInstanceConfig.createInstance(this, "65R-654-5Z6Z", "456-256");
+        clevertapDefaultInstance2.setDebugLevel(CleverTapAPI.LogLevel.VERBOSE);
         CleverTapAPI.setDebugLevel(CleverTapAPI.LogLevel.VERBOSE);
 
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
@@ -144,7 +148,7 @@ public class HomeScreen extends AppCompatActivity implements CTInboxListener {
         HashMap<String, Object> homeScreen = new HashMap<String, Object>();
         homeScreen.put("Date",new Date());
 
-        clevertapDefaultInstance.pushEvent("Home Screen Load",homeScreen);
+        clevertapDefaultInstance.pushEvent("Home Screen",homeScreen);
         CTGeofenceSettings ctGeofenceSettings = new CTGeofenceSettings.Builder()
                 .enableBackgroundLocationUpdates(true)//boolean to enable background location updates
                 .setLogLevel(Logger.VERBOSE)//Log Level
@@ -193,7 +197,7 @@ public class HomeScreen extends AppCompatActivity implements CTInboxListener {
             tabs.add("Offers");//We support upto 2 tabs only. Additional tabs will be ignored
 
             CTInboxStyleConfig styleConfig = new CTInboxStyleConfig();
-            styleConfig.setFirstTabTitle("First Tab");
+            styleConfig.setFirstTabTitle("All");
             styleConfig.setTabs(tabs);//Do not use this if you don't want to use tabs
             styleConfig.setTabBackgroundColor("#FF0000");
             styleConfig.setSelectedTabIndicatorColor("#0000FF");
