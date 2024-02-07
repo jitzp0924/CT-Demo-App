@@ -2,6 +2,8 @@ package com.jitendract.jitdemo;
 
 import static android.content.ContentValues.TAG;
 
+import static com.clevertap.android.geofence.Logger.VERBOSE;
+
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,6 +20,8 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.clevertap.android.geofence.CTGeofenceAPI;
+import com.clevertap.android.geofence.CTGeofenceSettings;
 import com.clevertap.android.sdk.CleverTapAPI;
 import com.clevertap.android.sdk.CleverTapInstanceConfig;
 import com.clevertap.android.sdk.Constants;
@@ -45,6 +49,37 @@ public class MainActivity extends AppCompatActivity implements CTPushNotificatio
         CleverTapAPI clevertapDefaultInstance = CleverTapAPI.getDefaultInstance(getApplicationContext());
         //        Multi Instance
         CleverTapInstanceConfig clevertapDefaultInstance2 =  CleverTapInstanceConfig.createInstance(this, "65R-654-5Z6Z", "456-256");
+
+        // Location Permission Base Android
+        ActivityResultLauncher<String[]> locationPermissionRequest =
+                registerForActivityResult(new ActivityResultContracts
+                                .RequestMultiplePermissions(), result -> {
+                            Boolean fineLocationGranted = result.getOrDefault(
+                                    Manifest.permission.ACCESS_FINE_LOCATION, false);
+                            Boolean coarseLocationGranted = result.getOrDefault(
+                                    Manifest.permission.ACCESS_COARSE_LOCATION,false);
+                            if (fineLocationGranted != null && fineLocationGranted) {
+                                // Precise location access granted.
+                            } else if (coarseLocationGranted != null && coarseLocationGranted) {
+                                // Only approximate location access granted.
+                            } else {
+                                // No location access granted.
+                            }
+                        }
+                );
+
+        locationPermissionRequest.launch(new String[] {
+                Manifest.permission.ACCESS_FINE_LOCATION,
+                Manifest.permission.ACCESS_COARSE_LOCATION
+        });
+
+        CTGeofenceSettings ctGeofenceSettings = new CTGeofenceSettings.Builder()
+                .enableBackgroundLocationUpdates(true)//boolean to enable background location updates
+                .setLogLevel(VERBOSE)//Log Level
+                .setGeofenceMonitoringCount(20)//int value for number of Geofences CleverTap can monitor
+                .build();
+
+        CTGeofenceAPI.getInstance(getApplicationContext()).init(ctGeofenceSettings,clevertapDefaultInstance);
 
         identity = findViewById(R.id.identity);
         email = findViewById(R.id.email);
@@ -123,6 +158,7 @@ public class MainActivity extends AppCompatActivity implements CTPushNotificatio
         profileUpdate.put("Identity",Identity);      // String or number
         profileUpdate.put("Email",Email);
         profileUpdate.put("Phone",Phone);
+        profileUpdate.put("MSG-push",true);
         clevertapDefaultInstance.onUserLogin(profileUpdate);
         cleverTapAPI.onUserLogin(profileUpdate);
 

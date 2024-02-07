@@ -1,6 +1,6 @@
 package com.jitendract.jitdemo;
 
-import static com.clevertap.android.geofence.CTGeofenceSettings.FETCH_CURRENT_LOCATION_PERIODIC;
+import static com.clevertap.android.geofence.Logger.VERBOSE;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -8,27 +8,32 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.clevertap.android.geofence.CTGeofenceAPI;
 import com.clevertap.android.geofence.CTGeofenceSettings;
-import com.clevertap.android.geofence.Logger;
 import com.clevertap.android.sdk.CTInboxListener;
 import com.clevertap.android.sdk.CTInboxStyleConfig;
 import com.clevertap.android.sdk.CleverTapAPI;
 import com.clevertap.android.sdk.CleverTapInstanceConfig;
+import com.clevertap.android.sdk.displayunits.DisplayUnitListener;
+import com.clevertap.android.sdk.displayunits.model.CleverTapDisplayUnit;
+import com.clevertap.android.sdk.variables.callbacks.FetchVariablesCallback;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.analytics.FirebaseAnalytics;
-
+import com.jitendract.jitdemo.CarouselModel.SliderAdapter;
+import com.jitendract.jitdemo.CarouselModel.SliderData;
+import com.smarteist.autoimageslider.SliderView;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Objects;
 
-public class HomeScreen extends AppCompatActivity implements CTInboxListener {
+
+public class HomeScreen extends AppCompatActivity implements CTInboxListener, DisplayUnitListener {
 
     FloatingActionButton fab;
     private FirebaseAnalytics mFirebaseAnalytics;
@@ -36,6 +41,9 @@ public class HomeScreen extends AppCompatActivity implements CTInboxListener {
     TextView webViewText,inboxText,inappText,nativeDisplayText;
     FloatingActionButton inappFab,inboxFab,webView,nativeDisplay;
     boolean isLoggedIN;
+    String url1 = "https://www.geeksforgeeks.org/wp-content/uploads/gfg_200X200-1.png";
+    String url2 = "https://qphs.fs.quoracdn.net/main-qimg-8e203d34a6a56345f86f1a92570557ba.webp";
+    String url3 = "https://bizzbucket.co/wp-content/uploads/2020/08/Life-in-The-Metro-Blog-Title-22.png";
 
     @SuppressLint("WrongThread")
     @Override
@@ -55,7 +63,31 @@ public class HomeScreen extends AppCompatActivity implements CTInboxListener {
 //        Multi Instance
         CleverTapInstanceConfig clevertapDefaultInstance2 =  CleverTapInstanceConfig.createInstance(this, "65R-654-5Z6Z", "456-256");
         clevertapDefaultInstance2.setDebugLevel(CleverTapAPI.LogLevel.VERBOSE);
+//        CleverTapAPI.getDefaultInstance(this).suspendInAppNotifications();
         CleverTapAPI.setDebugLevel(CleverTapAPI.LogLevel.VERBOSE);
+        CleverTapAPI.getDefaultInstance(this).setDisplayUnitListener(this);
+        clevertapDefaultInstance.fetchVariables(new FetchVariablesCallback() {
+            @Override
+            public void onVariablesFetched(boolean isSuccess) {
+                // isSuccess is true when server request is successful, false otherwise
+                Log.e("First Image Variable", (String) clevertapDefaultInstance.getVariableValue("img_url1"));
+                Log.e("Second Image Variable", (String) clevertapDefaultInstance.getVariableValue("img_url2"));
+
+            }
+        });
+
+        CTGeofenceSettings ctGeofenceSettings = new CTGeofenceSettings.Builder()
+                .enableBackgroundLocationUpdates(true)//boolean to enable background location updates
+                .setLogLevel(VERBOSE)//Log Level
+                .setGeofenceMonitoringCount(20)//int value for number of Geofences CleverTap can monitor
+                .build();
+
+        CTGeofenceAPI.getInstance(getApplicationContext()).init(ctGeofenceSettings,clevertapDefaultInstance);
+        try {
+            CTGeofenceAPI.getInstance(getApplicationContext()).triggerLocation();
+        } catch (IllegalStateException e){
+            // thrown when this method is called before geofence SDK initialization
+        }
 
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
         mFirebaseAnalytics.setUserProperty("ct_objectId", Objects.requireNonNull(CleverTapAPI.getDefaultInstance(this)).getCleverTapID());
@@ -123,6 +155,7 @@ public class HomeScreen extends AppCompatActivity implements CTInboxListener {
             HashMap<String, Object> nt = new HashMap<String, Object>();
             nt.put("Date",new Date());
             nt.put("Screen","HomeScreen FAB");
+            nt.put("trip_finish",500);
             clevertapDefaultInstance.pushEvent("Native Event",nt);
             try {
                 Thread.sleep(3000);
@@ -133,12 +166,6 @@ public class HomeScreen extends AppCompatActivity implements CTInboxListener {
             startActivity(di);
         });
 
-        inboxFab.setOnClickListener(view ->{
-            clevertapDefaultInstance.pushEvent("App-Inbox Event");
-//            Intent inbox = new Intent(getApplicationContext(),CustomAppInbox.class);
-//            startActivity(inbox);
-
-        });
         inappFab.setOnClickListener(View ->{
             Intent inapp=new Intent(getApplicationContext(),temp.class);
             startActivity(inapp);
@@ -149,14 +176,6 @@ public class HomeScreen extends AppCompatActivity implements CTInboxListener {
         homeScreen.put("Date",new Date());
 
         clevertapDefaultInstance.pushEvent("Home Screen",homeScreen);
-        CTGeofenceSettings ctGeofenceSettings = new CTGeofenceSettings.Builder()
-                .enableBackgroundLocationUpdates(true)//boolean to enable background location updates
-                .setLogLevel(Logger.VERBOSE)//Log Level
-                .setLocationAccuracy(CTGeofenceSettings.ACCURACY_HIGH )//byte value for Location Accuracy
-                .setLocationFetchMode(FETCH_CURRENT_LOCATION_PERIODIC )//byte value for Fetch Mode
-                .setInterval(180000)
-                .build();
-        CTGeofenceAPI.getInstance(getApplicationContext()).init(ctGeofenceSettings,clevertapDefaultInstance);
 
         if (clevertapDefaultInstance != null) {
             //Set the Notification Inbox Listener
@@ -164,6 +183,14 @@ public class HomeScreen extends AppCompatActivity implements CTInboxListener {
             //Initialize the inbox and wait for callbacks on overridden methods
             clevertapDefaultInstance.initializeInbox();
         }
+
+        ArrayList arrayList = CleverTapAPI.getDefaultInstance(this).getAllDisplayUnits();
+        Log.e("getAllDisplayUnits Home", String.valueOf(arrayList));
+
+        sliderInit(clevertapDefaultInstance);
+
+
+
     }
 
 
@@ -178,13 +205,21 @@ public class HomeScreen extends AppCompatActivity implements CTInboxListener {
         startActivity(di);
     }
 
+
     @Override
     public void inboxDidInitialize() {
 
         CleverTapAPI clevertapDefaultInstance = CleverTapAPI.getDefaultInstance(getApplicationContext());
         inboxFab.setOnClickListener(v -> {
 
-            clevertapDefaultInstance.pushEvent("App-Inbox Event");
+            HashMap<String, Object> AInbox = new HashMap<String, Object>();
+            AInbox.put("Date",new Date());
+            AInbox.put("Screen","HomeScreen FAB");
+            AInbox.put("ChargedID","ET000365F");
+            AInbox.put("TransactionID","3794691403");
+            AInbox.put("Test","Test");
+
+            clevertapDefaultInstance.pushEvent("App-Inbox Event",AInbox);
             try {
                 Thread.sleep(3000);
             } catch (InterruptedException e) {
@@ -218,5 +253,51 @@ public class HomeScreen extends AppCompatActivity implements CTInboxListener {
     @Override
     public void inboxMessagesDidUpdate() {
 
+    }
+
+    @Override
+    public void onDisplayUnitsLoaded(ArrayList<CleverTapDisplayUnit> units) {
+        for (int i = 0; i <units.size() ; i++) {
+            CleverTapDisplayUnit unit = units.get(i);
+            Log.e("Home Screen UNit", String.valueOf(unit));
+            Objects.requireNonNull(CleverTapAPI.getDefaultInstance(this)).pushDisplayUnitViewedEventForID(unit.getUnitID());
+        }
+    }
+
+    private void sliderInit(CleverTapAPI clevertapDefaultInstance) {
+        // we are creating array list for storing our image urls.
+        ArrayList<SliderData> sliderDataArrayList = new ArrayList<>();
+        // initializing the slider view.
+        SliderView sliderView = findViewById(R.id.slider);
+
+        url1 = clevertapDefaultInstance.getVariableValue("img_url1").toString();
+        url2 = clevertapDefaultInstance.getVariableValue("img_url2").toString();
+        url3 = clevertapDefaultInstance.getVariableValue("img_url3").toString();
+        // adding the urls inside array list
+        sliderDataArrayList.add(new SliderData(url1));
+        sliderDataArrayList.add(new SliderData(url2));
+        sliderDataArrayList.add(new SliderData(url3));
+
+        // passing this array list inside our adapter class.
+        SliderAdapter adapter = new SliderAdapter(this, sliderDataArrayList);
+
+        // below method is used to set auto cycle direction in left to
+        // right direction you can change according to requirement.
+        sliderView.setAutoCycleDirection(SliderView.LAYOUT_DIRECTION_LTR);
+
+        // below method is used to
+        // setadapter to sliderview.
+        sliderView.setSliderAdapter(adapter);
+
+        // below method is use to set
+        // scroll time in seconds.
+        sliderView.setScrollTimeInSec(3);
+
+        // to set it scrollable automatically
+        // we use below method.
+        sliderView.setAutoCycle(true);
+
+        // to start autocycle below method is used.
+        sliderView.startAutoCycle();
     }
 }

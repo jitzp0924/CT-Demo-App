@@ -1,11 +1,6 @@
 package com.jitendract.jitdemo;
 
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
-
-import android.Manifest;
-import android.app.NotificationManager;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -17,9 +12,11 @@ import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 import com.clevertap.android.sdk.CleverTapAPI;
 
+import java.util.Date;
+import java.util.HashMap;
+
 public class SplashScreen extends AppCompatActivity {
 
-    private static int SPLASH_SCREEN_TIME_OUT=5000;
     boolean isLoggedIN;
     ImageView imgView;
 
@@ -46,18 +43,24 @@ public class SplashScreen extends AppCompatActivity {
         isLoggedIN =prefs.getBoolean("LoggedIn",false);
         Log.e("prefs", String.valueOf(isLoggedIN));
 
+        int SPLASH_SCREEN_TIME_OUT = 5000;
         if(isLoggedIN){
             new Handler().postDelayed(() -> {
+                CleverTapAPI dfI = CleverTapAPI.getDefaultInstance(getApplicationContext());
+                HashMap<String, Object> nt = new HashMap<String, Object>();
+                nt.put("Date",new Date());
+                nt.put("Screen","Splash");
+                dfI.pushEvent("Splash Screen",nt);
                 Intent i = new Intent(SplashScreen.this,HomeScreen.class);
                 startActivity(i);
                 finish();
-            },SPLASH_SCREEN_TIME_OUT);
+            }, SPLASH_SCREEN_TIME_OUT);
         }else{
             new Handler().postDelayed(() -> {
                 Intent i = new Intent(SplashScreen.this,MainActivity.class);
                 startActivity(i);
                 finish();
-            },SPLASH_SCREEN_TIME_OUT);
+            }, SPLASH_SCREEN_TIME_OUT);
         }
 
     }

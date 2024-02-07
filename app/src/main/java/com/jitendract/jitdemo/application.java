@@ -18,6 +18,7 @@ import com.clevertap.android.sdk.ActivityLifecycleCallback;
 import com.clevertap.android.sdk.CleverTapAPI;
 import com.clevertap.android.sdk.interfaces.NotificationHandler;
 import com.clevertap.android.sdk.pushnotification.CTPushNotificationListener;
+import com.jitendract.jitdemo.CtPE.PEVariables;
 
 import java.util.HashMap;
 
@@ -32,9 +33,21 @@ public class application extends MultiDexApplication implements Application.Acti
         CleverTapAPI cleverTapAPI = CleverTapAPI.getDefaultInstance(getApplicationContext());
         assert cleverTapAPI != null;
         cleverTapAPI.setCTPushNotificationListener(this);
+        CleverTapAPI.getDefaultInstance(this).enableDeviceNetworkInfoReporting(true);
+        PEInit(cleverTapAPI);
+
+
 
 
         super.onCreate();
+    }
+
+    private void PEInit(CleverTapAPI cleverTapAPI) {
+
+        PEVariables peVariables = new PEVariables();
+        cleverTapAPI.parseVariables(peVariables);
+        cleverTapAPI.syncVariables();
+
     }
 
 
@@ -92,4 +105,6 @@ public class application extends MultiDexApplication implements Application.Acti
         Toast.makeText(this,p1, Toast.LENGTH_LONG).show();
 
     }
+
+
 }

@@ -5,9 +5,9 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" /> <!-- Android 13 -->
-    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" /> <!-- Geofence -->
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <!-- Geofence -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
@@ -50,8 +50,11 @@
             android:exported="false" />
         <activity
             android:name=".webview"
-            android:exported="false" >
+            android:exported="true" >
             <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
                 <data
                     android:host="www.jitdemo.jitendract.com"
                     android:pathPrefix="/webview"
@@ -70,7 +73,7 @@
                 <category android:name="android.intent.category.BROWSABLE" />
                 <data
                     android:host="www.jitdemo.jitendract.com"
-                    android:pathPrefix="/HomeScreen"
+                    android:pathPrefix="/*x"
                     android:scheme="https" />
             </intent-filter>
         </activity>
@@ -83,10 +86,11 @@
             android:value="TEST-75R-654-5Z6Z" />
         <meta-data
             android:name="CLEVERTAP_TOKEN"
-            android:value="TEST-456-25a" />
+            android:value="TEST-456-25a"
+            />
 
         <service
-            android:name=".MyFirebase"
+            android:name="com.clevertap.android.sdk.pushnotification.fcm.FcmMessageListenerService"
             android:exported="true" >
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
@@ -98,6 +102,9 @@
         <meta-data
             android:name="CLEVERTAP_NOTIFICATION_ICON"
             android:value="smicon" />
+        <meta-data
+            android:name="CLEVERTAP_INAPP_EXCLUDE"
+            android:value="SplashScreen" />
     </application>
 
 </manifest>
