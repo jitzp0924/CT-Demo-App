@@ -89,30 +89,30 @@ public class MainActivity extends AppCompatActivity implements CTPushNotificatio
                 clevertapDefaultInstance.registerPushPermissionNotificationResponseListener(this);
             }
             clevertapDefaultInstance.setCTPushNotificationListener(this);
-
-            @SuppressLint("RestrictedApi") JSONObject jsonObject = CTLocalInApp.builder()
-                    .setInAppType(CTLocalInApp.InAppType.HALF_INTERSTITIAL)
-                    .setTitleText("Get Latest Offers & Promotions")
-                    .setMessageText("Click on allow to get the latest updates from us !!!!!")
-                    .followDeviceOrientation(true)
-                    .setPositiveBtnText("Let's Do THis!")
-                    .setNegativeBtnText("Maybe Later.")
-                    .setBackgroundColor(Constants.WHITE)
-                    .setBtnBorderColor("#FFD700")
-                    .setTitleTextColor(Constants.WHITE)
-                    .setMessageTextColor(Constants.BLACK)
-                    .setBtnTextColor(Constants.WHITE)
-                    .setImageUrl("https://media-exp1.licdn.com/dms/image/C5622AQFo1izBws7Lhw/feedshare-shrink_2048_1536/0/1658384964241?e=2147483647&v=beta&t=lkJWbHD_8n5v27GtOg4gynsRu_PunE1Z33XY0jJetDQ")
-                    .setBtnBackgroundColor(Constants.BLACK)
-                    .build();
-//                .setInAppType(CTLocalInApp.InAppType.ALERT)
-//                .setTitleText("Get Notified")
-//                .setMessageText("Enable Notification permission")
-//                .followDeviceOrientation(true)
-//                .setPositiveBtnText("Allow")
-//                .setNegativeBtnText("Cancel")
-//                .build();
-            clevertapDefaultInstance.promptPushPrimer(jsonObject);
+//
+//            @SuppressLint("RestrictedApi") JSONObject jsonObject = CTLocalInApp.builder()
+//                    .setInAppType(CTLocalInApp.InAppType.HALF_INTERSTITIAL)
+//                    .setTitleText("Get Latest Offers & Promotions")
+//                    .setMessageText("Click on allow to get the latest updates from us !!!!!")
+//                    .followDeviceOrientation(true)
+//                    .setPositiveBtnText("Let's Do THis!")
+//                    .setNegativeBtnText("Maybe Later.")
+//                    .setBackgroundColor(Constants.WHITE)
+//                    .setBtnBorderColor("#FFD700")
+//                    .setTitleTextColor(Constants.WHITE)
+//                    .setMessageTextColor(Constants.BLACK)
+//                    .setBtnTextColor(Constants.WHITE)
+//                    .setImageUrl("https://media-exp1.licdn.com/dms/image/C5622AQFo1izBws7Lhw/feedshare-shrink_2048_1536/0/1658384964241?e=2147483647&v=beta&t=lkJWbHD_8n5v27GtOg4gynsRu_PunE1Z33XY0jJetDQ")
+//                    .setBtnBackgroundColor(Constants.BLACK)
+//                    .build();
+////                .setInAppType(CTLocalInApp.InAppType.ALERT)
+////                .setTitleText("Get Notified")
+////                .setMessageText("Enable Notification permission")
+////                .followDeviceOrientation(true)
+////                .setPositiveBtnText("Allow")
+////                .setNegativeBtnText("Cancel")
+////                .build();
+//            clevertapDefaultInstance.promptPushPrimer(jsonObject);
 
 
         }
