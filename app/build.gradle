@@ -4,7 +4,7 @@ plugins {
 }
 //
 android {
-    compileSdk 33
+    compileSdk 34
 
     defaultConfig {
         applicationId "com.jitendract.jitdemo"
@@ -40,6 +40,7 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.1'
     implementation 'androidx.browser:browser:1.4.0'
     implementation 'androidx.preference:preference:1.2.0'
+    implementation 'androidx.activity:activity:1.8.0'
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
@@ -57,6 +58,7 @@ dependencies {
 
     //Clevertap Related Codes
     implementation 'com.clevertap.android:clevertap-android-sdk:6.2.1'
+    implementation 'com.google.firebase:firebase-messaging:23.0.6'
     implementation "com.clevertap.android:push-templates:1.2.1"
     implementation 'com.google.firebase:firebase-messaging:23.1.1'
     implementation  'com.google.firebase:firebase-iid:21.1.0'
