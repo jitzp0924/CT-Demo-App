@@ -37,7 +37,7 @@ import java.util.HashMap;
 public class MainActivity extends AppCompatActivity implements CTPushNotificationListener, PushPermissionResponseListener {
 
     EditText identity,email,phone;
-    CleverTapAPI clevertapDefaultInstance = CleverTapAPI.getDefaultInstance(getApplicationContext());
+    CleverTapAPI clevertapDefaultInstance;
 
 
     @Override

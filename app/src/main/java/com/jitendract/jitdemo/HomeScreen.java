@@ -48,7 +48,7 @@ public class HomeScreen extends AppCompatActivity implements CTInboxListener, Di
     String url2 = "https://qphs.fs.quoracdn.net/main-qimg-8e203d34a6a56345f86f1a92570557ba.webp";
     String url3 = "https://bizzbucket.co/wp-content/uploads/2020/08/Life-in-The-Metro-Blog-Title-22.png";
 
-    CleverTapAPI cleverTapAPI = CleverTapAPI.getDefaultInstance(getApplicationContext());
+    CleverTapAPI cleverTapAPI;
 
     @SuppressLint("WrongThread")
     @Override
