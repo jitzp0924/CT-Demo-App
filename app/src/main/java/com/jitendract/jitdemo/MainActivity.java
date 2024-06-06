@@ -37,6 +37,7 @@ import java.util.HashMap;
 public class MainActivity extends AppCompatActivity implements CTPushNotificationListener, PushPermissionResponseListener {
 
     EditText identity,email,phone;
+    CleverTapAPI clevertapDefaultInstance = CleverTapAPI.getDefaultInstance(getApplicationContext());
 
 
     @Override
@@ -45,7 +46,7 @@ public class MainActivity extends AppCompatActivity implements CTPushNotificatio
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        CleverTapAPI.enableXiaomiPushOn(PushConstants.ALL_DEVICES);
+//        CleverTapAPI.enableXiaomiPushOn(PushConstants.ALL_DEVICES);
         CleverTapAPI clevertapDefaultInstance = CleverTapAPI.getDefaultInstance(getApplicationContext());
         //        Multi Instance
         CleverTapInstanceConfig clevertapDefaultInstance2 =  CleverTapInstanceConfig.createInstance(this, "65R-654-5Z6Z", "456-256");
@@ -176,6 +177,8 @@ public class MainActivity extends AppCompatActivity implements CTPushNotificatio
 
     }
 
+
+
     public void defPage(View view) {
 
         Intent di = new Intent(getApplicationContext(),Anonymous.class);
@@ -187,4 +190,12 @@ public class MainActivity extends AppCompatActivity implements CTPushNotificatio
         Toast.makeText(this, (CharSequence) payload,Toast.LENGTH_LONG).show();
     }
 
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            clevertapDefaultInstance.pushNotificationClickedEvent(intent.getExtras());
+        }
+    }
 }

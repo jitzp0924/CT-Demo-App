@@ -28,23 +28,25 @@ public class MyFirebase extends FirebaseMessagingService {
                 for (Map.Entry<String, String> entry : remoteMessage.getData().entrySet()) {
                     extras.putString(entry.getKey(), entry.getValue());
                 }
+
+                Log.d("FCM Payload", String.valueOf(extras));
                 
                 if (extras.containsKey("prog")) {
 
                     Intent intent = new Intent(this, ProgressTimer.class);
                     intent.putExtras(extras);
                     startService(intent);
-//                    CleverTapAPI.processPushNotification(this,extras);
+//                    CleverTapAPI.processPushNotification(this,extras)
 
                 } else {
                     // NOt a progress bar timer template
-
-
-
-                }
-                if(PushNotificationHandler.isForPushTemplates(extras)){
                     new CTFcmMessageHandler().createNotification(getApplicationContext(), remoteMessage);
+
+
                 }
+//                if(PushNotificationHandler.isForPushTemplates(extras)){
+//                    new CTFcmMessageHandler().createNotification(getApplicationContext(), remoteMessage);
+//                }
             }
         } catch (Throwable t) {
             Log.d("MYFCMLIST", "Error parsing FCM message", t);

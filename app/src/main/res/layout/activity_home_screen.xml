@@ -59,6 +59,13 @@
                     android:layout_height="130dp"
                     android:layout_centerInParent="true"
                      />
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Control Center"
+                android:id="@+id/settingControl"
+                />
+
 
 <!--            </androidx.cardview.widget.CardView>-->
 

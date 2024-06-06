@@ -100,7 +100,7 @@ public class application extends MultiDexApplication implements Application.Acti
     @Override
     public void onNotificationClickedPayloadReceived(HashMap<String, Object> payload) {
 
-        Log.e("Click Bundle", String.valueOf(payload));
+        Log.e("CleverTap Click", String.valueOf(payload));
         String p1 = String.valueOf(payload);
         Toast.makeText(this,p1, Toast.LENGTH_LONG).show();
 

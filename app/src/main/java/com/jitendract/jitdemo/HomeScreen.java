@@ -7,9 +7,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.clevertap.android.geofence.CTGeofenceAPI;
@@ -40,10 +42,13 @@ public class HomeScreen extends AppCompatActivity implements CTInboxListener, Di
     Boolean isAllFabsVisible;
     TextView webViewText,inboxText,inappText,nativeDisplayText;
     FloatingActionButton inappFab,inboxFab,webView,nativeDisplay;
+    Button controls;
     boolean isLoggedIN;
     String url1 = "https://www.geeksforgeeks.org/wp-content/uploads/gfg_200X200-1.png";
     String url2 = "https://qphs.fs.quoracdn.net/main-qimg-8e203d34a6a56345f86f1a92570557ba.webp";
     String url3 = "https://bizzbucket.co/wp-content/uploads/2020/08/Life-in-The-Metro-Blog-Title-22.png";
+
+    CleverTapAPI cleverTapAPI = CleverTapAPI.getDefaultInstance(getApplicationContext());
 
     @SuppressLint("WrongThread")
     @Override
@@ -112,6 +117,8 @@ public class HomeScreen extends AppCompatActivity implements CTInboxListener, Di
         nativeDisplay.setVisibility(View.GONE);
         nativeDisplayText.setVisibility(View.GONE);
 
+        controls = findViewById(R.id.settingControl);
+
         fab.setOnClickListener(view -> {
 
             if (!isAllFabsVisible){
@@ -171,6 +178,12 @@ public class HomeScreen extends AppCompatActivity implements CTInboxListener, Di
             startActivity(inapp);
         });
 
+        controls.setOnClickListener(View ->{
+            clevertapDefaultInstance.setOptOut(false);
+            Intent di = new Intent(getApplicationContext(), ControlCenter.class);
+            startActivity(di);
+        });
+
 
         HashMap<String, Object> homeScreen = new HashMap<String, Object>();
         homeScreen.put("Date",new Date());
@@ -183,9 +196,9 @@ public class HomeScreen extends AppCompatActivity implements CTInboxListener, Di
             //Initialize the inbox and wait for callbacks on overridden methods
             clevertapDefaultInstance.initializeInbox();
         }
-
-        ArrayList arrayList = CleverTapAPI.getDefaultInstance(this).getAllDisplayUnits();
-        Log.e("getAllDisplayUnits Home", String.valueOf(arrayList));
+//
+//        ArrayList arrayList = CleverTapAPI.getDefaultInstance(this).getAllDisplayUnits();
+//        Log.e("getAllDisplayUnits Home", String.valueOf(arrayList));
 
         sliderInit(clevertapDefaultInstance);
 
@@ -206,52 +219,61 @@ public class HomeScreen extends AppCompatActivity implements CTInboxListener, Di
     }
 
 
+//    @Override
+//    public void inboxDidInitialize() {
+//
+//        CleverTapAPI clevertapDefaultInstance = CleverTapAPI.getDefaultInstance(getApplicationContext());
+//        inboxFab.setOnClickListener(v -> {
+//
+//            HashMap<String, Object> AInbox = new HashMap<String, Object>();
+//            AInbox.put("Date",new Date());
+//            AInbox.put("Screen","HomeScreen FAB");
+//            AInbox.put("ChargedID","ET000365F");
+//            AInbox.put("TransactionID","3794691403");
+//            AInbox.put("Test","Test");
+//
+//            clevertapDefaultInstance.pushEvent("App-Inbox Event",AInbox);
+//            try {
+//                Thread.sleep(3000);
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
+//
+//
+//            ArrayList<String> tabs = new ArrayList<>();
+//            tabs.add("Promotions");
+//            tabs.add("Offers");//We support upto 2 tabs only. Additional tabs will be ignored
+//
+//            CTInboxStyleConfig styleConfig = new CTInboxStyleConfig();
+//            styleConfig.setFirstTabTitle("All");
+//            styleConfig.setTabs(tabs);//Do not use this if you don't want to use tabs
+//            styleConfig.setTabBackgroundColor("#FF0000");
+//            styleConfig.setSelectedTabIndicatorColor("#0000FF");
+//            styleConfig.setSelectedTabColor("#0000FF");
+//            styleConfig.setUnselectedTabColor("#FFFFFF");
+//            styleConfig.setBackButtonColor("#FF0000");
+//            styleConfig.setNavBarTitleColor("#FF0000");
+//            styleConfig.setNavBarTitle("MY INBOX");
+//            styleConfig.setNavBarColor("#FFFFFF");
+//            styleConfig.setInboxBackgroundColor("#ADD8E6");
+//            if (clevertapDefaultInstance != null) {
+//                clevertapDefaultInstance.showAppInbox(styleConfig); //With Tabs
+//            }
+//            //ct.showAppInbox();//Opens Activity with default style configs
+//        });
+//    }
+
     @Override
     public void inboxDidInitialize() {
-
-        CleverTapAPI clevertapDefaultInstance = CleverTapAPI.getDefaultInstance(getApplicationContext());
-        inboxFab.setOnClickListener(v -> {
-
-            HashMap<String, Object> AInbox = new HashMap<String, Object>();
-            AInbox.put("Date",new Date());
-            AInbox.put("Screen","HomeScreen FAB");
-            AInbox.put("ChargedID","ET000365F");
-            AInbox.put("TransactionID","3794691403");
-            AInbox.put("Test","Test");
-
-            clevertapDefaultInstance.pushEvent("App-Inbox Event",AInbox);
-            try {
-                Thread.sleep(3000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-
-
-            ArrayList<String> tabs = new ArrayList<>();
-            tabs.add("Promotions");
-            tabs.add("Offers");//We support upto 2 tabs only. Additional tabs will be ignored
-
-            CTInboxStyleConfig styleConfig = new CTInboxStyleConfig();
-            styleConfig.setFirstTabTitle("All");
-            styleConfig.setTabs(tabs);//Do not use this if you don't want to use tabs
-            styleConfig.setTabBackgroundColor("#FF0000");
-            styleConfig.setSelectedTabIndicatorColor("#0000FF");
-            styleConfig.setSelectedTabColor("#0000FF");
-            styleConfig.setUnselectedTabColor("#FFFFFF");
-            styleConfig.setBackButtonColor("#FF0000");
-            styleConfig.setNavBarTitleColor("#FF0000");
-            styleConfig.setNavBarTitle("MY INBOX");
-            styleConfig.setNavBarColor("#FFFFFF");
-            styleConfig.setInboxBackgroundColor("#ADD8E6");
-            if (clevertapDefaultInstance != null) {
-                clevertapDefaultInstance.showAppInbox(styleConfig); //With Tabs
-            }
-            //ct.showAppInbox();//Opens Activity with default style configs
-        });
+        Log.e("App Inbox", "inboxDidInitialize");
     }
 
     @Override
     public void inboxMessagesDidUpdate() {
+        Log.e("App Inbox", "inboxMessagesDidUpdate");
+        ArrayList arrayList = CleverTapAPI.getDefaultInstance(this).getAllInboxMessages();
+        Log.e("App Inbox", String.valueOf(arrayList));
+
 
     }
 
@@ -299,5 +321,14 @@ public class HomeScreen extends AppCompatActivity implements CTInboxListener, Di
 
         // to start autocycle below method is used.
         sliderView.startAutoCycle();
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            cleverTapAPI.pushNotificationClickedEvent(intent.getExtras());
+        }
     }
 }
