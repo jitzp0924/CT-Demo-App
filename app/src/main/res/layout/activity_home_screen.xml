@@ -219,6 +219,18 @@
             app:layout_constraintStart_toStartOf="@+id/menuFab"
             />
 
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/productExp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            app:fabSize="normal"
+            android:src="@drawable/webview"
+            app:layout_constraintBottom_toTopOf="@+id/inappFab"
+            app:layout_constraintEnd_toEndOf="@+id/inappFab"
+            app:layout_constraintStart_toStartOf="@+id/inappFab"
+            />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 

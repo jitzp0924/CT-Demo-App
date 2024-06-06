@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.jitendract.jitdemo">
+    package="com.jitendract.jitdemo" >
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -19,7 +19,10 @@
         android:label="@string/app_name"
         android:roundIcon="@drawable/smicon1"
         android:supportsRtl="true"
-        android:theme="@style/Theme.JitDemo">
+        android:theme="@style/Theme.JitDemo" >
+        <activity
+            android:name=".HomeScreen2"
+            android:exported="false" />
         <activity
             android:name=".ControlCenter"
             android:exported="false"
@@ -32,14 +35,14 @@
             android:exported="true" />
         <activity
             android:name=".inbox_app"
-            android:exported="false">
+            android:exported="false" >
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
             android:name=".SplashScreen"
-            android:exported="true">
+            android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -51,7 +54,7 @@
             android:exported="false" />
         <activity
             android:name=".webview"
-            android:exported="true">
+            android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
@@ -69,7 +72,7 @@
             android:exported="false" />
         <activity
             android:name=".HomeScreen"
-            android:exported="true">
+            android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
@@ -91,19 +94,17 @@
             android:value="TEST-75R-654-5Z6Z" />
         <meta-data
             android:name="CLEVERTAP_TOKEN"
-            android:value="TEST-456-25a" />
-<!--        <meta-data-->
-<!--            android:name="CLEVERTAP_BACKGROUND_SYNC"-->
-<!--            android:value="1" />-->
-
-<!--        <service-->
-<!--            android:name = "com.clevertap.android.sdk.pushnotification.amp.CTBackgroundJobService"-->
-<!--            android:exported = "false"-->
-<!--            android:enabled = "false"-->
-<!--            tools:ignore = "MissingClass" />-->
+            android:value="TEST-456-25a" /> <!-- <meta-data -->
+        <!-- android:name="CLEVERTAP_BACKGROUND_SYNC" -->
+        <!-- android:value="1" /> -->
+        <!-- <service -->
+        <!-- android:name = "com.clevertap.android.sdk.pushnotification.amp.CTBackgroundJobService" -->
+        <!-- android:exported = "false" -->
+        <!-- android:enabled = "false" -->
+        <!-- tools:ignore = "MissingClass" /> -->
         <service
             android:name=".MyFirebase"
-            android:exported="true">
+            android:exported="true" >
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>

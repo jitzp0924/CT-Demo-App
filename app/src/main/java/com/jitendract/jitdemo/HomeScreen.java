@@ -41,7 +41,7 @@ public class HomeScreen extends AppCompatActivity implements CTInboxListener, Di
     private FirebaseAnalytics mFirebaseAnalytics;
     Boolean isAllFabsVisible;
     TextView webViewText,inboxText,inappText,nativeDisplayText;
-    FloatingActionButton inappFab,inboxFab,webView,nativeDisplay;
+    FloatingActionButton inappFab,inboxFab,webView,nativeDisplay,productExp;
     Button controls;
     boolean isLoggedIN;
     String url1 = "https://www.geeksforgeeks.org/wp-content/uploads/gfg_200X200-1.png";
@@ -107,6 +107,7 @@ public class HomeScreen extends AppCompatActivity implements CTInboxListener, Di
         inboxFab = findViewById(R.id.inboxFab);
         webView = findViewById(R.id.webView);
         nativeDisplay = findViewById(R.id.nativeDisplay);
+        productExp=findViewById(R.id.productExp);
 
         webViewText.setVisibility(View.GONE);
         inboxText.setVisibility(View.GONE);
@@ -180,9 +181,10 @@ public class HomeScreen extends AppCompatActivity implements CTInboxListener, Di
 
         controls.setOnClickListener(View ->{
             clevertapDefaultInstance.setOptOut(false);
-            Intent di = new Intent(getApplicationContext(), ControlCenter.class);
+            Intent di = new Intent(getApplicationContext(), HomeScreen2.class);
             startActivity(di);
         });
+
 
 
         HashMap<String, Object> homeScreen = new HashMap<String, Object>();
