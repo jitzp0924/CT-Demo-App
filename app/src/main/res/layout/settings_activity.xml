@@ -1,0 +1,151 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:layout_marginVertical="20dp"
+    >
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Subscriptions"
+        android:textSize="20dp"
+        android:fontFamily="sans-serif-medium"
+        android:textStyle="bold"
+        android:background="#E80071"
+        android:textColor="#FFFFFF"
+        android:paddingHorizontal="20dp"
+        android:paddingVertical="5dp"
+        />
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="10dp"
+        android:stretchColumns="1">
+
+        <TableRow>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Push Notification : "
+                android:textSize="16dp"
+                android:layout_gravity="center_vertical"
+                />
+            <RadioGroup
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="right">
+                <RadioButton android:id="@+id/pn_on"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="On"
+                    android:paddingRight="15dp"
+                    />
+                <RadioButton android:id="@+id/pn_off"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Off"
+                    android:paddingRight="15dp"
+                    />
+
+            </RadioGroup>
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Whatsapp : "
+                android:textSize="16dp"
+                android:layout_gravity="center_vertical"
+                />
+            <RadioGroup
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="right">
+                <RadioButton android:id="@+id/wa_on"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="On"
+                    android:paddingRight="15dp"
+                    />
+                <RadioButton android:id="@+id/wa_off"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Off"
+                    android:paddingRight="15dp"
+                    />
+
+            </RadioGroup>
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="SMS : "
+                android:textSize="16dp"
+                android:layout_gravity="center_vertical"
+                />
+            <RadioGroup
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="right">
+                <RadioButton android:id="@+id/sms_on"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="On"
+                    android:paddingRight="15dp"
+                    />
+                <RadioButton android:id="@+id/sms_off"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Off"
+                    android:paddingRight="15dp"
+                    />
+
+            </RadioGroup>
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Email : "
+                android:textSize="16dp"
+                android:layout_gravity="center_vertical"
+                />
+            <RadioGroup
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="right">
+                <RadioButton android:id="@+id/email_on"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="On"
+                    android:paddingRight="15dp"
+                    />
+                <RadioButton android:id="@+id/email_off"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Off"
+                    android:paddingRight="15dp"
+                    />
+
+            </RadioGroup>
+        </TableRow>
+
+    </TableLayout>
+
+
+</LinearLayout>

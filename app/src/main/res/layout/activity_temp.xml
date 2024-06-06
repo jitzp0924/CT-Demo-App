@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".temp"
+    android:padding="25dp"
+    android:orientation="vertical">
+
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="On Button Click there is a 10 sec wait time to recieve the required push template."
+            android:textAlignment="center"
+            android:padding="5dp"
+            android:textStyle="bold"
+            />
+
+
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="4sp"
+            android:id="@+id/basictem"
+            android:text="Basic Template"
+            android:layout_weight="1"
+            android:layout_margin="10dp"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="4sp"
+            android:id="@+id/bt2"
+            android:text="Auto Carousel Template"
+            android:layout_weight="1"
+            android:layout_margin="10dp"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="4sp"
+            android:id="@+id/bt3"
+            android:text="Manual Carousel Template"
+            android:layout_weight="1"
+            android:layout_margin="10dp"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="4sp"
+            android:id="@+id/bt4"
+            android:text="Rating Template"
+            android:layout_weight="1"
+            android:layout_margin="10dp"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="4sp"
+            android:id="@+id/bt6"
+            android:text="Input Box Template"
+            android:layout_weight="1"
+            android:layout_margin="10dp"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="4sp"
+            android:id="@+id/bt7"
+            android:text="Product Catalog"
+            android:layout_weight="1"
+            android:layout_margin="10dp"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="4sp"
+            android:id="@+id/bt8"
+            android:text="Timer Template"
+            android:layout_weight="1"
+            android:layout_margin="10dp"/>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="4sp"
+            android:id="@+id/bt9"
+            android:text="Five Icon"
+            android:layout_weight="1"
+            android:layout_margin="10dp"/>
+
+
+
+
+
+</LinearLayout>

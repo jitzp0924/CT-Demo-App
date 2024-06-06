@@ -12,7 +12,7 @@ android {
         //noinspection ExpiringTargetSdkVersion
         targetSdk 33
         versionCode 1
-        versionName "1.6"
+        versionName "1.8"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -38,6 +38,8 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
     implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.4.1'
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.1'
+    implementation 'androidx.browser:browser:1.4.0'
+    implementation 'androidx.preference:preference:1.2.0'
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
@@ -50,19 +52,22 @@ dependencies {
     implementation platform('com.google.firebase:firebase-bom:31.1.1')
     implementation 'com.google.firebase:firebase-analytics'
     implementation "androidx.multidex:multidex:2.0.1"
+    implementation 'com.github.smarteist:autoimageslider:1.4.0'
 
 
     //Clevertap Related Codes
-    implementation 'com.clevertap.android:clevertap-android-sdk:4.7.4'
-    implementation "com.clevertap.android:push-templates:1.0.7"
+    implementation 'com.clevertap.android:clevertap-android-sdk:6.2.1'
+    implementation "com.clevertap.android:push-templates:1.2.1"
     implementation 'com.google.firebase:firebase-messaging:23.1.1'
     implementation  'com.google.firebase:firebase-iid:21.1.0'
     implementation 'com.android.installreferrer:installreferrer:2.2'
+
+    //Geofence Related
     implementation 'com.clevertap.android:clevertap-geofence-sdk:1.1.0'
     implementation 'com.google.android.gms:play-services-location:21.0.1'
     implementation 'androidx.work:work-runtime:2.7.1' // required for FETCH_LAST_LOCATION_PERIODIC
     implementation 'androidx.concurrent:concurrent-futures:1.1.0' // required for FETCH_LAST_LOCATION_PERIODIC
-    implementation 'com.clevertap.android:clevertap-rendermax-sdk:1.0.2'
+
 
     //App Inbox
     implementation 'androidx.appcompat:appcompat:1.6.0'

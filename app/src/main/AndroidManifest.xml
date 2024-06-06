@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.jitendract.jitdemo">
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -7,7 +8,6 @@
     <uses-permission android:name="android.permission.READ_PHONE_STATE" /> <!-- Android 13 -->
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" /> <!-- Geofence -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
@@ -17,9 +17,19 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher"
+        android:roundIcon="@drawable/smicon1"
         android:supportsRtl="true"
         android:theme="@style/Theme.JitDemo">
+        <activity
+            android:name=".ControlCenter"
+            android:exported="false"
+            android:label="@string/title_activity_control_center" />
+        <activity
+            android:name=".Testtemp"
+            android:exported="false" />
+        <activity
+            android:name=".temp"
+            android:exported="true" />
         <activity
             android:name=".inbox_app"
             android:exported="false">
@@ -41,13 +51,37 @@
             android:exported="false" />
         <activity
             android:name=".webview"
-            android:exported="false" />
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="www.jitdemo.jitendract.com"
+                    android:pathPrefix="/webview"
+                    android:scheme="https" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".Anonymous"
             android:exported="false" />
         <activity
             android:name=".HomeScreen"
-            android:exported="false" />
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="www.jitdemo.jitendract.com"
+                    android:pathPrefix="/*x"
+                    android:scheme="https" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".MainActivity"
             android:exported="true" />
@@ -58,18 +92,30 @@
         <meta-data
             android:name="CLEVERTAP_TOKEN"
             android:value="TEST-456-25a" />
+        <meta-data
+            android:name="CLEVERTAP_BACKGROUND_SYNC"
+            android:value="1" />
 
         <service
-            android:name="com.clevertap.android.sdk.pushnotification.fcm.FcmMessageListenerService"
+            android:name="com.clevertap.android.sdk.pushnotification.amp.CTBackgroundJobService"
+            android:enabled="false"
+            android:exported="false"
+            tools:ignore="MissingClass" />
+        <service
+            android:name=".MyFirebase"
             android:exported="true">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
+        <service android:name=".ProgressTimer" />
 
         <meta-data
             android:name="CLEVERTAP_NOTIFICATION_ICON"
             android:value="smicon" />
+        <meta-data
+            android:name="CLEVERTAP_INAPP_EXCLUDE"
+            android:value="SplashScreen" />
     </application>
 
 </manifest>

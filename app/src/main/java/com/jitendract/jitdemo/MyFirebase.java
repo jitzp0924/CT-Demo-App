@@ -1,6 +1,6 @@
 package com.jitendract.jitdemo;
 
-import android.app.NotificationManager;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -8,6 +8,7 @@ import androidx.annotation.NonNull;
 
 
 import com.clevertap.android.sdk.CleverTapAPI;
+import com.clevertap.android.sdk.pushnotification.PushNotificationHandler;
 import com.clevertap.android.sdk.pushnotification.fcm.CTFcmMessageHandler;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -20,7 +21,6 @@ public class MyFirebase extends FirebaseMessagingService {
 
     @Override
     public void onMessageReceived(@NonNull RemoteMessage remoteMessage) {
-        CleverTapAPI.createNotificationChannel(getApplicationContext(),"r2d2","r2d2","r2d2 sound bad", NotificationManager.IMPORTANCE_MAX,true,"r2d2.mp3");
 
         try {
             if (remoteMessage.getData().size() > 0) {
@@ -29,23 +29,28 @@ public class MyFirebase extends FirebaseMessagingService {
                     extras.putString(entry.getKey(), entry.getValue());
                 }
 
+                Log.d("FCM Payload", String.valueOf(extras));
+                
                 if (extras.containsKey("prog")) {
 
-                    //new ProgressTimer().createT(getApplicationContext(),extras);
-                    CleverTapAPI.processPushNotification(this,extras);
+                    Intent intent = new Intent(this, ProgressTimer.class);
+                    intent.putExtras(extras);
+                    startService(intent);
+//                    CleverTapAPI.processPushNotification(this,extras)
 
                 } else {
                     // NOt a progress bar timer template
-
                     new CTFcmMessageHandler().createNotification(getApplicationContext(), remoteMessage);
 
+
                 }
+//                if(PushNotificationHandler.isForPushTemplates(extras)){
+//                    new CTFcmMessageHandler().createNotification(getApplicationContext(), remoteMessage);
+//                }
             }
         } catch (Throwable t) {
             Log.d("MYFCMLIST", "Error parsing FCM message", t);
         }
-
-        CleverTapAPI.deleteNotificationChannel(getApplicationContext(),"r2d2");
         super.onMessageReceived(remoteMessage);
 
 
@@ -53,6 +58,8 @@ public class MyFirebase extends FirebaseMessagingService {
 
     @Override
     public void onNewToken(@NonNull String s) {
+
+
 
         FirebaseMessaging.getInstance().getToken().addOnCompleteListener(new OnCompleteListener<String>() {
             @Override

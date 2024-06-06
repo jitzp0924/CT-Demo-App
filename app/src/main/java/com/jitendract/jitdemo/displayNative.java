@@ -20,6 +20,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Objects;
 
@@ -39,7 +40,12 @@ public class displayNative extends AppCompatActivity implements DisplayUnitListe
         msg1 = findViewById(R.id.msg1);
         img1 = findViewById(R.id.img1);
         card1 = findViewById(R.id.card1);
-
+        CleverTapAPI clevertapDefaultInstance = CleverTapAPI.getDefaultInstance(getApplicationContext());
+        HashMap<String, Object> nt = new HashMap<String, Object>();
+        nt.put("Date",new Date());
+        nt.put("Screen","HomeScreen FAB");
+        clevertapDefaultInstance.pushEvent("Native Screen",nt);
+        clevertapDefaultInstance.getDisplayUnitForId("");
     }
 
     @Override
@@ -56,8 +62,12 @@ public class displayNative extends AppCompatActivity implements DisplayUnitListe
 
     }
 
-    private void prepareDisplayView(CleverTapDisplayUnit unit) throws JSONException {
 
+
+    public void prepareDisplayView(CleverTapDisplayUnit unit) throws JSONException {
+
+        ArrayList arrayList = CleverTapAPI.getDefaultInstance(this).getAllDisplayUnits();
+        Log.e("getAllDisplayUnits Content Payload", String.valueOf(arrayList));
 
         String unitID = unit.getUnitID();
         String type = String.valueOf(unit.getType());
@@ -75,15 +85,15 @@ public class displayNative extends AppCompatActivity implements DisplayUnitListe
                 .into(img1);
 
 
-        String title2 = unit.getContents().get(1).getTitle();
-        String msg2 = unit.getContents().get(1).getMessage();
-        String media2 = unit.getContents().get(1).getMedia();
-
-        String Content = String.valueOf(unit.getContents());
+//        String title2 = unit.getContents().get(1).getTitle();
+//        String msg2 = unit.getContents().get(1).getMessage();
+//        String media2 = unit.getContents().get(1).getMedia();
+//
+//        String Content = String.valueOf(unit.getContents());
 
 
 
         Toast.makeText(this,unitID+"  -  "+type+"  -  "+bgColor+"  -  "+title1, Toast.LENGTH_LONG).show();
-        Log.e("Content Payload",Content);
+//        Log.e("Content Payload",Content);
     }
 }
