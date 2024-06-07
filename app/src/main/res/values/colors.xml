@@ -9,4 +9,6 @@
     <color name="white">#FFFFFFFF</color>
     <color name="bank_dark_primary">#9f3951</color>
     <color name="bank_dark_secondary">#ed7867</color>
+    <color name="bank_light_blue">#e6faff</color>
+    <color name="bank_light_orange">#ffebe6</color>
 </resources>
