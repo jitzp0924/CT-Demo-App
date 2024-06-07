@@ -96,7 +96,8 @@
             android:textSize="12sp"
             android:textAllCaps="true"
             android:gravity="center"
-            android:layout_alignParentRight="true"/>
+            android:layout_alignParentRight="true"
+            android:textColor="@color/bank_dark_secondary"/>
     </RelativeLayout>
 
     <LinearLayout
@@ -290,7 +291,8 @@
             android:textSize="12sp"
             android:textAllCaps="true"
             android:gravity="center"
-            android:layout_alignParentRight="true"/>
+            android:layout_alignParentRight="true"
+            android:textColor="@color/bank_dark_secondary"/>
     </RelativeLayout>
 
     <com.google.android.material.card.MaterialCardView
@@ -583,30 +585,34 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_marginTop="20dp">
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Pay Bills"
-                android:textStyle="bold"
-                android:textSize="15dp"
-                android:gravity="start"
-                android:textColor="@color/black"/>
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginTop="15dp"
+            >
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="View All"
-                android:gravity="end"/>
-        </LinearLayout>
+                android:text="Pay Bills"
+                android:textAllCaps="true"
+                android:textSize="14dp"
+                android:textColor="@color/bank_dark_primary"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="View all"
+                android:textSize="12sp"
+                android:textAllCaps="true"
+                android:gravity="center"
+                android:layout_alignParentRight="true"
+                android:textColor="@color/bank_dark_secondary"/>
+        </RelativeLayout>
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
@@ -620,8 +626,8 @@
 
             <ImageView
                 android:id="@+id/fastaglogo"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:src="@drawable/fastag"
                 android:padding="5dp"/>
 
@@ -657,8 +663,8 @@
 
             <ImageView
                 android:id="@+id/rechargelogo"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:src="@drawable/recharge"
                 android:padding="5dp"/>
 
@@ -694,8 +700,8 @@
 
             <ImageView
                 android:id="@+id/electricitylogo"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:src="@drawable/electricity"
                 android:padding="5dp"/>
 
@@ -731,8 +737,8 @@
 
             <ImageView
                 android:id="@+id/pipedgaslogo"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:src="@drawable/pipeline"
                 android:padding="5dp"/>
 
@@ -769,8 +775,8 @@
 
             <ImageView
                 android:id="@+id/dthlogo"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:src="@drawable/dth"
                 android:padding="5dp"/>
 
@@ -806,8 +812,8 @@
 
             <ImageView
                 android:id="@+id/broadbandlogo"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:src="@drawable/broadband"
                 android:padding="5dp"/>
 
