@@ -543,5 +543,263 @@
     </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Pay Bills"
+                android:textStyle="bold"
+                android:textSize="15dp"
+                android:gravity="start"
+                android:textColor="@color/black"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="View All"
+                android:gravity="end"/>
+        </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/black" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+
+            <ImageView
+                android:id="@+id/fastaglogo"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:src="@drawable/fastag"
+                android:padding="5dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:layout_weight="1"
+                android:layout_marginLeft="10dp"
+                android:text="FASTag"
+                android:textSize="15dp"
+                android:textStyle="bold"/>
+
+            <ImageView
+                android:id="@+id/fastagnext"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:src="@drawable/next"
+                android:layout_weight="0"
+                android:layout_gravity="end|center_vertical" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/black" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+
+            <ImageView
+                android:id="@+id/rechargelogo"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:src="@drawable/recharge"
+                android:padding="5dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:layout_weight="1"
+                android:layout_marginLeft="10dp"
+                android:text="Recharge"
+                android:textSize="15dp"
+                android:textStyle="bold"/>
+
+            <ImageView
+                android:id="@+id/rechargenext"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:src="@drawable/next"
+                android:layout_weight="0"
+                android:layout_gravity="end|center_vertical" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/black" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+
+            <ImageView
+                android:id="@+id/electricitylogo"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:src="@drawable/electricity"
+                android:padding="5dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:layout_weight="1"
+                android:layout_marginLeft="10dp"
+                android:text="Electricity"
+                android:textSize="15dp"
+                android:textStyle="bold"/>
+
+            <ImageView
+                android:id="@+id/electricitynext"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:src="@drawable/next"
+                android:layout_weight="0"
+                android:layout_gravity="end|center_vertical" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/black" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+
+            <ImageView
+                android:id="@+id/pipedgaslogo"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:src="@drawable/pipeline"
+                android:padding="5dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:layout_weight="1"
+                android:layout_marginLeft="10dp"
+                android:text="Piped Gas"
+                android:textSize="15dp"
+                android:textStyle="bold"/>
+
+            <ImageView
+                android:id="@+id/pipedgasnext"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:src="@drawable/next"
+                android:layout_weight="0"
+                android:layout_gravity="end|center_vertical" />
+        </LinearLayout>
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/black" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+
+            <ImageView
+                android:id="@+id/dthlogo"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:src="@drawable/dth"
+                android:padding="5dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:layout_weight="1"
+                android:layout_marginLeft="10dp"
+                android:text="DTH"
+                android:textSize="15dp"
+                android:textStyle="bold"/>
+
+            <ImageView
+                android:id="@+id/dthnext"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:src="@drawable/next"
+                android:layout_weight="0"
+                android:layout_gravity="end|center_vertical" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/black" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+
+            <ImageView
+                android:id="@+id/broadbandlogo"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:src="@drawable/broadband"
+                android:padding="5dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:layout_weight="1"
+                android:layout_marginLeft="10dp"
+                android:text="Broadband"
+                android:textSize="15dp"
+                android:textStyle="bold"/>
+
+            <ImageView
+                android:id="@+id/broadbandnext"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:src="@drawable/next"
+                android:layout_weight="0"
+                android:layout_gravity="end|center_vertical" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/black" />
+
+
+    </LinearLayout>
+
 
 </LinearLayout>
