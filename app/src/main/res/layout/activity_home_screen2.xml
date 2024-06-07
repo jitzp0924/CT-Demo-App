@@ -619,12 +619,13 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@android:color/black" />
+            android:background="@color/bank_dark_secondary" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:paddingVertical="10dp">
 
 
             <ImageView
@@ -642,7 +643,8 @@
                 android:layout_marginLeft="10dp"
                 android:text="FASTag"
                 android:textSize="15dp"
-                android:textStyle="bold"/>
+                android:textStyle="bold"
+                android:textColor="@color/black"/>
 
             <ImageView
                 android:id="@+id/fastagnext"
@@ -656,12 +658,13 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@android:color/black" />
+            android:background="@color/bank_dark_secondary" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:paddingVertical="10dp">
 
 
             <ImageView
@@ -679,7 +682,8 @@
                 android:layout_marginLeft="10dp"
                 android:text="Recharge"
                 android:textSize="15dp"
-                android:textStyle="bold"/>
+                android:textStyle="bold"
+                android:textColor="@color/black"/>
 
             <ImageView
                 android:id="@+id/rechargenext"
@@ -693,12 +697,13 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@android:color/black" />
+            android:background="@color/bank_dark_secondary" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:paddingVertical="10dp">
 
 
             <ImageView
@@ -716,7 +721,8 @@
                 android:layout_marginLeft="10dp"
                 android:text="Electricity"
                 android:textSize="15dp"
-                android:textStyle="bold"/>
+                android:textStyle="bold"
+                android:textColor="@color/black"/>
 
             <ImageView
                 android:id="@+id/electricitynext"
@@ -730,12 +736,13 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@android:color/black" />
+            android:background="@color/bank_dark_secondary" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:paddingVertical="10dp">
 
 
             <ImageView
@@ -753,7 +760,8 @@
                 android:layout_marginLeft="10dp"
                 android:text="Piped Gas"
                 android:textSize="15dp"
-                android:textStyle="bold"/>
+                android:textStyle="bold"
+                android:textColor="@color/black"/>
 
             <ImageView
                 android:id="@+id/pipedgasnext"
@@ -768,12 +776,13 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@android:color/black" />
+            android:background="@color/bank_dark_secondary" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:paddingVertical="10dp">
 
 
             <ImageView
@@ -791,6 +800,7 @@
                 android:layout_marginLeft="10dp"
                 android:text="DTH"
                 android:textSize="15dp"
+                android:textColor="@color/black"
                 android:textStyle="bold"/>
 
             <ImageView
@@ -805,12 +815,13 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@android:color/black" />
+            android:background="@color/bank_dark_secondary" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:paddingVertical="10dp">
 
 
             <ImageView
@@ -826,6 +837,7 @@
                 android:gravity="center_vertical"
                 android:layout_weight="1"
                 android:layout_marginLeft="10dp"
+                android:textColor="@color/black"
                 android:text="Broadband"
                 android:textSize="15dp"
                 android:textStyle="bold"/>
@@ -842,7 +854,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@android:color/black" />
+            android:background="@color/bank_dark_secondary" />
 
 
     </LinearLayout>
