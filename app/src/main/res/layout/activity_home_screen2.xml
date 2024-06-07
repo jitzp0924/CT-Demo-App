@@ -66,10 +66,19 @@
 
     </androidx.appcompat.widget.Toolbar>
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_marginHorizontal="10dp">
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="10dp"
         android:layout_marginTop="20dp"
         android:paddingHorizontal="5dp">
 
@@ -94,7 +103,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_marginHorizontal="10dp">
+        >
 
         <!-- Card 1 -->
         <com.google.android.material.card.MaterialCardView
@@ -264,7 +273,7 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="10dp"
         android:layout_marginTop="15dp"
-        android:paddingHorizontal="10dp">
+        >
 
         <TextView
             android:layout_width="wrap_content"
@@ -289,7 +298,6 @@
         android:layout_height="wrap_content"
         app:cardCornerRadius="10dp"
         android:outlineSpotShadowColor="#AD5154"
-        android:layout_marginHorizontal="10dp"
         app:cardElevation="5dp"
         app:strokeWidth="1dp"
         app:strokeColor="@color/bank_dark_primary"
@@ -830,5 +838,8 @@
 
     </LinearLayout>
 
+        </LinearLayout>
+
+    </ScrollView>
 
 </LinearLayout>
