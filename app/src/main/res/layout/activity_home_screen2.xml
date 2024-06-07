@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    >
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
@@ -69,15 +70,16 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_marginHorizontal="10dp">
 
         <!-- Card 1 -->
         <androidx.cardview.widget.CardView
             android:id="@+id/card_1_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="12dp"
-            android:padding="6dp">
+            app:cardCornerRadius="10dp"
+            >
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -87,7 +89,7 @@
                 <!-- Image -->
                 <ImageView
                     android:id="@+id/card_1_img"
-                    android:layout_width="125dp"
+                    android:layout_width="100dp"
                     android:layout_height="125dp"
                     android:src="@drawable/insurance"
                     android:scaleType="centerCrop"/>
@@ -128,8 +130,8 @@
             android:id="@+id/card_2_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="12dp"
-            android:padding="6dp">
+            app:cardCornerRadius="10dp"
+            >
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -139,7 +141,7 @@
                 <!-- Image -->
                 <ImageView
                     android:id="@+id/card_2_img"
-                    android:layout_width="125dp"
+                    android:layout_width="100dp"
                     android:layout_height="125dp"
                     android:src="@drawable/insurance"
                     android:scaleType="centerCrop"/>
@@ -180,8 +182,7 @@
             android:id="@+id/card_3_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="12dp"
-            android:padding="6dp">
+            app:cardCornerRadius="10dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -191,10 +192,11 @@
                 <!-- Image -->
                 <ImageView
                     android:id="@+id/card_3_img"
-                    android:layout_width="125dp"
+                    android:layout_width="100dp"
                     android:layout_height="125dp"
                     android:src="@drawable/insurance"
-                    android:scaleType="centerCrop"/>
+                    android:scaleType="centerCrop"
+                    />
 
                 <!-- Text and Button Container -->
                 <LinearLayout
@@ -228,7 +230,43 @@
         </androidx.cardview.widget.CardView>
 
     </LinearLayout>
-  
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginVertical="5dp"
+        android:paddingHorizontal="5dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="QUICK LINKS"
+            android:textAllCaps="true"
+            android:textSize="14dp"
+            android:textColor="@color/bank_dark_primary"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="view all"
+            android:textSize="12sp"
+            android:textAllCaps="true"
+            android:gravity="center"
+            android:layout_alignParentRight="true"/>
+    </RelativeLayout>
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="10dp"
+        android:outlineSpotShadowColor="#AD5154"
+        android:layout_marginHorizontal="10dp"
+        app:cardElevation="5dp"
+        app:strokeWidth="1dp"
+        app:strokeColor="@color/bank_dark_primary"
+        >
+
   <LinearLayout
         android:id="@+id/image_linear_layout"
         android:layout_width="match_parent"
@@ -239,52 +277,68 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:gravity="center_horizontal">
 
             <!-- Image 1 with title -->
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:gravity="center_horizontal"     >
+                android:gravity="center_horizontal"
+                android:layout_marginHorizontal="15sp"
+                android:layout_marginVertical="15sp"
+                >
 
                 <ImageView
                     android:id="@+id/logo1"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:src="@drawable/fd" />
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/fd"
+
+                    />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="FD/RD"
-                    android:maxWidth="50dp"
+                    android:maxWidth="80dp"
                     android:maxLines="2"
                     android:ellipsize="end"
-                    android:textSize="10sp" />
+                    android:textSize="14sp"
+                    android:layout_marginTop="5dp"
+                    android:gravity="center"
+                    android:textColor="@color/black"/>
             </LinearLayout>
 
-            <!-- Image 2 with title -->
+<!--             Image 2 with title -->
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:gravity="center_horizontal">
+                android:gravity="center_horizontal"
+                android:layout_marginHorizontal="15sp"
+                android:layout_marginVertical="15sp">
 
                 <ImageView
                     android:id="@+id/logo2"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:src="@drawable/investment" />
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/investment"
+
+                    />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Investment"
-                    android:maxWidth="50dp"
+                    android:text="Investments"
+                    android:maxWidth="80dp"
                     android:maxLines="2"
                     android:ellipsize="end"
-                    android:textSize="10sp" />
+                    android:textSize="14sp"
+                    android:layout_marginTop="5dp"
+                    android:gravity="center"
+                    android:textColor="@color/black"/>
             </LinearLayout>
 
             <!-- Image 3 with title -->
@@ -292,22 +346,29 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:gravity="center_horizontal">
+                android:gravity="center_horizontal"
+                android:layout_marginHorizontal="15sp"
+                android:layout_marginVertical="15sp">
 
                 <ImageView
                     android:id="@+id/logo3"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:src="@drawable/creditcard" />
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/creditcard"
+
+                    />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Credit Card"
-                    android:maxWidth="50dp"
+                    android:maxWidth="80dp"
                     android:maxLines="2"
                     android:ellipsize="end"
-                    android:textSize="10sp" />
+                    android:textSize="14sp"
+                    android:layout_marginTop="5dp"
+                    android:gravity="center"
+                    android:textColor="@color/black"/>
             </LinearLayout>
 
             <!-- Image 4 with title -->
@@ -315,127 +376,172 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:gravity="center_horizontal">
+                android:gravity="center_horizontal"
+                android:layout_marginHorizontal="15sp"
+                android:layout_marginVertical="15sp"
+                >
 
                 <ImageView
                     android:id="@+id/logo4"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:src="@drawable/loans" />
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/loans"
+
+                    />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Loans"
-                    android:maxWidth="50dp"
+                    android:maxWidth="80dp"
                     android:maxLines="2"
                     android:ellipsize="end"
-                    android:textSize="10sp" />
+                    android:textSize="14sp"
+                    android:layout_marginTop="5dp"
+                    android:gravity="center"
+                    android:textColor="@color/black"
+                    />
             </LinearLayout>
 
         </LinearLayout>
 
-        <!-- Second row of images with titles -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+      <!-- First row of images with titles -->
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:orientation="horizontal"
+          android:gravity="center_horizontal">
 
-            <!-- Image 5 with title -->
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:gravity="center_horizontal">
+          <!-- Image 1 with title -->
+          <LinearLayout
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:orientation="vertical"
+              android:gravity="center_horizontal"
+              android:layout_marginHorizontal="15sp"
+              android:layout_marginVertical="15sp"
+              >
 
-                <ImageView
-                    android:id="@+id/logo5"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:src="@drawable/sendmoney" />
+              <ImageView
+                  android:id="@+id/sendmoney"
+                  android:layout_width="40dp"
+                  android:layout_height="40dp"
+                  android:src="@drawable/sendmoney"
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Send Money"
-                    android:maxWidth="50dp"
-                    android:maxLines="2"
-                    android:ellipsize="end"
-                    android:textSize="10sp" />
-            </LinearLayout>
+                  />
 
-            <!-- Image 6 with title -->
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:gravity="center_horizontal">
+              <TextView
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:text="Send Money"
+                  android:maxWidth="80dp"
+                  android:maxLines="2"
+                  android:ellipsize="end"
+                  android:textSize="14sp"
+                  android:layout_marginTop="5dp"
+                  android:gravity="center"
+                  android:textColor="@color/black"/>
+          </LinearLayout>
 
-                <ImageView
-                    android:id="@+id/logo6"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:src="@drawable/services" />
+          <!--             Image 2 with title -->
+          <LinearLayout
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:orientation="vertical"
+              android:gravity="center_horizontal"
+              android:layout_marginHorizontal="15sp"
+              android:layout_marginVertical="15sp">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Services"
-                    android:maxWidth="50dp"
-                    android:maxLines="2"
-                    android:ellipsize="end"
-                    android:textSize="10sp" />
-            </LinearLayout>
+              <ImageView
+                  android:id="@+id/logo6"
+                  android:layout_width="40dp"
+                  android:layout_height="40dp"
+                  android:src="@drawable/services"
 
-            <!-- Image 7 with title -->
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:gravity="center_horizontal">
+                  />
 
-                <ImageView
-                    android:id="@+id/logo7"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:src="@drawable/guaranteedreturns" />
+              <TextView
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:text="Services"
+                  android:maxWidth="80dp"
+                  android:maxLines="2"
+                  android:ellipsize="end"
+                  android:textSize="14sp"
+                  android:layout_marginTop="5dp"
+                  android:gravity="center"
+                  android:textColor="@color/black"/>
+          </LinearLayout>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Guaranteed Returns"
-                    android:maxWidth="50dp"
-                    android:maxLines="2"
-                    android:ellipsize="end"
-                    android:textSize="10sp" />
-            </LinearLayout>
+          <!-- Image 3 with title -->
+          <LinearLayout
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:orientation="vertical"
+              android:gravity="center_horizontal"
+              android:layout_marginHorizontal="15sp"
+              android:layout_marginVertical="15sp">
 
-            <!-- Image 8 with title -->
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:gravity="center_horizontal">
+              <ImageView
+                  android:id="@+id/logo7"
+                  android:layout_width="40dp"
+                  android:layout_height="40dp"
+                  android:src="@drawable/guaranteedreturns"
 
-                <ImageView
-                    android:id="@+id/logo8"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:src="@drawable/billpay" />
+                  />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Pay Bills"
-                    android:maxWidth="50dp"
-                    android:maxLines="2"
-                    android:ellipsize="end"
-                    android:textSize="10sp" />
-            </LinearLayout>
+              <TextView
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:text="Fixed Returns"
+                  android:maxWidth="80dp"
+                  android:maxLines="2"
+                  android:ellipsize="end"
+                  android:textSize="14sp"
+                  android:layout_marginTop="5dp"
+                  android:gravity="center"
+                  android:textColor="@color/black"/>
+          </LinearLayout>
 
-        </LinearLayout>
+          <!-- Image 4 with title -->
+          <LinearLayout
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:orientation="vertical"
+              android:gravity="center_horizontal"
+              android:layout_marginHorizontal="15sp"
+              android:layout_marginVertical="15sp"
+              >
+
+              <ImageView
+                  android:id="@+id/logo8"
+                  android:layout_width="40dp"
+                  android:layout_height="40dp"
+                  android:src="@drawable/billpay"
+
+                  />
+
+              <TextView
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:text="Bill Pay"
+                  android:maxWidth="80dp"
+                  android:maxLines="2"
+                  android:ellipsize="end"
+                  android:textSize="14sp"
+                  android:layout_marginTop="5dp"
+                  android:gravity="center"
+                  android:textColor="@color/black"
+                  />
+          </LinearLayout>
+
+      </LinearLayout>
+
+<!--         Second row of images with titles -->
+
 
     </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
 
 
 </LinearLayout>
