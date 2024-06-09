@@ -51,7 +51,7 @@ public class SplashScreen extends AppCompatActivity {
                 nt.put("Date",new Date());
                 nt.put("Screen","Splash");
                 dfI.pushEvent("Splash Screen",nt);
-                Intent i = new Intent(SplashScreen.this,HomeScreen.class);
+                Intent i = new Intent(SplashScreen.this,HomeScreen2.class);
                 startActivity(i);
                 finish();
             }, SPLASH_SCREEN_TIME_OUT);

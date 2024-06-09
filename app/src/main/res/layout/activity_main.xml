@@ -10,93 +10,178 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:layout_margin="50dp"
-        android:padding="10dp"
         >
-<!--        <LinearLayout-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:gravity="center_horizontal"-->
-<!--            >-->
-<!--            <TextView-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:text="Login"-->
-<!--                android:textStyle="bold"-->
-<!--                android:textSize="30dp"-->
-<!--                android:textColor="@color/design_default_color_primary"-->
-<!--                />-->
-<!--        </LinearLayout>-->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Identity :"
-            android:textSize="20sp" />
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/identity"
-            />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Email id :"
-            android:textSize="20sp" />
-        <EditText
+        <ImageView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/email"
-            android:inputType="textEmailAddress"
-            />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Phone :"
-            android:textSize="20sp" />
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/phone"
-            android:inputType="textEmailAddress"
-            />
+            android:scaleType="centerInside"
+            android:adjustViewBounds="true"
+            android:src="@drawable/login_banner"
+            android:id="@+id/loginTopBanner"/>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
             android:layout_margin="30dp"
-            android:padding="20dp"
+            android:orientation="vertical"
             >
-            <Button
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Login to CleverTap Bank"
+                android:textColor="@color/bank_dark_primary"
+                android:textSize="34sp"
+                android:fontFamily="@font/cnl_bold"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:textSize="14sp"
+                android:textColor="@color/black"
+                android:text="Welcome to your one stop destination for Everything Finance"/>
+
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:onClick="loginClick"
-                android:text="Login"
-                />
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="right"
-            >
-            <TextView
-                android:layout_width="wrap_content"
+                android:hint="UserId"
+                android:layout_marginTop="20dp"
+                app:boxBackgroundColor="@color/white"
+                app:boxStrokeWidth="2dp"
+                app:hintTextColor="@color/bank_dark_primary"
+                app:boxStrokeColor="@color/bank_light_primary"
+                android:id="@+id/userTextL"
+                >
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/bank_dark_secondary"
+                    android:id="@+id/identity"
+                    />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Go To Anonymous Screen"
-                android:onClick="defPage" />
+                android:hint="Enter Phone Number"
+                android:layout_marginTop="20dp"
+                app:boxBackgroundColor="@color/white"
+                app:hintTextColor="@color/bank_dark_primary"
+                app:boxStrokeColor="@color/bank_light_primary"
+                app:boxStrokeWidth="2dp"
+                app:prefixText="+91"
+                app:prefixTextColor="@color/bank_light_primary"
+                android:id="@+id/numTextL"
+                app:counterEnabled="true"
+                app:counterMaxLength="10"
+                app:errorEnabled="true"
+                >
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/bank_dark_secondary"
+                    android:id="@+id/phone"
+                    android:inputType="phone"
+                    />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+
         </LinearLayout>
-        <LinearLayout
+
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:gravity="bottom">
-            <TextView
-                android:layout_width="wrap_content"
+            android:layout_margin="25dp"
+            >
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="........"
-                />
-        </LinearLayout>
+                android:layout_above="@id/tnc"
+                android:gravity="center_vertical">
+
+                <CheckBox
+                    android:id="@+id/commsUpdate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:minWidth="48dp"
+                    android:minHeight="48dp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Receive Offers and Promotional updates from us."
+                    android:textSize="12sp"
+                    android:textColor="@color/black"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/tnc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_above="@id/loginbtn"
+                android:gravity="center_vertical">
+
+                <CheckBox
+                    android:id="@+id/conditions"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:minWidth="48dp"
+                    android:minHeight="48dp"
+                    />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Accept all Terms of service and Privacy &amp; legal Policy"
+                    android:textSize="12sp"
+                    android:textColor="@color/black"/>
+
+            </LinearLayout>
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/loginbtn"
+                app:cardCornerRadius="26dp"
+                android:outlineSpotShadowColor="#AD5154"
+                app:cardElevation="1dp"
+                app:strokeWidth="1dp"
+                app:strokeColor="@color/bank_dark_primary"
+                android:layout_alignParentBottom="true"
+                android:backgroundTint="@color/bank_light_primary"
+                android:layout_marginTop="10dp"
+                >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="login"
+                    android:textAllCaps="true"
+                    android:textColor="@color/white"
+                    android:layout_marginVertical="15dp"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:layout_gravity="center_horizontal"
+                    android:fontFamily="@font/cnl_bold"
+                    android:letterSpacing="1.5"
+                    />
+            </com.google.android.material.card.MaterialCardView>
+
+
+
+
+        </RelativeLayout>
+
+
 
     </LinearLayout>
 </androidx.appcompat.widget.LinearLayoutCompat>
