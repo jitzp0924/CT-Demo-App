@@ -22,10 +22,6 @@
             android:gravity="center_vertical">
 
             <!-- Spacer View to push icons to the right -->
-            <View
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1" />
 
             <!-- Profile Icon -->
             <ImageView
@@ -35,6 +31,10 @@
                 android:padding="10dp"
                 android:src="@drawable/profile" />
 
+            <View
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
             <!-- Search Icon -->
             <ImageView
                 android:id="@+id/search_icon"
@@ -129,7 +129,7 @@
                     android:layout_width="100dp"
                     android:layout_height="125dp"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/insurance" />
+                    android:src="@drawable/healthinsurance" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -142,11 +142,15 @@
                         android:id="@+id/card_1_text"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Dropping some random text"
+                        android:text="@string/health_insurance_text"
                         android:textSize="14sp"
                         android:textStyle="bold"
                         android:padding="6dp"/>
-
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:gravity="bottom">
                     <!-- Button -->
                     <Button
                         android:id="@+id/card_1_button"
@@ -157,6 +161,7 @@
                         android:padding="6dp"
                         android:textColor="#1D72EF"
                         android:background="@android:color/transparent"/>
+                </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
@@ -181,7 +186,7 @@
                     android:id="@+id/card_2_img"
                     android:layout_width="100dp"
                     android:layout_height="125dp"
-                    android:src="@drawable/insurance"
+                    android:src="@drawable/personalinsurance"
                     android:scaleType="centerCrop"/>
 
                 <!-- Text and Button Container -->
@@ -196,10 +201,15 @@
                         android:id="@+id/card_2_text"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Dropping some random text"
+                        android:text="@string/peronal_insurance_text"
                         android:textSize="14sp"
                         android:textStyle="bold"
                         android:padding="6dp"/>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:gravity="bottom">
 
                     <!-- Button -->
                     <Button
@@ -211,6 +221,7 @@
                         android:padding="6dp"
                         android:textColor="#1D72EF"
                         android:background="@android:color/transparent"/>
+                </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
@@ -234,7 +245,7 @@
                     android:id="@+id/card_3_img"
                     android:layout_width="100dp"
                     android:layout_height="125dp"
-                    android:src="@drawable/insurance"
+                    android:src="@drawable/card"
                     android:scaleType="centerCrop"
                     />
 
@@ -250,11 +261,15 @@
                         android:id="@+id/card_3_text"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Dropping some random text"
+                        android:text="@string/card_text"
                         android:textSize="14sp"
                         android:textStyle="bold"
                         android:padding="6dp"/>
-
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:gravity="bottom">
                     <!-- Button -->
                     <Button
                         android:id="@+id/card_3_button"
@@ -264,7 +279,10 @@
                         android:gravity="end"
                         android:padding="6dp"
                         android:textColor="#1D72EF"
-                        android:background="@android:color/transparent"/>
+                        android:background="@android:color/transparent"
+                        />
+                    </LinearLayout>
+
                 </LinearLayout>
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
