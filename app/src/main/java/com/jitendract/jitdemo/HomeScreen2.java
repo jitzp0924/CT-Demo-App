@@ -1,7 +1,11 @@
 package com.jitendract.jitdemo;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -19,6 +23,8 @@ public class HomeScreen2 extends AppCompatActivity {
 
 
     Map homeScreen, homeSlider;
+    ImageView logout,search;
+    Boolean searchFlag;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,10 +32,27 @@ public class HomeScreen2 extends AppCompatActivity {
         setContentView(R.layout.activity_home_screen2);
         super.onCreate(savedInstanceState);
 
+        logout = (ImageView) findViewById(R.id.logout_icon);
+        search = (ImageView) findViewById(R.id.search_icon);
         CleverTapAPI clevertapDefaultInstance = CleverTapAPI.getDefaultInstance(getApplicationContext());
         clevertapDefaultInstance.fetchVariables();
-
         homeScreen = (Map<String,Object>) clevertapDefaultInstance.getVariableValue("HomeScreen");
+        searchFlag = (Boolean) homeScreen.get("SearchIcon");
+        logout.setOnClickListener(view -> {
+            SharedPreferences.Editor editor = getSharedPreferences("Login", MODE_PRIVATE).edit();
+            editor.remove("LoggedIn").apply();
+            editor.remove("Identity").apply();
+
+            Intent di = new Intent(getApplicationContext(),MainActivity.class);
+            di.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(di);
+        });
+
+        if (!searchFlag){
+            search.setVisibility(View.INVISIBLE);
+        }
+
+
         homeSlider = (Map) homeScreen.get("Bottom Carousel");
         sliderInit(clevertapDefaultInstance,homeSlider);
     }
