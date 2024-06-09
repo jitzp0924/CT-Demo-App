@@ -44,7 +44,7 @@ public class application extends MultiDexApplication implements Application.Acti
 
     private void PEInit(CleverTapAPI cleverTapAPI) {
 
-        PEVariables peVariables = new PEVariables();
+        PEVariables peVariables = new PEVariables(getApplicationContext());
         cleverTapAPI.parseVariables(peVariables);
         cleverTapAPI.syncVariables();
 

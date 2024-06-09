@@ -60,6 +60,7 @@
                     android:layout_height="wrap_content"
                     android:textColor="@color/bank_dark_secondary"
                     android:id="@+id/identity"
+                    android:inputType="text"
                     />
 
             </com.google.android.material.textfield.TextInputLayout>

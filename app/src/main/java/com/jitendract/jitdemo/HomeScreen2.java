@@ -1,65 +1,80 @@
 package com.jitendract.jitdemo;
 
 import android.os.Bundle;
-import android.util.DisplayMetrics;
-import android.view.ViewGroup;
-import android.widget.LinearLayout;
+import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.clevertap.android.sdk.CleverTapAPI;
+import com.jitendract.jitdemo.CarouselModel.SliderAdapter;
+import com.jitendract.jitdemo.CarouselModel.SliderData;
+import com.smarteist.autoimageslider.SliderView;
+
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.Map;
+
 public class HomeScreen2 extends AppCompatActivity {
+
+
+    Map homeScreen, homeSlider;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-//        EdgeToEdge.enable(this);
+
         setContentView(R.layout.activity_home_screen2);
-//        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-//            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-//            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-//            return insets;
-//        });
         super.onCreate(savedInstanceState);
 
-        // Find the outer LinearLayout containing the ImageView items
-//        LinearLayout imageLinearLayout = findViewById(R.id.image_linear_layout);
-//
-//        // Calculate padding dynamically based on the screen width
-//        int screenWidth = getScreenWidth();
-//        int imageWidthDp = 50;
-//        int totalImageWidthPx = dpToPx(imageWidthDp * 4); // for 4 images in a row
-//        int totalPaddingPx = screenWidth - totalImageWidthPx; // remaining width to be used as padding
-//        int paddingPerItemPx = totalPaddingPx / 8; // total gaps are 4 for 4 items: 3 between items and 1 on each end
-//
-//        // Set padding for each inner LinearLayout
-//        setPaddingBetweenChildren(imageLinearLayout, paddingPerItemPx);
+        CleverTapAPI clevertapDefaultInstance = CleverTapAPI.getDefaultInstance(getApplicationContext());
+        clevertapDefaultInstance.fetchVariables();
+
+        homeScreen = (Map<String,Object>) clevertapDefaultInstance.getVariableValue("HomeScreen");
+        homeSlider = (Map) homeScreen.get("Bottom Carousel");
+        sliderInit(clevertapDefaultInstance,homeSlider);
     }
 
-//    // Method to get the screen width
-//    private int getScreenWidth() {
-//        DisplayMetrics displayMetrics = new DisplayMetrics();
-//        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-//        return displayMetrics.widthPixels;
-//    }
-//
-//    // Method to convert dp to pixels
-//    private int dpToPx(int dp) {
-//        float density = getResources().getDisplayMetrics().density;
-//        return Math.round(dp * density);
-//    }
-//
-//    // Method to set padding for each inner LinearLayout
-//    private void setPaddingBetweenChildren(ViewGroup parentLayout, int paddingPx) {
-//        int childCount = parentLayout.getChildCount();
-//
-//        for (int i = 0; i < childCount; i++) {
-//            ViewGroup row = (ViewGroup) parentLayout.getChildAt(i);
-//
-//            // Iterate over each inner LinearLayout
-//            for (int j = 0; j < row.getChildCount(); j++) {
-//                LinearLayout innerChild = (LinearLayout) row.getChildAt(j);
-//                innerChild.setPadding(paddingPx, paddingPx, paddingPx, paddingPx);
-//            }
-//        }
-//
-//    }
+    private void sliderInit(CleverTapAPI clevertapDefaultInstance, Map homeSlider) {
+
+        ArrayList<SliderData> sliderDataArrayList = new ArrayList<>();
+        SliderView sliderView = findViewById(R.id.homeCarousel);
+
+        double counter = (double) homeSlider.get("Max Cards");
+        counter = ((int) counter);
+        for (int i = 1;i<=counter;i++){
+
+            try {
+                String card = (String) homeSlider.get("Card"+String.valueOf(i));
+                JSONObject jsonObject = new JSONObject(card);
+                Log.e("PEException",jsonObject.getString("imageUrl"));
+                sliderDataArrayList.add(new SliderData(jsonObject.getString("imageUrl")));
+            }
+            catch (Exception e){
+                Log.e("PE-exception",String.valueOf(e));
+            }
+        }
+        // passing this array list inside our adapter class.
+        SliderAdapter adapter = new SliderAdapter(this, sliderDataArrayList);
+
+        // below method is used to set auto cycle direction in left to
+        // right direction you can change according to requirement.
+        sliderView.setAutoCycleDirection(SliderView.LAYOUT_DIRECTION_LTR);
+
+        // below method is used to
+        // setadapter to sliderview.
+        sliderView.setSliderAdapter(adapter);
+
+        // below method is use to set
+        // scroll time in seconds.
+        sliderView.setScrollTimeInSec(3);
+
+        // to set it scrollable automatically
+        // we use below method.
+        sliderView.setAutoCycle(true);
+
+        // to start autocycle below method is used.
+        sliderView.startAutoCycle();
+    }
+
+
 }
