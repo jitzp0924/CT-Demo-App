@@ -5,9 +5,9 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
-import com.jitendract.jitdemo.CleveTapUtils;
+import android.widget.Button;
+import android.widget.LinearLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -34,9 +34,7 @@ public class HomeScreen2 extends AppCompatActivity {
     Boolean searchFlag;
     MaterialCardView recoCard1,recoCard2,recoCard3;
     SharedPreferences prefs;
-
     Button recoCardButton1,recoCardButton2,recoCardButton3;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -48,13 +46,28 @@ public class HomeScreen2 extends AppCompatActivity {
         recoCard1 = findViewById(R.id.reco_card_1);
         recoCard2 = findViewById(R.id.reco_card_2);
         recoCard3 = findViewById(R.id.reco_card_3);
-        recoCardButton1 = findViewById(R.id.reco_card_1_button);
+        recoCardButton1=findViewById(R.id.reco_card_1_button);
+        recoCardButton2=findViewById(R.id.reco_card_2_button);
+        recoCardButton3=findViewById(R.id.reco_card_3_button);
 
+        //Searching Items
+        LinearLayout item1 = findViewById(R.id.quick_link_item_1);
+        LinearLayout item2 = findViewById(R.id.quick_link_item_2);
+        LinearLayout item3 = findViewById(R.id.quick_link_item_3);
+        LinearLayout item4 = findViewById(R.id.quick_link_item_4);
+        LinearLayout item5 = findViewById(R.id.quick_link_item_5);
+        LinearLayout item6 = findViewById(R.id.quick_link_item_6);
+        LinearLayout item7 = findViewById(R.id.quick_link_item_7);
+        LinearLayout item8 = findViewById(R.id.quick_link_item_8);
+
+        // Get reference to the parent LinearLayout
+        LinearLayout parentLayout1 = findViewById(R.id.quick_link_row_1);
+        LinearLayout parentLayout2 = findViewById(R.id.quick_link_row_2);
 
         prefs = getSharedPreferences("Login", MODE_PRIVATE);
         phoneNum =prefs.getString("Phone","NA");
         UserId = prefs.getString("Identity","default");
-        CleveTapUtils cleveTapUtils = new CleveTapUtils(getApplicationContext());
+        CleveTapUtils cleveTapUtils=new CleveTapUtils(getApplicationContext());
         homeScreenEvt.put("Phone",phoneNum);
         homeScreenEvt.put("UserId",UserId);
         homeScreenEvt.put("Screen","HomeScreen");
@@ -122,6 +135,41 @@ public class HomeScreen2 extends AppCompatActivity {
             homeScreenEvt.remove("Action");
             homeScreenEvt.remove("Label");
         });
+
+
+        parentLayout1.removeAllViews();
+        parentLayout2.removeAllViews();
+
+        int[] newOrder = {8,2,3,4,5,6,7,1};
+        for (int position : newOrder) {
+            switch (position) {
+                case 1:
+                    parentLayout1.addView(item1);
+                    break;
+                case 2:
+                    parentLayout1.addView(item2);
+                    break;
+                case 3:
+                    parentLayout1.addView(item3);
+
+                    break;
+                case 4:
+                    parentLayout1.addView(item4);
+                    break;
+                case 5:
+                    parentLayout2.addView(item5);
+                    break;
+                case 6:
+                    parentLayout2.addView(item6);
+                    break;
+                case 7:
+                    parentLayout2.addView(item7);
+                    break;
+                case 8:
+                    parentLayout2.addView(item8);
+                    break;
+            }
+        }
     }
 
     private void sliderInit(CleverTapAPI clevertapDefaultInstance, Map homeSlider) {
