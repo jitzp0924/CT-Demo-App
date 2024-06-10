@@ -5,7 +5,9 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
+import com.jitendract.jitdemo.CleveTapUtils;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -33,6 +35,8 @@ public class HomeScreen2 extends AppCompatActivity {
     MaterialCardView recoCard1,recoCard2,recoCard3;
     SharedPreferences prefs;
 
+    Button recoCardButton1,recoCardButton2,recoCardButton3;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -44,9 +48,13 @@ public class HomeScreen2 extends AppCompatActivity {
         recoCard1 = findViewById(R.id.reco_card_1);
         recoCard2 = findViewById(R.id.reco_card_2);
         recoCard3 = findViewById(R.id.reco_card_3);
+        recoCardButton1 = findViewById(R.id.reco_card_1_button);
+
+
         prefs = getSharedPreferences("Login", MODE_PRIVATE);
         phoneNum =prefs.getString("Phone","NA");
         UserId = prefs.getString("Identity","default");
+        CleveTapUtils cleveTapUtils = new CleveTapUtils(getApplicationContext());
         homeScreenEvt.put("Phone",phoneNum);
         homeScreenEvt.put("UserId",UserId);
         homeScreenEvt.put("Screen","HomeScreen");
@@ -97,6 +105,22 @@ public class HomeScreen2 extends AppCompatActivity {
             Intent di = new Intent(getApplicationContext(),MainActivity.class);
             di.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(di);
+        });
+
+        recoCardButton1.setOnClickListener(view -> {
+            homeScreenEvt.put("Action","Click");
+            homeScreenEvt.put("Label", "Card 1");
+            cleveTapUtils.raiseEvent("Recommended For You",homeScreenEvt);
+            homeScreenEvt.remove("Action");
+            homeScreenEvt.remove("Label");
+        });
+
+        recoCardButton2.setOnClickListener(view -> {
+            homeScreenEvt.put("Action","Click");
+            homeScreenEvt.put("Label", "Card 2");
+            cleveTapUtils.raiseEvent("Recommended For You",homeScreenEvt);
+            homeScreenEvt.remove("Action");
+            homeScreenEvt.remove("Label");
         });
     }
 
