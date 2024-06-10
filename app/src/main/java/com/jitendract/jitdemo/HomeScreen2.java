@@ -26,7 +26,7 @@ import java.util.Map;
 public class HomeScreen2 extends AppCompatActivity {
 
 
-    Map<String,Object> homeScreen, homeSlider, recoForU;
+    Map<String,Object> homeScreen, homeSlider, recoForU,quickLinks;
     HashMap<String, Object> homeScreenEvt = new HashMap<>();
     String phoneNum,UserId;
     Double recoCards,counter;
@@ -79,6 +79,7 @@ public class HomeScreen2 extends AppCompatActivity {
                 homeScreen = (Map<String, Object>) clevertapDefaultInstance.getVariableValue("HomeScreen");
                 recoForU = (Map<String, Object>) homeScreen.get("RecommendedForU");
                 homeSlider = (Map<String, Object>) homeScreen.get("Bottom Carousel");
+                quickLinks = (Map<String, Object>) homeScreen.get("Quick Links");
             }
             catch(Exception e){Log.e("PEException",String.valueOf(e));}
 
