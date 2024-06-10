@@ -21,6 +21,8 @@ public class PEVariables {
     public Map<String,Object> RecoCard2;
     public Map<String,Object> RecoCard3;
     public Map<String,Object> HomeSlider;
+    public Map<String,Integer> QuickLinks;
+
 
 
 
@@ -62,11 +64,22 @@ public class PEVariables {
         HomeSlider.put("Card4","{\"imageUrl\":\"https://shopifyctjt.s3.ap-south-1.amazonaws.com/Banking-Service-and-Facilities-of-HDFC-Bank.png\",\"ServiceId\":\"false\",\"deeplink\":\"https://jits-clever.github.io/TestWeb/\"}");
         HomeSlider.put("Card5","{\"imageUrl\":\"https://shopifyctjt.s3.ap-south-1.amazonaws.com/HDFC_T_C_Banner_beauty.jpg\",\"ServiceId\":\"false\",\"deeplink\":\"https://jits-clever.github.io/TestWeb/\"}");
 
+        QuickLinks = new HashMap<>();
+        QuickLinks.put("FD/RD",1);
+        QuickLinks.put("Investments",2);
+        QuickLinks.put("Credit Card",3);
+        QuickLinks.put("Loans",4);
+        QuickLinks.put("Send Money",5);
+        QuickLinks.put("Services",6);
+        QuickLinks.put("Fixed Returns",7);
+        QuickLinks.put("Bill Pay",8);
+
 
         HomeScreen = new HashMap<>();
         HomeScreen.put("SearchIcon",true);
         HomeScreen.put("RecommendedForU",RecommendedForU);
         HomeScreen.put("Bottom Carousel",HomeSlider);
+        HomeScreen.put("Quick Links",QuickLinks);
 
 
     }
