@@ -171,6 +171,7 @@ public class MainActivity extends AppCompatActivity implements CTPushNotificatio
                 SharedPreferences.Editor editor = getSharedPreferences("Login", MODE_PRIVATE).edit();
                 editor.putBoolean("LoggedIn",true);
                 editor.putString("Identity",userID);
+                editor.putString("Phone",phoneNum);
                 editor.apply();
 
                 Intent di = new Intent(getApplicationContext(),HomeScreen2.class);
