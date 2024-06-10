@@ -338,6 +338,7 @@
 
         <!-- First row of images with titles -->
         <LinearLayout
+            android:id="@+id/quick_link_row_1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -345,6 +346,7 @@
 
             <!-- Image 1 with title -->
             <LinearLayout
+                android:id="@+id/quick_link_item_1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
@@ -376,6 +378,7 @@
 
 <!--             Image 2 with title -->
             <LinearLayout
+                android:id="@+id/quick_link_item_2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
@@ -406,6 +409,7 @@
 
             <!-- Image 3 with title -->
             <LinearLayout
+                android:id="@+id/quick_link_item_3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
@@ -436,6 +440,7 @@
 
             <!-- Image 4 with title -->
             <LinearLayout
+                android:id="@+id/quick_link_item_4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
@@ -470,6 +475,7 @@
 
       <!-- First row of images with titles -->
       <LinearLayout
+          android:id="@+id/quick_link_row_2"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:orientation="horizontal"
@@ -477,6 +483,7 @@
 
           <!-- Image 1 with title -->
           <LinearLayout
+              android:id="@+id/quick_link_item_5"
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
               android:orientation="vertical"
@@ -508,6 +515,7 @@
 
           <!--             Image 2 with title -->
           <LinearLayout
+              android:id="@+id/quick_link_item_6"
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
               android:orientation="vertical"
@@ -538,6 +546,7 @@
 
           <!-- Image 3 with title -->
           <LinearLayout
+              android:id="@+id/quick_link_item_7"
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
               android:orientation="vertical"
@@ -568,6 +577,7 @@
 
           <!-- Image 4 with title -->
           <LinearLayout
+              android:id="@+id/quick_link_item_8"
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
               android:orientation="vertical"
