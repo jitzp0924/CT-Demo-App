@@ -48,6 +48,8 @@ public class HomeScreen2 extends AppCompatActivity {
 
         setContentView(R.layout.activity_home_screen2);
         super.onCreate(savedInstanceState);
+        homeScreenEvt = new HashMap<>();
+        slidermap = new HashMap<>();
 
         logout = findViewById(R.id.logout_icon);
         search = findViewById(R.id.search_icon);
@@ -156,6 +158,17 @@ public class HomeScreen2 extends AppCompatActivity {
             cleveTapUtils.raiseEvent("Recommended For You",homeScreenEvt);
             homeScreenEvt.remove("Action");
             homeScreenEvt.remove("Label");
+            System.out.println("Reco 3 raised");
+
+            //Redirection
+            HashMap<String, Object> redirectionDetails = new HashMap<>();
+            redirectionDetails.put("ServiceID", "123");
+            redirectionDetails.put("IsServiceActive", false);
+            redirectionDetails.put("Deeplink", "https://developer.clevertap.com/docs/android");
+            DeeplinkRedirection deeplinkRedirection = new DeeplinkRedirection(this);
+            deeplinkRedirection.handleRedirection(redirectionDetails);
+
+
         });
 
 
@@ -318,3 +331,6 @@ public class HomeScreen2 extends AppCompatActivity {
 
 
 }
+//HashMap
+//ServiceId true-id
+//        false-Deeplink URL

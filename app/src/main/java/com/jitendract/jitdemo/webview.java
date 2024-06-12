@@ -12,6 +12,8 @@ import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.Button;
+import android.widget.ImageView;
 
 import com.clevertap.android.sdk.CTWebInterface;
 import com.clevertap.android.sdk.CleverTapAPI;
@@ -21,6 +23,7 @@ import java.util.HashMap;
 
 public class webview extends AppCompatActivity {
     WebView myWebView;
+    ImageView backBtn;
     String url = "https://in.bookmyshow.com/activities/nicco-park/ET00081908";
 
 
@@ -29,21 +32,32 @@ public class webview extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_webview);
+        myWebView = findViewById(R.id.webview);
+        backBtn=findViewById(R.id.back_icon);
+        String url = getIntent().getStringExtra("url");
 
-        CleverTapAPI clevertapDefaultInstance = CleverTapAPI.getDefaultInstance(getApplicationContext());
-        myWebView = (WebView) findViewById(R.id.webView);
-        WebSettings webSettings = myWebView.getSettings();
-        webSettings.setJavaScriptEnabled(true);
-        myWebView.setWebViewClient(new WebViewClient());
-        myWebView.addJavascriptInterface(new CTWebInterface(CleverTapAPI.getDefaultInstance(this)),"CleverTap");
-        myWebView.loadUrl("https://in.bookmyshow.com/activities/nicco-park/ET00081908");
-        CleverTapAPI.getDefaultInstance(this).resumeInAppNotifications();
+        myWebView.loadUrl(url);
 
-        HashMap<String, Object> nt = new HashMap<String, Object>();
-        nt.put("Date",new Date());
-        nt.put("Screen","WebView");
-        clevertapDefaultInstance.pushEvent("WebView Screen",nt);
+        backBtn.setOnClickListener(View->{
+            Intent intent = new Intent(getApplicationContext(), HomeScreen2.class);
+            startActivity(intent);
+        });
 
+
+//        CleverTapAPI clevertapDefaultInstance = CleverTapAPI.getDefaultInstance(getApplicationContext());
+//        myWebView = (WebView) findViewById(R.id.webView);
+//        WebSettings webSettings = myWebView.getSettings();
+//        webSettings.setJavaScriptEnabled(true);
+//        myWebView.setWebViewClient(new WebViewClient());
+//        myWebView.addJavascriptInterface(new CTWebInterface(CleverTapAPI.getDefaultInstance(this)),"CleverTap");
+//        myWebView.loadUrl("https://in.bookmyshow.com/activities/nicco-park/ET00081908");
+//        CleverTapAPI.getDefaultInstance(this).resumeInAppNotifications();
+//
+//        HashMap<String, Object> nt = new HashMap<String, Object>();
+//        nt.put("Date",new Date());
+//        nt.put("Screen","WebView");
+//        clevertapDefaultInstance.pushEvent("WebView Screen",nt);
+//
 
     }
 
@@ -71,7 +85,7 @@ public class webview extends AppCompatActivity {
 //        i.setData(Uri. parse(url));
 //        startActivity(i);
 
-        myWebView.loadUrl("https://ad.admitad.com/g/vbnovi30pqd6b88a5577ed464edc45/");
+//        myWebView.loadUrl("https://ad.admitad.com/g/vbnovi30pqd6b88a5577ed464edc45/");
 
 //        CustomTabsIntent.Builder customIntent = new CustomTabsIntent.Builder();
 //        openCustomTab(this, customIntent.build(), Uri.parse(url));
