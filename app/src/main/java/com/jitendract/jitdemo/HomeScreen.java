@@ -303,7 +303,7 @@ public class HomeScreen extends AppCompatActivity implements CTInboxListener, Di
         sliderDataArrayList.add(new SliderData(url3));
 
         // passing this array list inside our adapter class.
-        SliderAdapter adapter = new SliderAdapter(this, sliderDataArrayList);
+//        SliderAdapter adapter = new SliderAdapter(this, sliderDataArrayList);
 
         // below method is used to set auto cycle direction in left to
         // right direction you can change according to requirement.
@@ -311,7 +311,7 @@ public class HomeScreen extends AppCompatActivity implements CTInboxListener, Di
 
         // below method is used to
         // setadapter to sliderview.
-        sliderView.setSliderAdapter(adapter);
+//        sliderView.setSliderAdapter(adapter);
 
         // below method is use to set
         // scroll time in seconds.
