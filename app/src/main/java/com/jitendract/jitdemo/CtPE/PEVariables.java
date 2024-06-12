@@ -21,7 +21,7 @@ public class PEVariables {
     public Map<String,Object> RecoCard2;
     public Map<String,Object> RecoCard3;
     public Map<String,Object> HomeSlider;
-    public Map<String,Integer> QuickLinks,PayBill;
+    public Map<String,Integer> QuickLinks,quicklinds,PayBill;
 
 
 
@@ -65,14 +65,25 @@ public class PEVariables {
         HomeSlider.put("Card5","{\"imageUrl\":\"https://shopifyctjt.s3.ap-south-1.amazonaws.com/HDFC_T_C_Banner_beauty.jpg\",\"ServiceId\":\"false\",\"deeplink\":\"https://jits-clever.github.io/TestWeb/\"}");
 
         QuickLinks = new HashMap<>();
-        QuickLinks.put("FD/RD",1);
+        QuickLinks.put("FDRD",1);
         QuickLinks.put("Investments",2);
-        QuickLinks.put("Credit Card",3);
+        QuickLinks.put("CreditCard",3);
         QuickLinks.put("Loans",4);
-        QuickLinks.put("Send Money",5);
+        QuickLinks.put("SendMoney",5);
         QuickLinks.put("Services",6);
-        QuickLinks.put("Fixed Returns",7);
-        QuickLinks.put("Bill Pay",8);
+        QuickLinks.put("FixedReturns",7);
+        QuickLinks.put("BillPay",8);
+
+        quicklinds = new HashMap<>();
+        quicklinds.put("FDRD",1);
+        quicklinds.put("Investments",2);
+        quicklinds.put("CreditCard",3);
+        quicklinds.put("Loans",4);
+        quicklinds.put("SendMoney",5);
+        quicklinds.put("Services",6);
+        quicklinds.put("FixedReturns",7);
+        quicklinds.put("BillPay",8);
+
 
         PayBill = new HashMap<>();
         PayBill.put("Fastag", 1);
@@ -88,6 +99,7 @@ public class PEVariables {
         HomeScreen.put("RecommendedForU",RecommendedForU);
         HomeScreen.put("Bottom Carousel",HomeSlider);
         HomeScreen.put("Quick Links",QuickLinks);
+        HomeScreen.put("QuickLinks",quicklinds);
         HomeScreen.put("Pay Bills", PayBill);
 
 

@@ -18,8 +18,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical">
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
 
             <!-- Spacer View to push icons to the right -->
 
@@ -49,7 +49,7 @@
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:padding="10dp"
-                android:src="@drawable/notification"/>
+                android:src="@drawable/notification" />
 
             <!-- Logout Icon -->
             <ImageView
@@ -59,7 +59,6 @@
                 android:padding="10dp"
                 android:src="@drawable/logout" />
         </LinearLayout>
-
 
 
     </androidx.appcompat.widget.Toolbar>
@@ -72,554 +71,544 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:layout_marginHorizontal="10dp">
-<!--Recommended For You Section-->
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:paddingHorizontal="5dp">
+            android:layout_marginHorizontal="10dp"
+            android:orientation="vertical">
+            <!--Recommended For You Section-->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:paddingHorizontal="5dp">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Recommended For You"
-            android:textStyle="bold"
-            android:fontFamily="sans-serif-condensed"
-            android:textSize="14dp"
-            android:textColor="@color/bank_dark_primary"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-condensed"
+                    android:text="Recommended For You"
+                    android:textColor="@color/bank_dark_primary"
+                    android:textSize="14dp"
+                    android:textStyle="bold" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="view all"
-            android:textSize="12sp"
-            android:textAllCaps="true"
-            android:gravity="center"
-            android:layout_alignParentRight="true"
-            android:textColor="@color/bank_dark_secondary"/>
-    </RelativeLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:gravity="center"
+                    android:text="view all"
+                    android:textAllCaps="true"
+                    android:textColor="@color/bank_dark_secondary"
+                    android:textSize="12sp" />
+            </RelativeLayout>
 
-<!--            QUICK LINKS SECTION-->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        >
-
-        <!-- Card 1 -->
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/reco_card_1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:backgroundTint="@color/bank_light_orange"
-            app:cardCornerRadius="10dp"
-            >
-
+            <!--            QUICK LINKS SECTION-->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="vertical">
 
-                <!-- Image -->
-
-                <!-- Text and Button Container -->
-                <ImageView
-                    android:id="@+id/reco_card_1_img"
-                    android:layout_width="100dp"
-                    android:layout_height="125dp"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/healthinsurance" />
-
-                <LinearLayout
+                <!-- Card 1 -->
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/reco_card_1"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:padding="6dp">
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/bank_light_orange"
+                    app:cardCornerRadius="10dp">
 
-                    <!-- Text -->
-                    <TextView
-                        android:id="@+id/reco_card_1_text"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/health_insurance_text"
-                        android:textSize="14sp"
-                        android:textStyle="bold"
-                        android:padding="6dp"/>
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:layout_weight="1"
-                        android:gravity="bottom">
-                    <!-- Button -->
-                    <Button
-                        android:id="@+id/reco_card_1_button"
-                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Buy Now"
-                        android:gravity="end"
-                        android:padding="6dp"
-                        android:textColor="#1D72EF"
-                        android:background="@android:color/transparent"/>
-                </LinearLayout>
-                </LinearLayout>
+                        android:orientation="horizontal">
+
+                        <!-- Image -->
+
+                        <!-- Text and Button Container -->
+                        <ImageView
+                            android:id="@+id/reco_card_1_img"
+                            android:layout_width="100dp"
+                            android:layout_height="125dp"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/healthinsurance" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical"
+                            android:padding="6dp">
+
+                            <!-- Text -->
+                            <TextView
+                                android:id="@+id/reco_card_1_text"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:padding="6dp"
+                                android:text="@string/health_insurance_text"
+                                android:textSize="14sp"
+                                android:textStyle="bold" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="0dp"
+                                android:layout_weight="1"
+                                android:gravity="bottom">
+                                <!-- Button -->
+                                <Button
+                                    android:id="@+id/reco_card_1_button"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:background="@android:color/transparent"
+                                    android:gravity="end"
+                                    android:padding="6dp"
+                                    android:text="Buy Now"
+                                    android:textColor="#1D72EF" />
+                            </LinearLayout>
+                        </LinearLayout>
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- Card 2 -->
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/reco_card_2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:backgroundTint="@color/bank_light_blue"
+                    app:cardCornerRadius="10dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <!-- Image -->
+                        <ImageView
+                            android:id="@+id/reco_card_2_img"
+                            android:layout_width="100dp"
+                            android:layout_height="125dp"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/personalinsurance" />
+
+                        <!-- Text and Button Container -->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical"
+                            android:padding="6dp">
+
+                            <!-- Text -->
+                            <TextView
+                                android:id="@+id/reco_card_2_text"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:padding="6dp"
+                                android:text="@string/peronal_insurance_text"
+                                android:textSize="14sp"
+                                android:textStyle="bold" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="0dp"
+                                android:layout_weight="1"
+                                android:gravity="bottom">
+
+                                <!-- Button -->
+                                <Button
+                                    android:id="@+id/reco_card_2_button"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:background="@android:color/transparent"
+                                    android:gravity="end"
+                                    android:padding="6dp"
+                                    android:text="Buy Now"
+                                    android:textColor="#1D72EF" />
+                            </LinearLayout>
+                        </LinearLayout>
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- Card 3 -->
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/reco_card_3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:backgroundTint="@color/bank_light_orange"
+                    app:cardCornerRadius="10dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <!-- Image -->
+                        <ImageView
+                            android:id="@+id/reco_card_3_img"
+                            android:layout_width="100dp"
+                            android:layout_height="125dp"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/card" />
+
+                        <!-- Text and Button Container -->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical"
+                            android:padding="6dp">
+
+                            <!-- Text -->
+                            <TextView
+                                android:id="@+id/reco_card_3_text"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:padding="6dp"
+                                android:text="@string/credit_card_text"
+                                android:textSize="14sp"
+                                android:textStyle="bold" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="0dp"
+                                android:layout_weight="1"
+                                android:gravity="bottom">
+                                <!-- Button -->
+                                <Button
+                                    android:id="@+id/reco_card_3_button"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:background="@android:color/transparent"
+                                    android:gravity="end"
+                                    android:padding="6dp"
+                                    android:text="Buy Now"
+                                    android:textColor="#1D72EF" />
+                            </LinearLayout>
+
+                        </LinearLayout>
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
             </LinearLayout>
-        </com.google.android.material.card.MaterialCardView>
 
-        <!-- Card 2 -->
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/reco_card_2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:cardCornerRadius="10dp"
-            android:backgroundTint="@color/bank_light_blue"
-            android:layout_marginTop="10dp"
-            >
-
-            <LinearLayout
+            <!--            BILL PAY SECTION-->
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginTop="15dp">
 
-                <!-- Image -->
-                <ImageView
-                    android:id="@+id/reco_card_2_img"
-                    android:layout_width="100dp"
-                    android:layout_height="125dp"
-                    android:src="@drawable/personalinsurance"
-                    android:scaleType="centerCrop"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-condensed"
+                    android:text="QUICK LINKS"
+                    android:textAllCaps="true"
+                    android:textColor="@color/bank_dark_primary"
+                    android:textSize="14dp"
+                    android:textStyle="bold" />
 
-                <!-- Text and Button Container -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:padding="6dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:gravity="center"
+                    android:text="view all"
+                    android:textAllCaps="true"
+                    android:textColor="@color/bank_dark_secondary"
+                    android:textSize="12sp" />
+            </RelativeLayout>
 
-                    <!-- Text -->
-                    <TextView
-                        android:id="@+id/reco_card_2_text"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/peronal_insurance_text"
-                        android:textSize="14sp"
-                        android:textStyle="bold"
-                        android:padding="6dp"/>
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:layout_weight="1"
-                        android:gravity="bottom">
-
-                    <!-- Button -->
-                    <Button
-                        android:id="@+id/reco_card_2_button"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Buy Now"
-                        android:gravity="end"
-                        android:padding="6dp"
-                        android:textColor="#1D72EF"
-                        android:background="@android:color/transparent"/>
-                </LinearLayout>
-                </LinearLayout>
-            </LinearLayout>
-        </com.google.android.material.card.MaterialCardView>
-
-        <!-- Card 3 -->
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/reco_card_3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:cardCornerRadius="10dp"
-            android:backgroundTint="@color/bank_light_orange"
-            android:layout_marginTop="10dp">
-
-            <LinearLayout
+            <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:layout_marginTop="5dp"
+                android:outlineSpotShadowColor="#AD5154"
+                app:cardCornerRadius="10dp"
+                app:cardElevation="5dp"
+                app:strokeColor="@color/bank_dark_primary"
+                app:strokeWidth="1dp">
 
-                <!-- Image -->
-                <ImageView
-                    android:id="@+id/reco_card_3_img"
-                    android:layout_width="100dp"
-                    android:layout_height="125dp"
-                    android:src="@drawable/card"
-                    android:scaleType="centerCrop"
-                    />
-
-                <!-- Text and Button Container -->
                 <LinearLayout
+                    android:id="@+id/quicklinksparent"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:padding="6dp">
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
 
-                    <!-- Text -->
-                    <TextView
-                        android:id="@+id/reco_card_3_text"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/credit_card_text"
-                        android:textSize="14sp"
-                        android:textStyle="bold"
-                        android:padding="6dp"/>
+                    <!-- First row of images with titles -->
                     <LinearLayout
+                        android:id="@+id/verticalrow1"
                         android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:layout_weight="1"
-                        android:gravity="bottom">
-                    <!-- Button -->
-                    <Button
-                        android:id="@+id/reco_card_3_button"
-                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Buy Now"
-                        android:gravity="end"
-                        android:padding="6dp"
-                        android:textColor="#1D72EF"
-                        android:background="@android:color/transparent"
-                        />
+                        android:gravity="center_horizontal"
+                        android:orientation="horizontal">
+
+                        <!-- Image 1 with title -->
+                        <LinearLayout
+                            android:id="@+id/FDRD"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="15sp"
+                            android:layout_marginVertical="15sp"
+                            android:gravity="center_horizontal"
+                            android:orientation="vertical">
+
+                            <ImageView
+                                android:id="@+id/fdrdimage"
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:src="@drawable/fd"
+
+                                />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="5dp"
+                                android:ellipsize="end"
+                                android:gravity="center"
+                                android:maxWidth="80dp"
+                                android:maxLines="2"
+                                android:text="FD/RD"
+                                android:textColor="@color/black"
+                                android:textSize="14sp" />
+                        </LinearLayout>
+
+                        <!--             Image 2 with title -->
+                        <LinearLayout
+                            android:id="@+id/Investments"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="15sp"
+                            android:layout_marginVertical="15sp"
+                            android:gravity="center_horizontal"
+                            android:orientation="vertical">
+
+                            <ImageView
+                                android:id="@+id/investmentslogo"
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:src="@drawable/investment"
+
+                                />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="5dp"
+                                android:ellipsize="end"
+                                android:gravity="center"
+                                android:maxWidth="80dp"
+                                android:maxLines="2"
+                                android:text="Investments"
+                                android:textColor="@color/black"
+                                android:textSize="14sp" />
+                        </LinearLayout>
+
+                        <!-- Image 3 with title -->
+                        <LinearLayout
+                            android:id="@+id/CreditCard"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="15sp"
+                            android:layout_marginVertical="15sp"
+                            android:gravity="center_horizontal"
+                            android:orientation="vertical">
+
+                            <ImageView
+                                android:id="@+id/creditcardlogo"
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:src="@drawable/creditcard"
+
+                                />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="5dp"
+                                android:ellipsize="end"
+                                android:gravity="center"
+                                android:maxWidth="80dp"
+                                android:maxLines="2"
+                                android:text="Credit Card"
+                                android:textColor="@color/black"
+                                android:textSize="14sp" />
+                        </LinearLayout>
+
+                        <!-- Image 4 with title -->
+                        <LinearLayout
+                            android:id="@+id/Loans"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="15sp"
+                            android:layout_marginVertical="15sp"
+                            android:gravity="center_horizontal"
+                            android:orientation="vertical">
+
+                            <ImageView
+                                android:id="@+id/loanslogo"
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:src="@drawable/loans"
+
+                                />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="5dp"
+                                android:ellipsize="end"
+                                android:gravity="center"
+                                android:maxWidth="80dp"
+                                android:maxLines="2"
+                                android:text="Loans"
+                                android:textColor="@color/black"
+                                android:textSize="14sp" />
+                        </LinearLayout>
+
                     </LinearLayout>
 
+                    <!-- First row of images with titles -->
+                    <LinearLayout
+                        android:id="@+id/verticalrow2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
+                        android:orientation="horizontal">
+
+                        <!-- Image 1 with title -->
+                        <LinearLayout
+                            android:id="@+id/SendMoney"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="15sp"
+                            android:layout_marginVertical="15sp"
+                            android:gravity="center_horizontal"
+                            android:orientation="vertical">
+
+                            <ImageView
+                                android:id="@+id/sendmoneylogo"
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:src="@drawable/sendmoney"
+
+                                />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="5dp"
+                                android:ellipsize="end"
+                                android:gravity="center"
+                                android:maxWidth="80dp"
+                                android:maxLines="2"
+                                android:text="Send Money"
+                                android:textColor="@color/black"
+                                android:textSize="14sp" />
+                        </LinearLayout>
+
+                        <!--             Image 2 with title -->
+                        <LinearLayout
+                            android:id="@+id/Services"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="15sp"
+                            android:layout_marginVertical="15sp"
+                            android:gravity="center_horizontal"
+                            android:orientation="vertical">
+
+                            <ImageView
+                                android:id="@+id/serviceslogo"
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:src="@drawable/services"
+
+                                />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="5dp"
+                                android:ellipsize="end"
+                                android:gravity="center"
+                                android:maxWidth="80dp"
+                                android:maxLines="2"
+                                android:text="Services"
+                                android:textColor="@color/black"
+                                android:textSize="14sp" />
+                        </LinearLayout>
+
+                        <!-- Image 3 with title -->
+                        <LinearLayout
+                            android:id="@+id/FixedReturns"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="15sp"
+                            android:layout_marginVertical="15sp"
+                            android:gravity="center_horizontal"
+                            android:orientation="vertical">
+
+                            <ImageView
+                                android:id="@+id/fixedreturnslogo"
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:src="@drawable/guaranteedreturns"
+
+                                />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="5dp"
+                                android:ellipsize="end"
+                                android:gravity="center"
+                                android:maxWidth="80dp"
+                                android:maxLines="2"
+                                android:text="Fixed Returns"
+                                android:textColor="@color/black"
+                                android:textSize="14sp" />
+                        </LinearLayout>
+
+                        <!-- Image 4 with title -->
+                        <LinearLayout
+                            android:id="@+id/BillPay"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="15sp"
+                            android:layout_marginVertical="15sp"
+                            android:gravity="center_horizontal"
+                            android:orientation="vertical">
+
+                            <ImageView
+                                android:id="@+id/billpaylogo"
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:src="@drawable/billpay"
+
+                                />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="5dp"
+                                android:ellipsize="end"
+                                android:gravity="center"
+                                android:maxWidth="80dp"
+                                android:maxLines="2"
+                                android:text="Bill Pay"
+                                android:textColor="@color/black"
+                                android:textSize="14sp" />
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <!--         Second row of images with titles -->
+
+
                 </LinearLayout>
-            </LinearLayout>
-        </com.google.android.material.card.MaterialCardView>
-
-    </LinearLayout>
-
-<!--            BILL PAY SECTION-->
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="10dp"
-        android:layout_marginTop="15dp"
-        >
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="QUICK LINKS"
-            android:textAllCaps="true"
-            android:textStyle="bold"
-            android:fontFamily="sans-serif-condensed"
-            android:textSize="14dp"
-            android:textColor="@color/bank_dark_primary"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="view all"
-            android:textSize="12sp"
-            android:textAllCaps="true"
-            android:gravity="center"
-            android:layout_alignParentRight="true"
-            android:textColor="@color/bank_dark_secondary"/>
-    </RelativeLayout>
-
-    <com.google.android.material.card.MaterialCardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:cardCornerRadius="10dp"
-        android:outlineSpotShadowColor="#AD5154"
-        app:cardElevation="5dp"
-        app:strokeWidth="1dp"
-        app:strokeColor="@color/bank_dark_primary"
-        android:layout_marginTop="5dp"
-        >
-
-  <LinearLayout
-        android:id="@+id/image_linear_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-        <!-- First row of images with titles -->
-        <LinearLayout
-            android:id="@+id/quick_link_row_1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_horizontal">
-
-            <!-- Image 1 with title -->
-            <LinearLayout
-                android:id="@+id/quick_link_item_1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:gravity="center_horizontal"
-                android:layout_marginHorizontal="15sp"
-                android:layout_marginVertical="15sp"
-                >
-
-                <ImageView
-                    android:id="@+id/logo1"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:src="@drawable/fd"
-
-                    />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="FD/RD"
-                    android:maxWidth="80dp"
-                    android:maxLines="2"
-                    android:ellipsize="end"
-                    android:textSize="14sp"
-                    android:layout_marginTop="5dp"
-                    android:gravity="center"
-                    android:textColor="@color/black"/>
-            </LinearLayout>
-
-<!--             Image 2 with title -->
-            <LinearLayout
-                android:id="@+id/quick_link_item_2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:gravity="center_horizontal"
-                android:layout_marginHorizontal="15sp"
-                android:layout_marginVertical="15sp">
-
-                <ImageView
-                    android:id="@+id/logo2"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:src="@drawable/investment"
-
-                    />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Investments"
-                    android:maxWidth="80dp"
-                    android:maxLines="2"
-                    android:ellipsize="end"
-                    android:textSize="14sp"
-                    android:layout_marginTop="5dp"
-                    android:gravity="center"
-                    android:textColor="@color/black"/>
-            </LinearLayout>
-
-            <!-- Image 3 with title -->
-            <LinearLayout
-                android:id="@+id/quick_link_item_3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:gravity="center_horizontal"
-                android:layout_marginHorizontal="15sp"
-                android:layout_marginVertical="15sp">
-
-                <ImageView
-                    android:id="@+id/logo3"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:src="@drawable/creditcard"
-
-                    />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Credit Card"
-                    android:maxWidth="80dp"
-                    android:maxLines="2"
-                    android:ellipsize="end"
-                    android:textSize="14sp"
-                    android:layout_marginTop="5dp"
-                    android:gravity="center"
-                    android:textColor="@color/black"/>
-            </LinearLayout>
-
-            <!-- Image 4 with title -->
-            <LinearLayout
-                android:id="@+id/quick_link_item_4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:gravity="center_horizontal"
-                android:layout_marginHorizontal="15sp"
-                android:layout_marginVertical="15sp"
-                >
-
-                <ImageView
-                    android:id="@+id/logo4"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:src="@drawable/loans"
-
-                    />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Loans"
-                    android:maxWidth="80dp"
-                    android:maxLines="2"
-                    android:ellipsize="end"
-                    android:textSize="14sp"
-                    android:layout_marginTop="5dp"
-                    android:gravity="center"
-                    android:textColor="@color/black"
-                    />
-            </LinearLayout>
-
-        </LinearLayout>
-
-      <!-- First row of images with titles -->
-      <LinearLayout
-          android:id="@+id/quick_link_row_2"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:orientation="horizontal"
-          android:gravity="center_horizontal">
-
-          <!-- Image 1 with title -->
-          <LinearLayout
-              android:id="@+id/quick_link_item_5"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:orientation="vertical"
-              android:gravity="center_horizontal"
-              android:layout_marginHorizontal="15sp"
-              android:layout_marginVertical="15sp"
-              >
-
-              <ImageView
-                  android:id="@+id/sendmoney"
-                  android:layout_width="40dp"
-                  android:layout_height="40dp"
-                  android:src="@drawable/sendmoney"
-
-                  />
-
-              <TextView
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:text="Send Money"
-                  android:maxWidth="80dp"
-                  android:maxLines="2"
-                  android:ellipsize="end"
-                  android:textSize="14sp"
-                  android:layout_marginTop="5dp"
-                  android:gravity="center"
-                  android:textColor="@color/black"/>
-          </LinearLayout>
-
-          <!--             Image 2 with title -->
-          <LinearLayout
-              android:id="@+id/quick_link_item_6"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:orientation="vertical"
-              android:gravity="center_horizontal"
-              android:layout_marginHorizontal="15sp"
-              android:layout_marginVertical="15sp">
-
-              <ImageView
-                  android:id="@+id/logo6"
-                  android:layout_width="40dp"
-                  android:layout_height="40dp"
-                  android:src="@drawable/services"
-
-                  />
-
-              <TextView
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:text="Services"
-                  android:maxWidth="80dp"
-                  android:maxLines="2"
-                  android:ellipsize="end"
-                  android:textSize="14sp"
-                  android:layout_marginTop="5dp"
-                  android:gravity="center"
-                  android:textColor="@color/black"/>
-          </LinearLayout>
-
-          <!-- Image 3 with title -->
-          <LinearLayout
-              android:id="@+id/quick_link_item_7"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:orientation="vertical"
-              android:gravity="center_horizontal"
-              android:layout_marginHorizontal="15sp"
-              android:layout_marginVertical="15sp">
-
-              <ImageView
-                  android:id="@+id/logo7"
-                  android:layout_width="40dp"
-                  android:layout_height="40dp"
-                  android:src="@drawable/guaranteedreturns"
-
-                  />
-
-              <TextView
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:text="Fixed Returns"
-                  android:maxWidth="80dp"
-                  android:maxLines="2"
-                  android:ellipsize="end"
-                  android:textSize="14sp"
-                  android:layout_marginTop="5dp"
-                  android:gravity="center"
-                  android:textColor="@color/black"/>
-          </LinearLayout>
-
-          <!-- Image 4 with title -->
-          <LinearLayout
-              android:id="@+id/quick_link_item_8"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:orientation="vertical"
-              android:gravity="center_horizontal"
-              android:layout_marginHorizontal="15sp"
-              android:layout_marginVertical="15sp"
-              >
-
-              <ImageView
-                  android:id="@+id/logo8"
-                  android:layout_width="40dp"
-                  android:layout_height="40dp"
-                  android:src="@drawable/billpay"
-
-                  />
-
-              <TextView
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:text="Bill Pay"
-                  android:maxWidth="80dp"
-                  android:maxLines="2"
-                  android:ellipsize="end"
-                  android:textSize="14sp"
-                  android:layout_marginTop="5dp"
-                  android:gravity="center"
-                  android:textColor="@color/black"
-                  />
-          </LinearLayout>
-
-      </LinearLayout>
-
-<!--         Second row of images with titles -->
-
-
-    </LinearLayout>
-    </com.google.android.material.card.MaterialCardView>
+            </com.google.android.material.card.MaterialCardView>
 
             <LinearLayout
+                android:id="@+id/parentLayout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:id="@+id/parentLayout"
                 android:layout_marginTop="20dp"
                 android:orientation="vertical">
 
@@ -694,7 +683,6 @@
                 </LinearLayout>
 
 
-
                 <LinearLayout
                     android:id="@+id/Recharge"
                     android:layout_width="match_parent"
@@ -729,7 +717,6 @@
                         android:layout_weight="0"
                         android:src="@drawable/next" />
                 </LinearLayout>
-
 
 
                 <LinearLayout
@@ -768,7 +755,6 @@
                 </LinearLayout>
 
 
-
                 <LinearLayout
                     android:id="@+id/PipedGas"
                     android:layout_width="match_parent"
@@ -803,8 +789,6 @@
                         android:layout_weight="0"
                         android:src="@drawable/next" />
                 </LinearLayout>
-
-
 
 
                 <LinearLayout
@@ -843,7 +827,6 @@
                 </LinearLayout>
 
 
-
                 <LinearLayout
                     android:id="@+id/Broadband"
                     android:layout_width="match_parent"
@@ -880,21 +863,20 @@
                 </LinearLayout>
 
             </LinearLayout>
+
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:cardCornerRadius="10dp"
                 android:layout_marginVertical="20dp"
-                app:strokeWidth="1dp"
+                app:cardCornerRadius="10dp"
                 app:strokeColor="@color/teal_700"
-                >
+                app:strokeWidth="1dp">
 
                 <com.smarteist.autoimageslider.SliderView
                     android:id="@+id/homeCarousel"
                     android:layout_width="match_parent"
                     android:layout_height="220dp"
-                    android:layout_centerInParent="true"
-                    />
+                    android:layout_centerInParent="true" />
             </com.google.android.material.card.MaterialCardView>
 
 

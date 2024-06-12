@@ -33,8 +33,8 @@ import java.util.Map;
 public class HomeScreen2 extends AppCompatActivity {
 
 
-    Map<String,Object> homeScreen, homeSlider, recoForU,quickLinks;
-    Map<String,Integer> payBill;
+    Map<String,Object> homeScreen, homeSlider, recoForU;
+    Map<String,Integer> payBill,quickLinks;
     HashMap<String, Object> homeScreenEvt, slidermap;
     String phoneNum,UserId;
     Double recoCards,counter;
@@ -45,6 +45,8 @@ public class HomeScreen2 extends AppCompatActivity {
     Button recoCardButton1,recoCardButton2,recoCardButton3;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        HashMap<String, Object> homeScreenEvt = new HashMap<>();
 
         setContentView(R.layout.activity_home_screen2);
         super.onCreate(savedInstanceState);
@@ -59,20 +61,6 @@ public class HomeScreen2 extends AppCompatActivity {
         recoCardButton1=findViewById(R.id.reco_card_1_button);
         recoCardButton2=findViewById(R.id.reco_card_2_button);
         recoCardButton3=findViewById(R.id.reco_card_3_button);
-
-        //Searching Items
-        LinearLayout item1 = findViewById(R.id.quick_link_item_1);
-        LinearLayout item2 = findViewById(R.id.quick_link_item_2);
-        LinearLayout item3 = findViewById(R.id.quick_link_item_3);
-        LinearLayout item4 = findViewById(R.id.quick_link_item_4);
-        LinearLayout item5 = findViewById(R.id.quick_link_item_5);
-        LinearLayout item6 = findViewById(R.id.quick_link_item_6);
-        LinearLayout item7 = findViewById(R.id.quick_link_item_7);
-        LinearLayout item8 = findViewById(R.id.quick_link_item_8);
-
-        // Get reference to the parent LinearLayout
-        LinearLayout parentLayout1 = findViewById(R.id.quick_link_row_1);
-        LinearLayout parentLayout2 = findViewById(R.id.quick_link_row_2);
 
         prefs = getSharedPreferences("Login", MODE_PRIVATE);
         phoneNum =prefs.getString("Phone","NA");
@@ -89,7 +77,7 @@ public class HomeScreen2 extends AppCompatActivity {
                 homeScreen = (Map<String, Object>) clevertapDefaultInstance.getVariableValue("HomeScreen");
                 recoForU = (Map<String, Object>) homeScreen.get("RecommendedForU");
                 homeSlider = (Map<String, Object>) homeScreen.get("Bottom Carousel");
-                quickLinks = (Map<String, Object>) homeScreen.get("Quick Links");
+                quickLinks = (Map<String, Integer>) homeScreen.get("QuickLinks");
                 payBill = (Map<String, Integer>) homeScreen.get("Pay Bills");
             }
             catch(Exception e){Log.e("PEException",String.valueOf(e));}
@@ -124,6 +112,10 @@ public class HomeScreen2 extends AppCompatActivity {
 
         if (payBill != null){
             payBillReorder(payBill);
+        }
+
+        if (quickLinks != null){
+            rearrangeInnerLinearLayouts(quickLinks);
         }
 
         logout.setOnClickListener(view -> {
@@ -170,42 +162,37 @@ public class HomeScreen2 extends AppCompatActivity {
 
 
         });
+    }
 
+    private void rearrangeInnerLinearLayouts(Map<String, Integer> quickLinks) {
+        LinearLayout parentLayout1 = findViewById(R.id.verticalrow1);
+        LinearLayout parentLayout2 = findViewById(R.id.verticalrow2);
 
-        parentLayout1.removeAllViews();
-        parentLayout2.removeAllViews();
+        // Create a list of Map entries sorted by their values
+        List<Map.Entry<String, Integer>> sortedEntries = new ArrayList<>(quickLinks.entrySet());
+        Collections.sort(sortedEntries, (entry1, entry2) -> entry1.getValue().compareTo(entry2.getValue()));
 
-        int[] newOrder = {8,2,3,4,5,6,7,1};
-        for (int position : newOrder) {
-            switch (position) {
-                case 1:
-                    parentLayout1.addView(item1);
-                    break;
-                case 2:
-                    parentLayout1.addView(item2);
-                    break;
-                case 3:
-                    parentLayout1.addView(item3);
+        int count = 0;
+        for (Map.Entry<String, Integer> entry : sortedEntries) {
+            String layoutId = entry.getKey();
+            LinearLayout layout = findViewById(getResources().getIdentifier(layoutId, "id", getPackageName()));
 
-                    break;
-                case 4:
-                    parentLayout1.addView(item4);
-                    break;
-                case 5:
-                    parentLayout2.addView(item5);
-                    break;
-                case 6:
-                    parentLayout2.addView(item6);
-                    break;
-                case 7:
-                    parentLayout2.addView(item7);
-                    break;
-                case 8:
-                    parentLayout2.addView(item8);
-                    break;
+            // Remove the LinearLayout from its current position
+            parentLayout1.removeView(layout);
+            parentLayout2.removeView(layout);
+
+            // Add the LinearLayout to the appropriate parent layout based on its position
+            if (count < 4) {
+                parentLayout1.addView(layout);
+            } else {
+                parentLayout2.addView(layout);
             }
+
+            count++;
         }
     }
+
+
 
     private void payBillReorder(Map<String, Integer> payBill) {
 
@@ -279,7 +266,7 @@ public class HomeScreen2 extends AppCompatActivity {
     }
 
     private void sliderInit(CleverTapAPI clevertapDefaultInstance, Map homeSlider) {
-
+        HashMap<String, Object> slidermap = new HashMap<>();
         ArrayList<SliderData> sliderDataArrayList = new ArrayList<>();
         SliderView sliderView = findViewById(R.id.homeCarousel);
         slidermap.put("eventName","Bottom Carousel");
