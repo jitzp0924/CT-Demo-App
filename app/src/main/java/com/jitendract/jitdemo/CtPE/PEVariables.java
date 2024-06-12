@@ -21,7 +21,7 @@ public class PEVariables {
     public Map<String,Object> RecoCard2;
     public Map<String,Object> RecoCard3;
     public Map<String,Object> HomeSlider;
-    public Map<String,Integer> QuickLinks;
+    public Map<String,Integer> QuickLinks,PayBill;
 
 
 
@@ -74,12 +74,21 @@ public class PEVariables {
         QuickLinks.put("Fixed Returns",7);
         QuickLinks.put("Bill Pay",8);
 
+        PayBill = new HashMap<>();
+        PayBill.put("Fastag", 1);
+        PayBill.put("Recharge", 2);
+        PayBill.put("Electricity", 3);
+        PayBill.put("PipedGas", 4);
+        PayBill.put("DTH", 5);
+        PayBill.put("Broadband", 6);
+
 
         HomeScreen = new HashMap<>();
         HomeScreen.put("SearchIcon",true);
         HomeScreen.put("RecommendedForU",RecommendedForU);
         HomeScreen.put("Bottom Carousel",HomeSlider);
         HomeScreen.put("Quick Links",QuickLinks);
+        HomeScreen.put("Pay Bills", PayBill);
 
 
     }

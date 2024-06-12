@@ -11,16 +11,23 @@ import com.jitendract.jitdemo.R;
 import com.smarteist.autoimageslider.SliderViewAdapter;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import com.jitendract.jitdemo.CleveTapUtils;
 
 public class SliderAdapter extends SliderViewAdapter<SliderAdapter.SliderAdapterViewHolder> {
 
     // list for storing urls of images.
     private final List<SliderData> mSliderItems;
+    HashMap<String,Object> homescreenEvt,sliderMap;
+    CleveTapUtils cleveTapUtils;
 
     // Constructor
-    public SliderAdapter(Context context, ArrayList<SliderData> sliderDataArrayList) {
+    public SliderAdapter(Context context, ArrayList<SliderData> sliderDataArrayList, HashMap<String,Object> slidermap, HashMap<String,Object> homescreenEvt) {
         this.mSliderItems = sliderDataArrayList;
+        this.sliderMap = slidermap;
+        this.homescreenEvt = homescreenEvt;
+        cleveTapUtils = new CleveTapUtils(context);
     }
 
     // We are inflating the slider_layout
@@ -44,6 +51,15 @@ public class SliderAdapter extends SliderViewAdapter<SliderAdapter.SliderAdapter
                 .load(sliderItem.getImgUrl())
 //                .fitCenter()
                 .into(viewHolder.imageViewBackground);
+
+        viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                homescreenEvt.put("Clicked Position",String.valueOf(position));
+                homescreenEvt.put("Image Url",sliderMap.get(String.valueOf(position)));
+                cleveTapUtils.raiseEvent(String.valueOf(sliderMap.get("eventName")),homescreenEvt);
+            }
+        });
     }
 
     // this method will return
