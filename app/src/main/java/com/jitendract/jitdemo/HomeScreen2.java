@@ -1,17 +1,22 @@
 package com.jitendract.jitdemo;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.ImageView;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -45,12 +50,14 @@ public class HomeScreen2 extends AppCompatActivity {
     Button recoCardButton1,recoCardButton2,recoCardButton3;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        homeScreenEvt = new HashMap<>(); // Added initialization
+        slidermap = new HashMap<>();
 
         HashMap<String, Object> homeScreenEvt = new HashMap<>();
 
         setContentView(R.layout.activity_home_screen2);
         super.onCreate(savedInstanceState);
-        homeScreenEvt = new HashMap<>();
+
         slidermap = new HashMap<>();
 
         logout = findViewById(R.id.logout_icon);
@@ -142,6 +149,9 @@ public class HomeScreen2 extends AppCompatActivity {
             cleveTapUtils.raiseEvent("Recommended For You",homeScreenEvt);
             homeScreenEvt.remove("Action");
             homeScreenEvt.remove("Label");
+
+            showPaymentSuccessPopup();
+
         });
 
         recoCardButton3.setOnClickListener(view -> {
@@ -316,8 +326,19 @@ public class HomeScreen2 extends AppCompatActivity {
         sliderView.startAutoCycle();
     }
 
+    private void showPaymentSuccessPopup() {
+        Dialog dialog = new Dialog(this, R.style.PopupAnimation);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.dialog_payment_success);
 
+        ImageView successImage = dialog.findViewById(R.id.success_image);
+        TextView successText = dialog.findViewById(R.id.success_text);
+        Button okButton = dialog.findViewById(R.id.ok_button);
+
+        // Set up any additional properties, listeners, etc.
+        okButton.setOnClickListener(v -> dialog.dismiss());
+
+        dialog.show();
+    }
 }
-//HashMap
-//ServiceId true-id
-//        false-Deeplink URL
+

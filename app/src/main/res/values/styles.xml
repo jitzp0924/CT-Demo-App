@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Existing styles -->
+
+    <style name="PopupAnimation" parent="android:Animation.Dialog">
+        <item name="android:windowEnterAnimation">@anim/popup_animation</item>
+        <item name="android:windowExitAnimation">@anim/popup_animation</item>
+    </style>
+
+</resources>
