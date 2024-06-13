@@ -58,6 +58,7 @@ public class SliderAdapter extends SliderViewAdapter<SliderAdapter.SliderAdapter
                 homescreenEvt.put("Clicked Position",String.valueOf(position));
                 homescreenEvt.put("Image Url",sliderMap.get(String.valueOf(position)));
                 cleveTapUtils.raiseEvent(String.valueOf(sliderMap.get("eventName")),homescreenEvt);
+
             }
         });
     }

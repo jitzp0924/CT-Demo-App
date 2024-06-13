@@ -45,6 +45,7 @@ public class HomeScreen2 extends AppCompatActivity {
     Double recoCards,counter;
     ImageView logout,search;
     Boolean searchFlag;
+    LinearLayout fdrdlayout,investmentlayout,creditcardlayout,loanslayout,sendmoneylayout,serviceslayout,fixedreturnslayout,billpaylayout;
     MaterialCardView recoCard1,recoCard2,recoCard3;
     SharedPreferences prefs;
     Button recoCardButton1,recoCardButton2,recoCardButton3;
@@ -52,8 +53,6 @@ public class HomeScreen2 extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         homeScreenEvt = new HashMap<>(); // Added initialization
         slidermap = new HashMap<>();
-
-        HashMap<String, Object> homeScreenEvt = new HashMap<>();
 
         setContentView(R.layout.activity_home_screen2);
         super.onCreate(savedInstanceState);
@@ -69,6 +68,19 @@ public class HomeScreen2 extends AppCompatActivity {
         recoCardButton2=findViewById(R.id.reco_card_2_button);
         recoCardButton3=findViewById(R.id.reco_card_3_button);
 
+        fdrdlayout = findViewById(R.id.FDRD);
+        investmentlayout = findViewById(R.id.Investments);
+        creditcardlayout = findViewById(R.id.CreditCard);
+        loanslayout = findViewById(R.id.Loans);
+        sendmoneylayout = findViewById(R.id.SendMoney);
+        serviceslayout = findViewById(R.id.Services);
+        billpaylayout = findViewById(R.id.BillPay);
+        fixedreturnslayout = findViewById(R.id.FixedReturns);
+
+        fdrdlayout.setOnClickListener(view -> {
+            Intent intent = new Intent(HomeScreen2.this, bankui.class);
+            startActivity(intent);
+        });
         prefs = getSharedPreferences("Login", MODE_PRIVATE);
         phoneNum =prefs.getString("Phone","NA");
         UserId = prefs.getString("Identity","default");
@@ -169,8 +181,6 @@ public class HomeScreen2 extends AppCompatActivity {
             redirectionDetails.put("Deeplink", "https://developer.clevertap.com/docs/android");
             DeeplinkRedirection deeplinkRedirection = new DeeplinkRedirection(this);
             deeplinkRedirection.handleRedirection(redirectionDetails);
-
-
         });
     }
 
