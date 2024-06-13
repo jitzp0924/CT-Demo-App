@@ -29,4 +29,13 @@
     <string name="credit_card_text">Unlock exclusive perks with our premium credit cards!"</string>
 
 
+<!--    new-->
+    <string-array name="interest_payout_options">
+        <item>On maturity</item>
+        <item>Monthly</item>
+        <item>Quarterly</item>
+        <item>Half-yearly</item>
+        <item>Yearly</item>
+    </string-array>
+
 </resources>
