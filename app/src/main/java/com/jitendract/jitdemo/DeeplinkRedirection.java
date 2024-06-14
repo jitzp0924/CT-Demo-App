@@ -5,9 +5,7 @@ import android.content.Intent;
 import java.util.HashMap;
 
 import android.content.Context;
-import android.content.Intent;
 
-import java.util.HashMap;
 
 public class DeeplinkRedirection {
 
