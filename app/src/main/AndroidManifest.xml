@@ -21,9 +21,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.JitDemo">
         <activity
-            android:name=".FDSummary"
-            android:exported="false" />
-        <activity
             android:name=".PaymentSuccess"
             android:exported="false" />
         <activity

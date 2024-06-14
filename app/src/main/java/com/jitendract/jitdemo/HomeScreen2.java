@@ -78,7 +78,7 @@ public class HomeScreen2 extends AppCompatActivity {
         fixedreturnslayout = findViewById(R.id.FixedReturns);
 
         fdrdlayout.setOnClickListener(view -> {
-            Intent intent = new Intent(HomeScreen2.this, bankui.class);
+            Intent intent = new Intent(HomeScreen2.this, FDHome.class);
             startActivity(intent);
         });
         prefs = getSharedPreferences("Login", MODE_PRIVATE);
@@ -118,7 +118,7 @@ public class HomeScreen2 extends AppCompatActivity {
         } else if (recoCards == 2.0) {
             recoCard3.setVisibility(View.GONE);
         }else {
-            Log.v("PEExcwption","All Recommended for you Cards are visible");
+            Log.v("PEException","All Recommended for you Cards are visible");
         }
 
         if (!searchFlag){
