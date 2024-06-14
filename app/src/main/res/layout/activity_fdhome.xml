@@ -205,6 +205,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:id="@+id/ratingvalue"
                             android:layout_toRightOf="@+id/ratingtext"
                             android:text="5%"
                             android:layout_marginLeft="20dp"
@@ -267,13 +268,16 @@
                             android:layout_marginLeft="10dp"
                             >
 
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textColor="@color/bank_dark_secondary"
-                            android:id="@+id/nomineeName"
-                            android:inputType="text"
-                            />
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/nomineeName"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:inputType="text"
+                                android:textColor="@color/bank_dark_secondary"
+                                android:textColorHint="@color/bank_dark_primary"
+                                />
+
+
 
                         </com.google.android.material.textfield.TextInputLayout>
 

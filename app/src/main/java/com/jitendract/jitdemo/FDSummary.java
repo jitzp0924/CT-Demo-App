@@ -1,10 +1,9 @@
 package com.jitendract.jitdemo;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -20,6 +19,11 @@ public class FDSummary extends AppCompatActivity {
     private CheckBox termsCheckbox;
     private MaterialCardView nextButton;
 
+    private TextView depositAmount;
+    private TextView tenure;
+    private TextView roi;
+    private TextView nomineeTxt;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,7 +35,24 @@ public class FDSummary extends AppCompatActivity {
         termsCheckbox = findViewById(R.id.terms_checkbox);
         nextButton = findViewById(R.id.next_button);
 
-        // Change the listener to dropdownMoreDetails instead of moreDetails
+        depositAmount = findViewById(R.id.deposit_amount);
+        tenure = findViewById(R.id.tenure);
+        roi = findViewById(R.id.roi);
+        nomineeTxt = findViewById(R.id.nominee_txt);
+
+        // Retrieve data from intent
+        Intent intent = getIntent();
+        String investmentAmount = intent.getStringExtra("investmentAmount");
+        String tenureValue = intent.getStringExtra("tenure");
+        String rateOfInterest = intent.getStringExtra("rateOfInterest");
+        String nomineeName = intent.getStringExtra("nomineeName");
+
+        // Set data to TextViews
+        depositAmount.setText(investmentAmount);
+        tenure.setText(tenureValue);
+        roi.setText(rateOfInterest);
+        nomineeTxt.setText(nomineeName);
+
         dropdownMoreDetails.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -45,11 +66,6 @@ public class FDSummary extends AppCompatActivity {
             }
         });
 
-        termsCheckbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                nextButton.setEnabled(isChecked);
-            }
-        });
+        termsCheckbox.setOnCheckedChangeListener((buttonView, isChecked) -> nextButton.setEnabled(isChecked));
     }
 }
