@@ -20,14 +20,17 @@
         android:roundIcon="@drawable/smicon1"
         android:supportsRtl="true"
         android:theme="@style/Theme.JitDemo">
-        <activity
-            android:name=".PaymentSuccess"
-            android:exported="false" />
-        <activity
-            android:name=".Redirection"
-            android:exported="false" />
+
         <activity
             android:name=".HomeScreen2"
+            android:exported="false" />
+
+        <activity
+            android:name=".FDSummary"
+            android:exported="false" />
+
+        <activity
+            android:name=".FDHome"
             android:exported="false" />
         <activity
             android:name=".ControlCenter"

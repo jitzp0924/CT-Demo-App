@@ -10,11 +10,15 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.material.card.MaterialCardView;
+
 public class FDSummary extends AppCompatActivity {
+
+    private TextView moreDetails;
     private TextView dropdownMoreDetails;
     private LinearLayout moreDetailsContent;
     private CheckBox termsCheckbox;
-    private Button nextButton;
+    private MaterialCardView nextButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

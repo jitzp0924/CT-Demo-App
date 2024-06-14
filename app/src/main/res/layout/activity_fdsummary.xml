@@ -248,7 +248,7 @@
                         android:paddingBottom="8dp"
                         android:text="Stamp duty on investment"
                         android:textColor="@color/bank_dark_primary"
-                        android:textSize="16sp"
+                        android:textSize="14sp"
                         android:textStyle="bold" />
 
                     <TextView
@@ -265,7 +265,7 @@
                         android:paddingBottom="8dp"
                         android:text="Tax implications"
                         android:textColor="@color/bank_dark_primary"
-                        android:textSize="16sp"
+                        android:textSize="14sp"
                         android:textStyle="bold" />
 
                     <TextView

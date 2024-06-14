@@ -294,13 +294,12 @@
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/loginbtn"
+                android:id="@+id/fdsubmit"
                 app:cardCornerRadius="26dp"
                 android:outlineSpotShadowColor="#AD5154"
                 app:cardElevation="1dp"
                 app:strokeWidth="1dp"
                 app:strokeColor="@color/bank_dark_primary"
-                android:layout_alignParentBottom="true"
                 android:backgroundTint="@color/bank_light_primary"
                 android:layout_marginTop="30dp"
                 >
