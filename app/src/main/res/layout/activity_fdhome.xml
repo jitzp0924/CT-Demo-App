@@ -38,9 +38,9 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Fixed Deposit"
-                android:textColor="@android:color/black"
-                android:textSize="18sp"
-                android:textStyle="bold"
+                android:textColor="@android:color/white"
+                android:textSize="24sp"
+                android:fontFamily="@font/cnl_bold"
                 android:gravity="center" />
 
             <!-- Notification Icon -->
@@ -67,155 +67,261 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="20dp">
+            android:layout_margin="15dp">
 
-            <ProgressBar
-                android:layout_width="match_parent"
+            <TextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                style="?android:attr/progressBarStyleHorizontal"
-                android:progress="100"
-                android:max="100"
-                android:progressTint="@color/bank_dark_primary"
+                android:text="Select your fixed deposit plan"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="@color/black"
                 android:paddingBottom="16dp" />
+
 
             <!-- MaterialCardView for the Fixed Deposit plan selection -->
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                android:padding="16dp"
-                android:backgroundTint="#FFFFFF"
-                android:elevation="4dp">
+                android:layout_marginTop="10dp"
+                android:elevation="4dp"
+                app:cardCornerRadius="10dp"
+                app:strokeColor="@color/bank_dark_primary"
+                android:outlineSpotShadowColor="#AD5154"
+
+                >
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    >
+
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Select your fixed deposit plan"
-                        android:textSize="16sp"
-                        android:textStyle="bold"
-                        android:paddingBottom="16dp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Investment amount"
+                        android:text="Deposit amount"
                         android:textSize="14sp"
-                        android:paddingBottom="8dp" />
+                        android:paddingBottom="8dp"
+                        android:textColor="@color/black"
+                        android:layout_marginLeft="10dp"/>
 
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical">
+
+                        <com.google.android.material.slider.Slider
+                            android:layout_width="220dp"
+                            android:layout_height="wrap_content"
+                            android:value="50000"
+                            android:valueFrom="5000"
+                            android:valueTo="500000"
+                            app:thumbColor="@color/white"
+                            app:thumbStrokeColor="@color/bank_dark_primary"
+                            app:thumbStrokeWidth="1dp"
+                            app:trackColorActive="@color/bank_dark_primary"
+                            app:trackColorInactive="@color/bank_light_orange"
+                            android:id="@+id/fd_deposit_slider"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="10sp"
+                            android:text="₹"
+                            android:textSize="16sp"
+                            android:layout_toLeftOf="@+id/investment_amount_display"/>
+                        <TextView
+                            android:id="@+id/investment_amount_display"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="50000"
+                            android:textSize="16sp"
+                            android:layout_alignParentEnd="true"/>
+
+
+                    </LinearLayout>
                     <TextView
-                        android:id="@+id/investment_amount_display"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/border"
-                        android:padding="8dp"
-                        android:text="₹ 5000"
-                        android:textSize="14sp" />
+                        android:text="Tenure"
+                        android:textSize="14sp"
+                        android:paddingBottom="8dp"
+                        android:textColor="@color/black"
+                        android:layout_marginLeft="10dp"/>
 
-                    <SeekBar
-                        android:id="@+id/amount_seekbar"
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:min="5000"
-                        android:max="1000000"
-                        android:progress="5000"
-                        android:thumbTint="@color/bank_dark_primary"
-                        android:progressTint="@color/bank_dark_primary"
-                        android:paddingBottom="16dp" />
+                        android:gravity="center_vertical">
+
+                        <com.google.android.material.slider.Slider
+                            android:layout_width="220dp"
+                            android:layout_height="wrap_content"
+                            android:value="18"
+                            android:valueFrom="6"
+                            android:valueTo="60"
+                            app:thumbColor="@color/white"
+                            app:thumbStrokeColor="@color/bank_dark_primary"
+                            app:thumbStrokeWidth="1dp"
+                            app:trackColorActive="@color/bank_dark_primary"
+                            app:trackColorInactive="@color/bank_light_orange"
+                            android:id="@+id/fd_tenure_slider"/>
+
+                        <TextView
+                            android:id="@+id/fd_tenure"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="8dp"
+                            android:text="18"
+                            android:textSize="16sp"
+                            />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Months"
+                            android:textSize="16sp"
+                            />
+
+                    </LinearLayout>
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        >
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Rate of Interest : "
+                            android:textSize="14sp"
+                            android:textColor="@color/black"
+                            android:layout_marginStart="10dp"
+                            android:id="@+id/ratingtext"
+                            />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_toRightOf="@+id/ratingtext"
+                            android:text="5%"
+                            android:layout_marginLeft="20dp"
+
+
+                            />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/fdrates_knowmore"
+                            android:layout_alignParentEnd="true"
+                            android:paddingHorizontal="10dp"
+                            android:text="Know More"
+                            android:textColor="@color/bank_dark_primary"
+                            />
+
+                    </RelativeLayout>
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:cardCornerRadius="10dp"
+                        app:cardElevation="5dp"
+                        app:strokeColor="@color/bank_dark_primary"
+                        app:strokeWidth="1dp"
+                        android:layout_marginTop="10dp"
+                        android:id="@+id/fdratesimage"
+                        android:visibility="gone"
+                        >
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/fdrates"/>
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:layout_marginTop="20dp"
+                        >
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Nominee Name : "
+                            android:textSize="14sp"
+                            android:textColor="@color/black"
+                            android:layout_marginStart="10dp"
+                            android:id="@+id/nomineetext"
+                            />
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="150dp"
+                            android:layout_height="30dp"
+                            app:boxBackgroundColor="@color/white"
+                            app:boxStrokeColor="@color/bank_light_primary"
+                            android:layout_toRightOf="@+id/nomineetext"
+                            android:layout_marginLeft="10dp"
+                            >
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/bank_dark_secondary"
+                            android:id="@+id/nomineeName"
+                            android:inputType="text"
+                            />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+
+
+
+
+                    </LinearLayout>
+
+
+
 
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
-            <!-- MaterialCardView for the tenure selection -->
+
+<!--            submit Button -->
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                android:padding="16dp"
-                android:backgroundTint="#FFFFFF"
-                android:elevation="4dp">
+                android:id="@+id/loginbtn"
+                app:cardCornerRadius="26dp"
+                android:outlineSpotShadowColor="#AD5154"
+                app:cardElevation="1dp"
+                app:strokeWidth="1dp"
+                app:strokeColor="@color/bank_dark_primary"
+                android:layout_alignParentBottom="true"
+                android:backgroundTint="@color/bank_light_primary"
+                android:layout_marginTop="30dp"
+                >
 
-                <LinearLayout
-                    android:layout_width="match_parent"
+                <TextView
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Select your tenure"
-                        android:textSize="14sp"
-                        android:paddingTop="16dp"
-                        android:paddingBottom="8dp" />
-
-                    <TextView
-                        android:id="@+id/tenure_display"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/border"
-                        android:padding="8dp"
-                        android:text="36 Months"
-                        android:textSize="14sp" />
-
-                    <SeekBar
-                        android:id="@+id/tenure_seekbar"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:min="6"
-                        android:max="60"
-                        android:progress="36"
-                        android:thumbTint="@color/bank_dark_primary"
-                        android:progressTint="@color/bank_dark_primary"
-                        android:paddingBottom="16dp" />
-
-                </LinearLayout>
+                    android:text="Continue"
+                    android:textAllCaps="true"
+                    android:textColor="@color/white"
+                    android:layout_marginVertical="15dp"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:layout_gravity="center_horizontal"
+                    android:fontFamily="@font/cnl_bold"
+                    android:letterSpacing="1.2"
+                    />
             </com.google.android.material.card.MaterialCardView>
 
-            <!-- MaterialCardView for the interest payout selection -->
-            <com.google.android.material.card.MaterialCardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                android:padding="16dp"
-                android:backgroundTint="#FFFFFF"
-                android:elevation="4dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Select your interest payout"
-                        android:textSize="14sp"
-                        android:paddingTop="16dp"
-                        android:paddingBottom="8dp" />
-
-                    <Spinner
-                        android:id="@+id/interest_payout_spinner"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:entries="@array/interest_payout_options"
-                        android:background="@drawable/border" />
-
-                    <Button
-                        android:id="@+id/calculate_button"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Calculate"
-                        android:background="@color/bank_dark_primary"
-                        android:textColor="#FFFFFF"
-                        android:layout_marginTop="24dp" />
-
-                </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
 
         </LinearLayout>
+
     </ScrollView>
 </LinearLayout>

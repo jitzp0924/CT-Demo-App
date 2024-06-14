@@ -3,16 +3,23 @@ package com.jitendract.jitdemo;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.Spinner;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.material.card.MaterialCardView;
+import com.google.android.material.slider.Slider;
+
 public class FDHome extends AppCompatActivity {
 
-    private TextView investmentAmountDisplay, tenureDisplay;
-    private SeekBar amountSeekBar, tenureSeekBar;
+    private TextView fdKnowMore ;
+    private MaterialCardView fdRates;
+    private Slider amountSeekBar, tenureSeekBar;
     private Spinner interestPayoutSpinner;
     private Button calculateButton;
 
@@ -21,54 +28,27 @@ public class FDHome extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fdhome);
 
-        investmentAmountDisplay = findViewById(R.id.investment_amount_display);
-        tenureDisplay = findViewById(R.id.tenure_display);
-        amountSeekBar = findViewById(R.id.amount_seekbar);
-        tenureSeekBar = findViewById(R.id.tenure_seekbar);
-        interestPayoutSpinner = findViewById(R.id.interest_payout_spinner);
-        calculateButton = findViewById(R.id.calculate_button);
+        fdKnowMore = findViewById(R.id.fdrates_knowmore);
+        fdRates = findViewById(R.id.fdratesimage);
 
-        amountSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                investmentAmountDisplay.setText("₹ " + String.format("%,d", progress));
+
+        fdKnowMore.setOnClickListener( v-> {
+
+            switch (String.valueOf(fdKnowMore.getText())){
+                case "Know More":
+                    fdKnowMore.setText("Hide");
+                    fdRates.setVisibility(View.VISIBLE);
+                    break;
+                case "Hide":
+                    fdKnowMore.setText("Know More");
+                    fdRates.setVisibility(View.GONE);
+                    break;
+                default:
+                    Log.e("PEException","Something Went wrong");
             }
 
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-            }
 
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-            }
-        });
 
-        tenureSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                tenureDisplay.setText(progress + " Months");
-            }
-
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-            }
-        });
-
-        calculateButton.setOnClickListener(v -> {
-            String amount = investmentAmountDisplay.getText().toString().replace("₹ ", "").replace(",", "");
-            String tenure = tenureDisplay.getText().toString().replace(" Months", "");
-            String interestPayout = interestPayoutSpinner.getSelectedItem().toString();
-
-            if (amount.isEmpty() || tenure.isEmpty()) {
-                Toast.makeText(this, "Please fill all fields", Toast.LENGTH_SHORT).show();
-            } else {
-                // Calculate the fixed deposit
-                Toast.makeText(this, "Calculation done", Toast.LENGTH_SHORT).show();
-            }
         });
     }
 
