@@ -21,7 +21,7 @@ public class PEVariables {
     public Map<String,Object> RecoCard2;
     public Map<String,Object> RecoCard3;
     public Map<String,Object> HomeSlider;
-    public Map<String,Integer> QuickLinks,quicklinds,PayBill;
+    public Map<String,Integer>quicklinks,PayBill;
 
 
 
@@ -64,25 +64,16 @@ public class PEVariables {
         HomeSlider.put("Card4","{\"imageUrl\":\"https://shopifyctjt.s3.ap-south-1.amazonaws.com/Banking-Service-and-Facilities-of-HDFC-Bank.png\",\"ServiceId\":\"false\",\"deeplink\":\"https://jits-clever.github.io/TestWeb/\"}");
         HomeSlider.put("Card5","{\"imageUrl\":\"https://shopifyctjt.s3.ap-south-1.amazonaws.com/HDFC_T_C_Banner_beauty.jpg\",\"ServiceId\":\"false\",\"deeplink\":\"https://jits-clever.github.io/TestWeb/\"}");
 
-        QuickLinks = new HashMap<>();
-        QuickLinks.put("FDRD",1);
-        QuickLinks.put("Investments",2);
-        QuickLinks.put("CreditCard",3);
-        QuickLinks.put("Loans",4);
-        QuickLinks.put("SendMoney",5);
-        QuickLinks.put("Services",6);
-        QuickLinks.put("FixedReturns",7);
-        QuickLinks.put("BillPay",8);
 
-        quicklinds = new HashMap<>();
-        quicklinds.put("FDRD",1);
-        quicklinds.put("Investments",2);
-        quicklinds.put("CreditCard",3);
-        quicklinds.put("Loans",4);
-        quicklinds.put("SendMoney",5);
-        quicklinds.put("Services",6);
-        quicklinds.put("FixedReturns",7);
-        quicklinds.put("BillPay",8);
+        quicklinks = new HashMap<>();
+        quicklinks.put("FDRD",1);
+        quicklinks.put("Investments",2);
+        quicklinks.put("CreditCard",3);
+        quicklinks.put("Loans",4);
+        quicklinks.put("SendMoney",5);
+        quicklinks.put("Services",6);
+        quicklinks.put("FixedReturns",7);
+        quicklinks.put("BillPay",8);
 
 
         PayBill = new HashMap<>();
@@ -98,8 +89,7 @@ public class PEVariables {
         HomeScreen.put("SearchIcon",true);
         HomeScreen.put("RecommendedForU",RecommendedForU);
         HomeScreen.put("Bottom Carousel",HomeSlider);
-        HomeScreen.put("Quick Links",QuickLinks);
-        HomeScreen.put("QuickLinks",quicklinds);
+        HomeScreen.put("QuickLinks",quicklinks);
         HomeScreen.put("Pay Bills", PayBill);
 
 

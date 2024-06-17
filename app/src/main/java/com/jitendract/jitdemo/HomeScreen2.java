@@ -96,8 +96,8 @@ public class HomeScreen2 extends AppCompatActivity {
                 homeScreen = (Map<String, Object>) clevertapDefaultInstance.getVariableValue("HomeScreen");
                 recoForU = (Map<String, Object>) homeScreen.get("RecommendedForU");
                 homeSlider = (Map<String, Object>) homeScreen.get("Bottom Carousel");
-                quickLinks = (Map<String, Integer>) homeScreen.get("QuickLinks");
-                payBill = (Map<String, Integer>) homeScreen.get("Pay Bills");
+                quickLinks = convertValuesToInteger((Map<String, Object>) homeScreen.get("QuickLinks"));
+                payBill = convertValuesToInteger((Map<String, Object>) homeScreen.get("Pay Bills"));
             }
             catch(Exception e){Log.e("PEException",String.valueOf(e));}
 
@@ -182,6 +182,28 @@ public class HomeScreen2 extends AppCompatActivity {
             DeeplinkRedirection deeplinkRedirection = new DeeplinkRedirection(this);
             deeplinkRedirection.handleRedirection(redirectionDetails);
         });
+    }
+
+    private Map<String, Integer> convertValuesToInteger(Map<String, Object> map) {
+        if (map == null) {
+            return null;
+        }
+
+        Map<String, Integer> resultMap = new HashMap<>();
+        for (Map.Entry<String, Object> entry : map.entrySet()) {
+            Object value = entry.getValue();
+            if (value instanceof Double) {
+                resultMap.put(entry.getKey(), ((Double) value).intValue());
+                int results = resultMap.put(entry.getKey(), ((Double) value).intValue());
+                Log.v("Double to integer:",entry.getValue() + " converted to " + results);
+            } else if (value instanceof Integer) {
+                resultMap.put(entry.getKey(), (Integer) value);
+            } else {
+                // Handle other cases if needed
+                throw new IllegalArgumentException("Unsupported value type: " + value.getClass());
+            }
+        }
+        return resultMap;
     }
 
     private void rearrangeInnerLinearLayouts(Map<String, Integer> quickLinks) {
