@@ -1,6 +1,7 @@
 package com.jitendract.jitdemo.CarouselModel;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -55,9 +56,10 @@ public class SliderAdapter extends SliderViewAdapter<SliderAdapter.SliderAdapter
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                homescreenEvt.put("Clicked Position",String.valueOf(position));
-                homescreenEvt.put("Image Url",sliderMap.get(String.valueOf(position)));
+                homescreenEvt.put("Clicked Position",String.valueOf(position + 1));
+                homescreenEvt.put("Image Url",sliderMap.get(String.valueOf(position + 1)));
                 cleveTapUtils.raiseEvent(String.valueOf(sliderMap.get("eventName")),homescreenEvt);
+                Log.d("homescreenEvt", String.valueOf(homescreenEvt));
 
             }
         });

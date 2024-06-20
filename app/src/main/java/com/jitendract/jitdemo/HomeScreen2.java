@@ -45,10 +45,12 @@ public class HomeScreen2 extends AppCompatActivity {
     Double recoCards,counter;
     ImageView logout,search;
     Boolean searchFlag;
-    LinearLayout fdrdlayout,investmentlayout,creditcardlayout,loanslayout,sendmoneylayout,serviceslayout,fixedreturnslayout,billpaylayout;
+    LinearLayout fdrdlayout,investmentlayout,creditcardlayout,loanslayout,sendmoneylayout,serviceslayout,fixedreturnslayout,billpaylayout, fastaglayout,recharge,electricity,pipedgas,dth,broadband ;
     MaterialCardView recoCard1,recoCard2,recoCard3;
     SharedPreferences prefs;
     Button recoCardButton1,recoCardButton2,recoCardButton3;
+
+    CleveTapUtils cleveTapUtils;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         homeScreenEvt = new HashMap<>(); // Added initialization
@@ -68,6 +70,13 @@ public class HomeScreen2 extends AppCompatActivity {
         recoCardButton2=findViewById(R.id.reco_card_2_button);
         recoCardButton3=findViewById(R.id.reco_card_3_button);
 
+        fastaglayout = findViewById(R.id.Fastag);
+        electricity = findViewById(R.id.Electricity);
+        dth = findViewById(R.id.DTH);
+        recharge = findViewById(R.id.Recharge);
+        pipedgas = findViewById(R.id.PipedGas);
+        broadband = findViewById(R.id.Broadband);
+
         fdrdlayout = findViewById(R.id.FDRD);
         investmentlayout = findViewById(R.id.Investments);
         creditcardlayout = findViewById(R.id.CreditCard);
@@ -80,11 +89,100 @@ public class HomeScreen2 extends AppCompatActivity {
         fdrdlayout.setOnClickListener(view -> {
             Intent intent = new Intent(HomeScreen2.this, FDHome.class);
             startActivity(intent);
+            commonOnClick("Quick Links","FD/RD");
+
         });
+
+        investmentlayout.setOnClickListener(view -> {
+            Intent intent = new Intent(HomeScreen2.this, FDHome.class);
+            startActivity(intent);
+            commonOnClick("Quick Links","Investments");
+
+        });
+
+        creditcardlayout.setOnClickListener(view -> {
+            Intent intent = new Intent(HomeScreen2.this, FDHome.class);
+            startActivity(intent);
+            commonOnClick("Quick Links","Credit Card");
+
+        });
+
+        loanslayout.setOnClickListener(view -> {
+            Intent intent = new Intent(HomeScreen2.this, FDHome.class);
+            startActivity(intent);
+            commonOnClick("Quick Links","Loans");
+
+        });
+
+        sendmoneylayout.setOnClickListener(view -> {
+            Intent intent = new Intent(HomeScreen2.this, FDHome.class);
+            startActivity(intent);
+            commonOnClick("Quick Links","Send Money");
+
+        });
+
+        serviceslayout.setOnClickListener(view -> {
+            Intent intent = new Intent(HomeScreen2.this, FDHome.class);
+            startActivity(intent);
+            commonOnClick("Quick Links","Services");
+
+        });
+
+        fixedreturnslayout.setOnClickListener(view -> {
+            Intent intent = new Intent(HomeScreen2.this, FDHome.class);
+            startActivity(intent);
+            commonOnClick("Quick Links","Fixed Returns");
+
+        });
+
+        billpaylayout.setOnClickListener(view -> {
+            Intent intent = new Intent(HomeScreen2.this, FDHome.class);
+            startActivity(intent);
+            commonOnClick("Quick Links","Bill Pay");
+        });
+
+        fastaglayout.setOnClickListener(view -> {
+            Intent intent = new Intent(HomeScreen2.this, FDHome.class);
+            startActivity(intent);
+            commonOnClick("Pay Bills","Fastag");
+        });
+
+        recharge.setOnClickListener(view -> {
+            Intent intent = new Intent(HomeScreen2.this, FDHome.class);
+            startActivity(intent);
+            commonOnClick("Pay Bills","Recharge");
+        });
+
+        dth.setOnClickListener(view -> {
+            Intent intent = new Intent(HomeScreen2.this, FDHome.class);
+            startActivity(intent);
+            commonOnClick("Pay Bills","DTH");
+        });
+
+        pipedgas.setOnClickListener(view -> {
+            Intent intent = new Intent(HomeScreen2.this, FDHome.class);
+            startActivity(intent);
+            commonOnClick("Pay Bills","Piped Gas");
+        });
+
+        broadband.setOnClickListener(view -> {
+            Intent intent = new Intent(HomeScreen2.this, FDHome.class);
+            startActivity(intent);
+            commonOnClick("Pay Bills","Broadband");
+        });
+
+        electricity.setOnClickListener(view -> {
+            Intent intent = new Intent(HomeScreen2.this, FDHome.class);
+            startActivity(intent);
+            commonOnClick("Pay Bills","Electricity");
+        });
+
+
+
         prefs = getSharedPreferences("Login", MODE_PRIVATE);
         phoneNum =prefs.getString("Phone","NA");
         UserId = prefs.getString("Identity","default");
-        CleveTapUtils cleveTapUtils=new CleveTapUtils(getApplicationContext());
+        cleveTapUtils=new CleveTapUtils(getApplicationContext());
         homeScreenEvt.put("Phone",phoneNum);
         homeScreenEvt.put("UserId",UserId);
         homeScreenEvt.put("Screen","HomeScreen");
@@ -182,6 +280,20 @@ public class HomeScreen2 extends AppCompatActivity {
             DeeplinkRedirection deeplinkRedirection = new DeeplinkRedirection(this);
             deeplinkRedirection.handleRedirection(redirectionDetails);
         });
+    }
+
+    public void commonOnClick(String text1, String text2) {
+        if (cleveTapUtils != null) {
+            cleveTapUtils.raiseEvent(text1, createEventProperties(text2));
+        }
+    }
+
+    private HashMap<String, Object> createEventProperties(String text2) {
+        HashMap<String, Object> properties = new HashMap<>();
+        properties.put("Action", "Click");
+        properties.put("Label", text2);
+        properties.put("Screen", "Home Screen");
+        return properties;
     }
 
     private Map<String, Integer> convertValuesToInteger(Map<String, Object> map) {
