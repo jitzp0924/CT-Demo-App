@@ -64,6 +64,9 @@ dependencies {
     implementation  'com.google.firebase:firebase-iid:21.1.0'
     implementation 'com.android.installreferrer:installreferrer:2.2'
 
+    //picassa for design of inbox
+    implementation 'com.squareup.picasso:picasso:2.71828'
+
     //Geofence Related
     implementation 'com.clevertap.android:clevertap-geofence-sdk:1.1.0'
     implementation 'com.google.android.gms:play-services-location:21.0.1'

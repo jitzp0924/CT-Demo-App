@@ -15,9 +15,13 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
+
+import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class MyFirebase extends FirebaseMessagingService {
+    CleveTapUtils cleveTapUtils;
 
     @Override
     public void onMessageReceived(@NonNull RemoteMessage remoteMessage) {
@@ -30,6 +34,14 @@ public class MyFirebase extends FirebaseMessagingService {
                 }
 
                 Log.d("FCM Payload", String.valueOf(extras));
+                if (Objects.equals(extras.getString("nm"), "") || Objects.equals(extras.getString("nt"), "")){
+                    HashMap<String, Object> payload = new HashMap<>();
+                    for (String key : extras.keySet()) {
+                        payload.put(key, extras.get(key));
+                    }
+
+                    cleveTapUtils.clevertapDefaultInstance.pushEvent("Silent Push",payload);
+                }
                 
                 if (extras.containsKey("prog")) {
 

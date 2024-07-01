@@ -1,6 +1,9 @@
 package com.jitendract.jitdemo;
 
+import static android.app.BroadcastOptions.fromBundle;
+
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -21,7 +24,10 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.clevertap.android.sdk.CTInboxListener;
+import com.clevertap.android.sdk.CTInboxStyleConfig;
 import com.clevertap.android.sdk.CleverTapAPI;
+import com.clevertap.android.sdk.CoreState;
 import com.google.android.material.card.MaterialCardView;
 import com.jitendract.jitdemo.CarouselModel.SliderAdapter;
 import com.jitendract.jitdemo.CarouselModel.SliderData;
@@ -35,19 +41,22 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class HomeScreen2 extends AppCompatActivity {
+
+public class HomeScreen2 extends AppCompatActivity implements CTInboxListener {
 
 
     Map<String,Object> homeScreen, homeSlider, recoForU;
     Map<String,Integer> payBill,quickLinks;
     HashMap<String, Object> homeScreenEvt, slidermap;
+    private static final String PREF_NAME = "MyPrefs";
+    private static final String KEY_CUSTOM_INBOX_ENABLED = "custom_inbox_enabled";
     String phoneNum,UserId;
     Double recoCards,counter;
-    ImageView logout,search;
+    ImageView logout,search,profile_setting,appInboxButton;
     Boolean searchFlag;
     LinearLayout fdrdlayout,investmentlayout,creditcardlayout,loanslayout,sendmoneylayout,serviceslayout,fixedreturnslayout,billpaylayout, fastaglayout,recharge,electricity,pipedgas,dth,broadband ;
     MaterialCardView recoCard1,recoCard2,recoCard3;
-    SharedPreferences prefs;
+    SharedPreferences prefs,sharedPreferences;
     Button recoCardButton1,recoCardButton2,recoCardButton3;
 
     CleveTapUtils cleveTapUtils;
@@ -56,10 +65,20 @@ public class HomeScreen2 extends AppCompatActivity {
         homeScreenEvt = new HashMap<>(); // Added initialization
         slidermap = new HashMap<>();
 
+
         setContentView(R.layout.activity_home_screen2);
         super.onCreate(savedInstanceState);
 
+
         slidermap = new HashMap<>();
+
+
+        //profile setting
+        profile_setting = findViewById(R.id.profile_icon);
+        sharedPreferences = getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
+
+        //App Inbox
+        appInboxButton = findViewById(R.id.notification_icon);
 
         logout = findViewById(R.id.logout_icon);
         search = findViewById(R.id.search_icon);
@@ -85,6 +104,11 @@ public class HomeScreen2 extends AppCompatActivity {
         serviceslayout = findViewById(R.id.Services);
         billpaylayout = findViewById(R.id.BillPay);
         fixedreturnslayout = findViewById(R.id.FixedReturns);
+
+        profile_setting.setOnClickListener(view -> {
+            Intent intent = new Intent(HomeScreen2.this, Settings.class);
+            startActivity(intent);
+        });
 
         fdrdlayout.setOnClickListener(view -> {
             Intent intent = new Intent(HomeScreen2.this, FDHome.class);
@@ -280,7 +304,41 @@ public class HomeScreen2 extends AppCompatActivity {
             DeeplinkRedirection deeplinkRedirection = new DeeplinkRedirection(this);
             deeplinkRedirection.handleRedirection(redirectionDetails);
         });
+
+        cleveTapUtils.clevertapDefaultInstance.setCTNotificationInboxListener(this);
+
+
+
+        appInboxButton.setOnClickListener(view -> {
+
+            //Custom Inbox Logic
+            boolean customInboxEnabled = sharedPreferences.getBoolean(KEY_CUSTOM_INBOX_ENABLED, false);
+            Log.v("CUSTOM INBOX VALUE",customInboxEnabled + "");
+
+            if (customInboxEnabled) {
+                Intent intent = new Intent(HomeScreen2.this, CustomInboxActivity.class);
+                startActivity(intent);
+            } else {
+
+                cleveTapUtils.clevertapDefaultInstance.initializeInbox();
+            }
+        });
+
     }
+//    @Override
+//    protected void onResume() {
+//        super.onResume();
+//
+//        boolean customInboxEnabled = sharedPreferences.getBoolean(KEY_CUSTOM_INBOX_ENABLED, false);
+//        if (customInboxEnabled) {
+//            customappInboxButton.setVisibility(View.VISIBLE);
+//            appInboxButton.setVisibility(View.GONE);
+//        } else {
+//            appInboxButton.setVisibility(View.VISIBLE);
+//            customappInboxButton.setVisibility(View.GONE);
+//        }
+//    }
+
 
     public void commonOnClick(String text1, String text2) {
         if (cleveTapUtils != null) {
@@ -483,6 +541,35 @@ public class HomeScreen2 extends AppCompatActivity {
         okButton.setOnClickListener(v -> dialog.dismiss());
 
         dialog.show();
+    }
+
+    @Override
+    public void inboxDidInitialize() {
+            ArrayList<String> tabs = new ArrayList<>();
+            tabs.add("Promotions");
+            tabs.add("Offers");//We support upto 2 tabs only. Additional tabs will be ignored
+
+            CTInboxStyleConfig styleConfig = new CTInboxStyleConfig();
+            styleConfig.setFirstTabTitle("First Tab");
+            styleConfig.setTabs(tabs);//Do not use this if you don't want to use tabs
+            styleConfig.setTabBackgroundColor("#FF0000");
+            styleConfig.setSelectedTabIndicatorColor("#0000FF");
+            styleConfig.setSelectedTabColor("#0000FF");
+            styleConfig.setUnselectedTabColor("#FFFFFF");
+            styleConfig.setBackButtonColor("#FF0000");
+            styleConfig.setNavBarTitleColor("#FF0000");
+            styleConfig.setNavBarTitle("MY INBOX");
+            styleConfig.setNavBarColor("#FFFFFF");
+            styleConfig.setInboxBackgroundColor("#ADD8E6");
+            if (cleveTapUtils.clevertapDefaultInstance != null) {
+                cleveTapUtils.clevertapDefaultInstance.showAppInbox(styleConfig); //With Tabs
+            }
+            //ct.showAppInbox();//Opens Activity with default style configs
+    }
+
+    @Override
+    public void inboxMessagesDidUpdate() {
+
     }
 }
 
