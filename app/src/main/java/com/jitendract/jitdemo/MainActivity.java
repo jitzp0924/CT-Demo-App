@@ -23,6 +23,7 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -59,6 +60,8 @@ public class MainActivity extends AppCompatActivity implements CTPushNotificatio
     Map <String, Object>LoginSceen;
     ImageView topBanner;
 
+    TextView signInText;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +71,8 @@ public class MainActivity extends AppCompatActivity implements CTPushNotificatio
 
         idLayout = (TextInputLayout) findViewById(R.id.userTextL);
         phoneLayout = (TextInputLayout) findViewById(R.id.numTextL);
+
+        signInText = findViewById(R.id.signInText);
 
         identity = (TextInputEditText) findViewById(R.id.identity);
         phone = (TextInputEditText) findViewById(R.id.phone);
@@ -80,6 +85,11 @@ public class MainActivity extends AppCompatActivity implements CTPushNotificatio
         CleveTapUtils cleveTapUtils = new CleveTapUtils(getApplicationContext());
 
         clevertapDefaultInstance.fetchVariables();
+
+        signInText.setOnClickListener(view -> {
+            Intent intent = new Intent(MainActivity.this,SignInPage.class);
+            startActivity(intent);
+        });
 
         LoginSceen = (Map<String, Object>) clevertapDefaultInstance.getVariableValue("LoginScreen");
         topBannerStatus = (Boolean) LoginSceen.get("Active");
