@@ -2,6 +2,7 @@ package com.jitendract.jitdemo;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
@@ -81,37 +82,44 @@ public class MultiTaskPayBills extends AppCompatActivity {
                             // Initialize views inside the card
                             TextView textAmount = cardView.findViewById(R.id.text_amount);
                             TextView textUserData = cardView.findViewById(R.id.text_user_data);
+                            ImageView transIcon = cardView.findViewById(R.id.trans_icon);
 
                             // Set values based on transaction properties
                             textAmount.setText(String.format(Locale.getDefault(), "%.2f", transaction.getAmount()));
-                            textUserData.setText(transaction.getUserData());
 
                             // Set card background color based on transaction status
                             if ("debit".equals(transaction.getTransactionType())) {
                                 if ("success".equals(transaction.getStatus())) {
-                                    cardView.setBackgroundColor(ContextCompat.getColor(MultiTaskPayBills.this, R.color.teal_200));
+                                    transIcon.setImageResource(R.drawable.remove_money);
+                                    textUserData.setText("Paid Successfully.");
                                 } else {
-                                    cardView.setBackgroundColor(ContextCompat.getColor(MultiTaskPayBills.this, R.color.bank_light_primary));
+                                    transIcon.setImageResource(R.drawable.failed_money);
+                                    textUserData.setText("Transaction Failed.");
                                 }
                                 // Align the card to the right if it's a debit transaction
                                 LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                                        LinearLayout.LayoutParams.MATCH_PARENT,
+                                        LinearLayout.LayoutParams.WRAP_CONTENT,
                                         LinearLayout.LayoutParams.WRAP_CONTENT
                                 );
                                 params.gravity = Gravity.END;
+                                params.setMargins(12,12,12,12);
                                 cardView.setLayoutParams(params);
                             } else { // credit transaction
                                 if ("success".equals(transaction.getStatus())) {
-                                    cardView.setBackgroundColor(ContextCompat.getColor(MultiTaskPayBills.this, R.color.teal_200));
+                                    transIcon.setImageResource(R.drawable.add_money);
+                                    textUserData.setText("Added Successfully.");
+
                                 } else {
-                                    cardView.setBackgroundColor(ContextCompat.getColor(MultiTaskPayBills.this, R.color.bank_light_primary));
+                                    transIcon.setImageResource(R.drawable.failed_money);
+                                    textUserData.setText("Transaction Failed.");
                                 }
                                 // Align the card to the left if it's a credit transaction
                                 LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                                        LinearLayout.LayoutParams.MATCH_PARENT,
+                                        LinearLayout.LayoutParams.WRAP_CONTENT,
                                         LinearLayout.LayoutParams.WRAP_CONTENT
                                 );
                                 params.gravity = Gravity.START;
+                                params.setMargins(12,12,12,12);
                                 cardView.setLayoutParams(params);
                             }
 
@@ -290,7 +298,7 @@ public class MultiTaskPayBills extends AppCompatActivity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            Toast.makeText(MultiTaskPayBills.this, "Insufficient balance in wallet", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(MultiTaskPayBills.this, "Insufficient balance in wallet", Toast.LENGTH_LONG).show();
                         }
                     });
                 } else {

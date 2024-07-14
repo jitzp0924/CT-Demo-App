@@ -38,6 +38,7 @@ public class application extends MultiDexApplication implements Application.Acti
         CleverTapAPI.getDefaultInstance(this).enableDeviceNetworkInfoReporting(true);
         PEInit(cleverTapAPI);
 
+        cleverTapAPI.enableDeviceNetworkInfoReporting(true);
 
 
 

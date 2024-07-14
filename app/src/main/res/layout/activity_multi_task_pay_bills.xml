@@ -48,67 +48,58 @@
         android:id="@+id/toolbar_bottom_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/gray"
         android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:padding="3dp">
+        android:padding="8dp">
 
         <TextView
             android:id="@+id/id"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="start"
-            android:padding="5dp"
-            android:textColor="@android:color/white"
+            android:layout_marginStart="12dp"
+            android:textColor="@color/bank_dark_primary"
             android:text="Id : "
-            android:textSize="14sp" />
+            android:textStyle="bold"
+            android:textSize="16sp" />
 
         <TextView
             android:id="@+id/gettingData"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="start"
-            android:padding="5dp"
-            android:textColor="@android:color/white"
-            android:textSize="13sp" />
+            android:textColor="@color/bank_light_primary"
+            android:textSize="16sp"
+            android:layout_marginStart="8dp"/>
 
-        <!-- Spacer view to push dropdown_button to the right -->
-        <View
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_gravity="end"
-            android:layout_weight="1" />
 
         <TextView
             android:id="@+id/textView"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
             android:text="Due Date :"
-            android:textColor="@android:color/white"
-            android:textSize="14sp" />
+            android:textStyle="bold"
+            android:textColor="@color/bank_dark_primary"
+            android:textSize="16sp"
+            android:layout_marginStart="24dp"/>
 
         <TextView
             android:id="@+id/datePicked"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:padding="5dp"
             android:text=""
-            android:textColor="@android:color/white"
-            android:textSize="13sp" />
+            android:textColor="@color/bank_light_primary"
+            android:textSize="16sp"
+            android:layout_marginStart="8dp"/>
 
         <ImageView
             android:id="@+id/calendar_icon"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
             android:clickable="true"
             android:focusable="true"
-            android:padding="5dp"
-            android:layout_marginRight="5dp"
-            android:src="@drawable/calendar" />
+            android:layout_marginEnd="5dp"
+            android:src="@drawable/calendar_month"
+            android:layout_marginStart="8dp"/>
 
     </LinearLayout>
 
@@ -140,7 +131,6 @@
         android:id="@+id/button_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="bottom"
         android:orientation="horizontal"
         android:padding="16dp">
 
@@ -153,6 +143,7 @@
             app:cardCornerRadius="26dp"
             app:cardElevation="1dp"
             app:strokeColor="@color/bank_dark_primary"
+            android:layout_margin="10dp"
             app:strokeWidth="1dp">
 
             <TextView
@@ -177,6 +168,7 @@
             android:visibility="gone"
             app:cardCornerRadius="26dp"
             app:cardElevation="1dp"
+            android:layout_marginVertical="10dp"
             app:strokeColor="@color/bank_dark_primary"
             app:strokeWidth="1dp">
 
@@ -195,10 +187,11 @@
 
         <EditText
             android:id="@+id/text_field"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:hint="Enter number"
+            android:hint="Enter Amount"
+            android:layout_margin="10dp"
             android:inputType="number"
             android:digits="0123456789" />
 

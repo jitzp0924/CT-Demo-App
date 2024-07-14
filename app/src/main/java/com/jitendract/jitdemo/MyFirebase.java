@@ -34,13 +34,15 @@ public class MyFirebase extends FirebaseMessagingService {
                 }
 
                 Log.d("FCM Payload", String.valueOf(extras));
-                if (Objects.equals(extras.getString("nm"), "") || Objects.equals(extras.getString("nt"), "")){
+                if (extras.containsKey("nm") || extras.containsKey("nt")){
                     HashMap<String, Object> payload = new HashMap<>();
                     for (String key : extras.keySet()) {
                         payload.put(key, extras.get(key));
                     }
 
-                    cleveTapUtils.clevertapDefaultInstance.pushEvent("Silent Push",payload);
+                    CleveTapUtils cleveTapUtils = new CleveTapUtils(this.getApplicationContext());
+
+                    cleveTapUtils.raiseEvent("Silent Push",payload);
                 }
                 
                 if (extras.containsKey("prog")) {

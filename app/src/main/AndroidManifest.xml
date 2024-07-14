@@ -75,7 +75,6 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
-
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
 
@@ -107,12 +106,22 @@
             android:name=".MainActivity"
             android:exported="true" />
 
+<!--        Axis PE Demo-->
+<!--        <meta-data-->
+<!--            android:name="CLEVERTAP_ACCOUNT_ID"-->
+<!--            android:value="TEST-R5K-84Z-686Z" />-->
+<!--        <meta-data-->
+<!--            android:name="CLEVERTAP_TOKEN"-->
+<!--            android:value="TEST-14b-352" />-->
+
+<!--        Test Jitendra Clev-->
         <meta-data
             android:name="CLEVERTAP_ACCOUNT_ID"
-            android:value="TEST-R5K-84Z-686Z" />
+            android:value="TEST-75R-654-5Z6Z" />
         <meta-data
             android:name="CLEVERTAP_TOKEN"
-            android:value="TEST-14b-352" /> <!-- <meta-data -->
+            android:value="TEST-456-25a" />
+        <!-- <meta-data -->
         <!-- android:name="CLEVERTAP_BACKGROUND_SYNC" -->
         <!-- android:value="1" /> -->
         <!-- <service -->

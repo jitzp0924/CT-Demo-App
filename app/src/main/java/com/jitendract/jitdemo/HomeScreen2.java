@@ -331,6 +331,8 @@ public class HomeScreen2 extends AppCompatActivity implements CTInboxListener {
             }
         });
 
+        cleveTapUtils.raiseEvent("Home Screen",homeScreenEvt);
+
     }
 //    @Override
 //    protected void onResume() {
