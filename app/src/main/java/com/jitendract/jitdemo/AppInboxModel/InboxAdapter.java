@@ -18,13 +18,13 @@ import java.util.ArrayList;
 
 public class InboxAdapter extends RecyclerView.Adapter<InboxAdapter.InboxViewHolder> {
 
-    private ArrayList<CTInboxMessage> inboxMessages;
+    private final ArrayList<CTInboxMessage> inboxMessages;
     static CleverTapAPI cleverTapDefaultInstance;
 
 
     public InboxAdapter(ArrayList<CTInboxMessage> inboxMessages,CleverTapAPI cleverTapDefaultInstance) {
         this.inboxMessages = inboxMessages;
-        this.cleverTapDefaultInstance = cleverTapDefaultInstance;
+        InboxAdapter.cleverTapDefaultInstance = cleverTapDefaultInstance;
     }
 
     @NonNull

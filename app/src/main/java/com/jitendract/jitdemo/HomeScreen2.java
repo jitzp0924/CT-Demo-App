@@ -166,40 +166,47 @@ public class HomeScreen2 extends AppCompatActivity implements CTInboxListener {
         });
 
         fastaglayout.setOnClickListener(view -> {
-            Intent intent = new Intent(HomeScreen2.this, FDHome.class);
+            Intent intent = new Intent(HomeScreen2.this, MultiTaskPayBills.class);
+            intent.putExtra("category", "Fastag");
             startActivity(intent);
             commonOnClick("Pay Bills","Fastag");
         });
 
         recharge.setOnClickListener(view -> {
-            Intent intent = new Intent(HomeScreen2.this, FDHome.class);
+            Intent intent = new Intent(HomeScreen2.this, MultiTaskPayBills.class);
+            intent.putExtra("category", "Recharge");
             startActivity(intent);
             commonOnClick("Pay Bills","Recharge");
         });
 
         dth.setOnClickListener(view -> {
-            Intent intent = new Intent(HomeScreen2.this, FDHome.class);
+            Intent intent = new Intent(HomeScreen2.this, MultiTaskPayBills.class);
+            intent.putExtra("category", "DTH");
             startActivity(intent);
             commonOnClick("Pay Bills","DTH");
         });
 
         pipedgas.setOnClickListener(view -> {
-            Intent intent = new Intent(HomeScreen2.this, FDHome.class);
+            Intent intent = new Intent(HomeScreen2.this, MultiTaskPayBills.class);
+            intent.putExtra("category", "Piped Gas");
             startActivity(intent);
             commonOnClick("Pay Bills","Piped Gas");
         });
 
         broadband.setOnClickListener(view -> {
-            Intent intent = new Intent(HomeScreen2.this, FDHome.class);
+            Intent intent = new Intent(HomeScreen2.this, MultiTaskPayBills.class);
+            intent.putExtra("category", "Broadband");
             startActivity(intent);
             commonOnClick("Pay Bills","Broadband");
         });
 
         electricity.setOnClickListener(view -> {
-            Intent intent = new Intent(HomeScreen2.this, FDHome.class);
+            Intent intent = new Intent(HomeScreen2.this, MultiTaskPayBills.class);
+            intent.putExtra("category", "Electricity");
             startActivity(intent);
             commonOnClick("Pay Bills","Electricity");
         });
+
 
 
 
@@ -408,7 +415,7 @@ public class HomeScreen2 extends AppCompatActivity implements CTInboxListener {
 
     private void payBillReorder(Map<String, Integer> payBill) {
 
-        Map<String, Integer> payBills = (Map<String, Integer>) this.payBill; // Assuming this.payBills is a Map<String, Object>
+        Map<String, Integer> payBills = this.payBill; // Assuming this.payBills is a Map<String, Object>
         List<Map.Entry<String, Integer>> sortedEntries = new ArrayList<>(payBills.entrySet());
         Collections.sort(sortedEntries, (entry1, entry2) -> entry1.getValue().compareTo(entry2.getValue()));
 

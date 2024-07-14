@@ -69,17 +69,17 @@ public class MainActivity extends AppCompatActivity implements CTPushNotificatio
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        idLayout = (TextInputLayout) findViewById(R.id.userTextL);
-        phoneLayout = (TextInputLayout) findViewById(R.id.numTextL);
+        idLayout = findViewById(R.id.userTextL);
+        phoneLayout = findViewById(R.id.numTextL);
 
         signInText = findViewById(R.id.signInText);
 
-        identity = (TextInputEditText) findViewById(R.id.identity);
-        phone = (TextInputEditText) findViewById(R.id.phone);
-        loginbtn = (MaterialCardView) findViewById(R.id.loginbtn);
-        conditions = (CheckBox) findViewById(R.id.conditions);
-        commsUpdate = (CheckBox) findViewById(R.id.commsUpdate);
-        topBanner = (ImageView) findViewById(R.id.loginTopBanner);
+        identity = findViewById(R.id.identity);
+        phone = findViewById(R.id.phone);
+        loginbtn = findViewById(R.id.loginbtn);
+        conditions = findViewById(R.id.conditions);
+        commsUpdate = findViewById(R.id.commsUpdate);
+        topBanner = findViewById(R.id.loginTopBanner);
         clevertapDefaultInstance = CleverTapAPI.getDefaultInstance(getApplicationContext());
 
         CleveTapUtils cleveTapUtils = new CleveTapUtils(getApplicationContext());

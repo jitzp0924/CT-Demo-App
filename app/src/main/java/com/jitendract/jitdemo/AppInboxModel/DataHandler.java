@@ -6,12 +6,12 @@ import java.util.ArrayList;
 
 public class DataHandler {
 
-    private ArrayList<CTInboxMessage> allInboxMessages = new ArrayList<>();
-    private ArrayList<CTInboxMessage> transactionInboxMessage = new ArrayList<>();
-    private ArrayList<CTInboxMessage> promotionInboxMessage = new ArrayList<>();
-    private ArrayList<CTInboxMessage> requestInboxMessage = new ArrayList<>();
-    private ArrayList<CTInboxMessage> regulatoryInboxMessage = new ArrayList<>();
-    private ArrayList<CTInboxMessage> offersInboxMessage = new ArrayList<>();
+    private final ArrayList<CTInboxMessage> allInboxMessages = new ArrayList<>();
+    private final ArrayList<CTInboxMessage> transactionInboxMessage = new ArrayList<>();
+    private final ArrayList<CTInboxMessage> promotionInboxMessage = new ArrayList<>();
+    private final ArrayList<CTInboxMessage> requestInboxMessage = new ArrayList<>();
+    private final ArrayList<CTInboxMessage> regulatoryInboxMessage = new ArrayList<>();
+    private final ArrayList<CTInboxMessage> offersInboxMessage = new ArrayList<>();
 
     public void categorizeMessages(ArrayList<CTInboxMessage> inboxMessages) {
         for (CTInboxMessage message : inboxMessages) {

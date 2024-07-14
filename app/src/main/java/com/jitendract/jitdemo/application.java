@@ -12,6 +12,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.multidex.MultiDexApplication;
+import androidx.room.Room;
 
 import com.clevertap.android.pushtemplates.PushTemplateNotificationHandler;
 import com.clevertap.android.sdk.ActivityLifecycleCallback;
@@ -24,12 +25,13 @@ import java.util.HashMap;
 
 public class application extends MultiDexApplication implements Application.ActivityLifecycleCallbacks, CTPushNotificationListener {
 
+    public static AppDatabase database;
     @Override
     public void onCreate() {
 
         ActivityLifecycleCallback.register(this);
         CleverTapAPI.setDebugLevel(CleverTapAPI.LogLevel.VERBOSE);
-        CleverTapAPI.setNotificationHandler((NotificationHandler) new PushTemplateNotificationHandler());
+        CleverTapAPI.setNotificationHandler(new PushTemplateNotificationHandler());
         CleverTapAPI cleverTapAPI = CleverTapAPI.getDefaultInstance(getApplicationContext());
         assert cleverTapAPI != null;
         cleverTapAPI.setCTPushNotificationListener(this);
@@ -40,6 +42,7 @@ public class application extends MultiDexApplication implements Application.Acti
 
 
         super.onCreate();
+        database = Room.databaseBuilder(getApplicationContext(), AppDatabase.class, "transactions-db").build();
     }
 
     private void PEInit(CleverTapAPI cleverTapAPI) {

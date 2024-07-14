@@ -7,7 +7,7 @@ import java.util.List;
 
 public class InboxDataHelper {
 
-    private CTInboxMessage message;
+    private final CTInboxMessage message;
 
     public InboxDataHelper(CTInboxMessage message) {
         this.message = message;

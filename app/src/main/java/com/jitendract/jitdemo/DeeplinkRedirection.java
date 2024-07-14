@@ -9,7 +9,7 @@ import android.content.Context;
 
 public class DeeplinkRedirection {
 
-    private Context context;
+    private final Context context;
 
     // Constructor to pass the context
     public DeeplinkRedirection(Context context) {

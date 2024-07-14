@@ -187,6 +187,114 @@
                 android:gravity="right" />
         </TableRow>
 
+        <TableRow>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="Fastag Id : "
+                android:textSize="16dp" />
+
+            <EditText
+                android:id="@+id/fastagid"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Enter text for Text 1"
+                android:gravity="right"
+                android:inputType="text"
+                android:paddingRight="15dp" />
+        </TableRow>
+
+        <TableRow>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="Phone No. : "
+                android:textSize="16dp" />
+
+            <EditText
+                android:id="@+id/phoneNo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Enter text for Text 2"
+                android:gravity="right"
+                android:inputType="text"
+                android:paddingRight="15dp" />
+        </TableRow>
+
+        <TableRow>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="Electric ID :"
+                android:textSize="16dp" />
+
+            <EditText
+                android:id="@+id/electricityConsumerNumber"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Enter text for Text 3"
+                android:gravity="right"
+                android:inputType="text"
+                android:paddingRight="15dp" />
+        </TableRow>
+
+        <TableRow>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="Gas ID :"
+                android:textSize="16dp" />
+
+            <EditText
+                android:id="@+id/pipedGasConsumerNumber"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Enter text for Text 1"
+                android:gravity="right"
+                android:inputType="text"
+                android:paddingRight="15dp" />
+        </TableRow>
+
+        <TableRow>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="DTH ID :"
+                android:textSize="16dp" />
+
+            <EditText
+                android:id="@+id/dthConsumerNumber"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Enter text for Text 2"
+                android:gravity="right"
+                android:inputType="text"
+                android:paddingRight="15dp" />
+        </TableRow>
+
+        <TableRow>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="Broadband ID :"
+                android:textSize="16dp" />
+
+            <EditText
+                android:id="@+id/broadbandId"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Enter text for Text 3"
+                android:gravity="right"
+                android:inputType="text"
+                android:paddingRight="15dp" />
+        </TableRow>
+
     </TableLayout>
 
 

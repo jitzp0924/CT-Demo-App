@@ -18,14 +18,14 @@ public class temp extends AppCompatActivity {
         setContentView(R.layout.activity_temp);
         CleverTapAPI clevertapDefaultInstance = CleverTapAPI.getDefaultInstance(getApplicationContext());
         CleverTapAPI.setDebugLevel(CleverTapAPI.LogLevel.VERBOSE);
-        Button btn = (Button) findViewById(R.id.basictem);
-        Button btn2 = (Button) findViewById(R.id.bt2);
-        Button btn3 = (Button) findViewById(R.id.bt3);
-        Button btn4 = (Button) findViewById(R.id.bt4);
-        Button btn6 = (Button) findViewById(R.id.bt6);
-        Button btn7 = (Button) findViewById(R.id.bt7);
-        Button btn8=(Button) findViewById(R.id.bt8);
-        Button btn9=(Button) findViewById(R.id.bt9);
+        Button btn = findViewById(R.id.basictem);
+        Button btn2 = findViewById(R.id.bt2);
+        Button btn3 = findViewById(R.id.bt3);
+        Button btn4 = findViewById(R.id.bt4);
+        Button btn6 = findViewById(R.id.bt6);
+        Button btn7 = findViewById(R.id.bt7);
+        Button btn8= findViewById(R.id.bt8);
+        Button btn9= findViewById(R.id.bt9);
 
         btn.findViewById(R.id.basictem).setOnClickListener(view -> {
             clevertapDefaultInstance.pushEvent("Basic Template");

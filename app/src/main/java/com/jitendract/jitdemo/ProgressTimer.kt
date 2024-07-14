@@ -22,7 +22,7 @@ class ProgressTimer : Service() {
         if (extras != null) {
             setVariable(applicationContext, extras)
         }
-        return Service.START_STICKY
+        return START_STICKY
     }
 
     override fun onBind(intent: Intent?): IBinder? {

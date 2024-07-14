@@ -37,7 +37,7 @@ public class ControlCenter extends AppCompatActivity {
         em2 = findViewById(R.id.email_off);
 
         pn1.setOnCheckedChangeListener((compoundButton, isChecked) -> {
-            if (isChecked==true) {
+            if (isChecked) {
                 HashMap<String, Object> profileUpdate = new HashMap<String, Object>();
                 profileUpdate.put("MSG-push", true);
                 clevertapInstance.pushProfile(profileUpdate);
@@ -46,7 +46,7 @@ public class ControlCenter extends AppCompatActivity {
 
         pn2.setOnCheckedChangeListener((compoundButton, isChecked) -> {
 
-            if(isChecked==true) {
+            if(isChecked) {
 
                 HashMap<String, Object> profileUpdate = new HashMap<String, Object>();
                 profileUpdate.put("MSG-push", false);
@@ -55,7 +55,7 @@ public class ControlCenter extends AppCompatActivity {
         });
 
         wa1.setOnCheckedChangeListener((compoundButton, isChecked) -> {
-            if (isChecked==true) {
+            if (isChecked) {
                 HashMap<String, Object> profileUpdate = new HashMap<String, Object>();
                 profileUpdate.put("MSG-whatsapp", true);
                 clevertapInstance.pushProfile(profileUpdate);
@@ -63,7 +63,7 @@ public class ControlCenter extends AppCompatActivity {
         });
 
         wa2.setOnCheckedChangeListener((compoundButton, isChecked) -> {
-            if (isChecked==true) {
+            if (isChecked) {
                 HashMap<String, Object> profileUpdate = new HashMap<String, Object>();
                 profileUpdate.put("MSG-whatsapp", false);
                 clevertapInstance.pushProfile(profileUpdate);
@@ -71,7 +71,7 @@ public class ControlCenter extends AppCompatActivity {
         });
 
         sms1.setOnCheckedChangeListener((compoundButton, isChecked) -> {
-            if (isChecked==true) {
+            if (isChecked) {
                 HashMap<String, Object> profileUpdate = new HashMap<String, Object>();
                 profileUpdate.put("MSG-sms", true);
                 clevertapInstance.pushProfile(profileUpdate);
@@ -79,7 +79,7 @@ public class ControlCenter extends AppCompatActivity {
         });
 
         sms2.setOnCheckedChangeListener((compoundButton, isChecked) -> {
-            if (isChecked==true) {
+            if (isChecked) {
                 HashMap<String, Object> profileUpdate = new HashMap<String, Object>();
                 profileUpdate.put("MSG-sms", false);
                 clevertapInstance.pushProfile(profileUpdate);
