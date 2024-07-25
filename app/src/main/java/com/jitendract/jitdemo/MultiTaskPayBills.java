@@ -23,6 +23,7 @@ import com.google.android.material.datepicker.MaterialDatePicker;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -72,6 +73,8 @@ public class MultiTaskPayBills extends AppCompatActivity {
             @Override
             public void run() {
                 List<Transaction> transactions = database.transactionDao().getTransactionsByCategory(category);
+                Collections.reverse(transactions);
+
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
