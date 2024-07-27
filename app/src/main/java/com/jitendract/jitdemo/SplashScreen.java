@@ -31,19 +31,11 @@ public class SplashScreen extends AppCompatActivity {
         imgView = findViewById(R.id.imgView);
         Glide.with(this).load(R.drawable.logogif).into(imgView);
 
-//        CleverTapAPI.createNotificationChannel(getApplicationContext(),"JitDemo","JitDemo","JitDemo", NotificationManager.IMPORTANCE_MAX,true);
-        
-//        Boolean val = permissonAccess();
-//        if (val){
-//            initClevertapGeofence();
-//        }
-//        else {}
-
         SharedPreferences prefs = getSharedPreferences("Login", MODE_PRIVATE);
         isLoggedIN =prefs.getBoolean("LoggedIn",false);
         Log.e("prefs", String.valueOf(isLoggedIN));
 
-        int SPLASH_SCREEN_TIME_OUT = 5000;
+        int SPLASH_SCREEN_TIME_OUT = 3000;
         if(isLoggedIN){
             new Handler().postDelayed(() -> {
                 CleverTapAPI dfI = CleverTapAPI.getDefaultInstance(getApplicationContext());
@@ -65,38 +57,4 @@ public class SplashScreen extends AppCompatActivity {
 
     }
 
-//    private void initClevertapGeofence() {
-//    }
-
-//    private Boolean permissonAccess() {
-//        final Boolean[] val = new Boolean[1];
-//
-//        ActivityResultLauncher<String[]> locationPermissionRequest =
-//                registerForActivityResult(new ActivityResultContracts
-//                                .RequestMultiplePermissions(), result -> {
-//                            Boolean fineLocationGranted = result.getOrDefault(
-//                                    android.Manifest.permission.ACCESS_FINE_LOCATION, false);
-//                            Boolean coarseLocationGranted = result.getOrDefault(
-//                                    android.Manifest.permission.ACCESS_COARSE_LOCATION,false);
-//                            if (fineLocationGranted != null && fineLocationGranted) {
-//                                // Precise location access granted.
-//                                val[0] = true;
-//                            } else if (coarseLocationGranted != null && coarseLocationGranted) {
-//                                // Only approximate location access granted.
-//                                val[0] = true;
-//                            } else {
-//                                // No location access granted.
-//                                val[0] = false;
-//                            }
-//                        }
-//                );
-//
-//        locationPermissionRequest.launch(new String[] {
-//                android.Manifest.permission.ACCESS_FINE_LOCATION,
-//                Manifest.permission.ACCESS_COARSE_LOCATION
-//        });
-//
-//        return val[0];
-//
-//    }
 }

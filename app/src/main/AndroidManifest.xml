@@ -34,7 +34,19 @@
             android:exported="false" />
         <activity
             android:name=".HomeScreen2"
-            android:exported="false" />
+            android:exported="true" >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="www.jitdemo.jitendract.com"
+                    android:pathPrefix="/*x"
+                    android:scheme="https" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".FDSummary"
             android:exported="false" />
@@ -46,19 +58,6 @@
             android:exported="false"
             android:label="@string/title_activity_control_center" />
         <activity
-            android:name=".Testtemp"
-            android:exported="false" />
-        <activity
-            android:name=".temp"
-            android:exported="true" />
-        <activity
-            android:name=".inbox_app"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
             android:name=".SplashScreen"
             android:exported="true">
             <intent-filter>
@@ -67,9 +66,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".displayNative"
-            android:exported="false" />
         <activity
             android:name=".webview"
             android:exported="true">
@@ -81,24 +77,6 @@
                 <data
                     android:host="www.jitdemo.jitendract.com"
                     android:pathPrefix="/webview"
-                    android:scheme="https" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name=".Anonymous"
-            android:exported="false" />
-        <activity
-            android:name=".HomeScreen"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
-
-                <data
-                    android:host="www.jitdemo.jitendract.com"
-                    android:pathPrefix="/*x"
                     android:scheme="https" />
             </intent-filter>
         </activity>
