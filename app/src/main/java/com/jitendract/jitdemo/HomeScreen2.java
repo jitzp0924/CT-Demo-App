@@ -1,6 +1,6 @@
 package com.jitendract.jitdemo;
 
-import static android.app.BroadcastOptions.fromBundle;
+import static java.lang.Boolean.TRUE;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -8,8 +8,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.location.Location;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
@@ -19,15 +19,23 @@ import android.view.Window;
 import android.widget.ImageView;
 import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.PopupWindow;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.clevertap.android.sdk.CTInboxListener;
 import com.clevertap.android.sdk.CTInboxStyleConfig;
 import com.clevertap.android.sdk.CleverTapAPI;
-import com.clevertap.android.sdk.CoreState;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.card.MaterialCardView;
 import com.jitendract.jitdemo.CarouselModel.SliderAdapter;
 import com.jitendract.jitdemo.CarouselModel.SliderData;
@@ -40,206 +48,110 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 
-public class HomeScreen2 extends AppCompatActivity implements CTInboxListener {
+public class HomeScreen2 extends AppCompatActivity implements CTInboxListener,OnMapReadyCallback {
 
 
-    Map<String,Object> homeScreen, homeSlider, recoForU;
-    Map<String,Integer> payBill,quickLinks;
+    Map<String,Object> homeScreen, homeSlider, recoForU,J4U;
+    Map<String,Integer> payBill,quickLinks,rapidoLinks;
     HashMap<String, Object> homeScreenEvt, slidermap;
     private static final String PREF_NAME = "MyPrefs";
     private static final String KEY_CUSTOM_INBOX_ENABLED = "custom_inbox_enabled";
-    String phoneNum,UserId;
+    String phoneNum,UserId,appType;
+    androidx.appcompat.widget.Toolbar toolbar;
     Double recoCards,counter;
     ImageView logout,search,profile_setting,appInboxButton;
-    Boolean searchFlag;
+    Boolean searchFlag,locationPermissionGranted;
     LinearLayout fdrdlayout,investmentlayout,creditcardlayout,loanslayout,sendmoneylayout,serviceslayout,fixedreturnslayout,billpaylayout, fastaglayout,recharge,electricity,pipedgas,dth,broadband ;
+    LinearLayout verticalRow1, verticalRow2;
     MaterialCardView recoCard1,recoCard2,recoCard3;
     SharedPreferences prefs,sharedPreferences;
     Button recoCardButton1,recoCardButton2,recoCardButton3;
+    LinearLayout recoSection,icoCar,icoAuto,icoBike,rapidoOptions,mapLayout1;
+    SupportMapFragment mapFragment;
+    TextView reco_card_1_text;
 
     CleveTapUtils cleveTapUtils;
+    private GoogleMap map;
+    FusedLocationProviderClient fusedLocationProviderClient;
+    Intent intent;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         homeScreenEvt = new HashMap<>(); // Added initialization
         slidermap = new HashMap<>();
-
+        sharedPreferences = getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
+        CleverTapAPI clevertapDefaultInstance = CleverTapAPI.getDefaultInstance(getApplicationContext());
+        clevertapDefaultInstance.setCTNotificationInboxListener(this);
 
         setContentView(R.layout.activity_home_screen2);
         super.onCreate(savedInstanceState);
 
-
-        slidermap = new HashMap<>();
-
-
-        //profile setting
-        profile_setting = findViewById(R.id.profile_icon);
-        sharedPreferences = getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
-
-        //App Inbox
-        appInboxButton = findViewById(R.id.notification_icon);
-
-        logout = findViewById(R.id.logout_icon);
-        search = findViewById(R.id.search_icon);
-        recoCard1 = findViewById(R.id.reco_card_1);
-        recoCard2 = findViewById(R.id.reco_card_2);
-        recoCard3 = findViewById(R.id.reco_card_3);
-        recoCardButton1=findViewById(R.id.reco_card_1_button);
-        recoCardButton2=findViewById(R.id.reco_card_2_button);
-        recoCardButton3=findViewById(R.id.reco_card_3_button);
-
-        fastaglayout = findViewById(R.id.Fastag);
-        electricity = findViewById(R.id.Electricity);
-        dth = findViewById(R.id.DTH);
-        recharge = findViewById(R.id.Recharge);
-        pipedgas = findViewById(R.id.PipedGas);
-        broadband = findViewById(R.id.Broadband);
-
-        fdrdlayout = findViewById(R.id.FDRD);
-        investmentlayout = findViewById(R.id.Investments);
-        creditcardlayout = findViewById(R.id.CreditCard);
-        loanslayout = findViewById(R.id.Loans);
-        sendmoneylayout = findViewById(R.id.SendMoney);
-        serviceslayout = findViewById(R.id.Services);
-        billpaylayout = findViewById(R.id.BillPay);
-        fixedreturnslayout = findViewById(R.id.FixedReturns);
-
-        profile_setting.setOnClickListener(view -> {
-            Intent intent = new Intent(HomeScreen2.this, Settings.class);
-            startActivity(intent);
-        });
-
-        fdrdlayout.setOnClickListener(view -> {
-            Intent intent = new Intent(HomeScreen2.this, FDHome.class);
-            startActivity(intent);
-            commonOnClick("Quick Links","FD/RD");
-
-        });
-
-        investmentlayout.setOnClickListener(view -> {
-            Intent intent = new Intent(HomeScreen2.this, FDHome.class);
-            startActivity(intent);
-            commonOnClick("Quick Links","Investments");
-
-        });
-
-        creditcardlayout.setOnClickListener(view -> {
-            Intent intent = new Intent(HomeScreen2.this, FDHome.class);
-            startActivity(intent);
-            commonOnClick("Quick Links","Credit Card");
-
-        });
-
-        loanslayout.setOnClickListener(view -> {
-            Intent intent = new Intent(HomeScreen2.this, FDHome.class);
-            startActivity(intent);
-            commonOnClick("Quick Links","Loans");
-
-        });
-
-        sendmoneylayout.setOnClickListener(view -> {
-            Intent intent = new Intent(HomeScreen2.this, FDHome.class);
-            startActivity(intent);
-            commonOnClick("Quick Links","Send Money");
-
-        });
-
-        serviceslayout.setOnClickListener(view -> {
-            Intent intent = new Intent(HomeScreen2.this, FDHome.class);
-            startActivity(intent);
-            commonOnClick("Quick Links","Services");
-
-        });
-
-        fixedreturnslayout.setOnClickListener(view -> {
-            Intent intent = new Intent(HomeScreen2.this, FDHome.class);
-            startActivity(intent);
-            commonOnClick("Quick Links","Fixed Returns");
-
-        });
-
-        billpaylayout.setOnClickListener(view -> {
-            Intent intent = new Intent(HomeScreen2.this, FDHome.class);
-            startActivity(intent);
-            commonOnClick("Quick Links","Bill Pay");
-        });
-
-        fastaglayout.setOnClickListener(view -> {
-            Intent intent = new Intent(HomeScreen2.this, MultiTaskPayBills.class);
-            intent.putExtra("category", "Fastag");
-            startActivity(intent);
-            commonOnClick("Pay Bills","Fastag");
-        });
-
-        recharge.setOnClickListener(view -> {
-            Intent intent = new Intent(HomeScreen2.this, MultiTaskPayBills.class);
-            intent.putExtra("category", "Recharge");
-            startActivity(intent);
-            commonOnClick("Pay Bills","Recharge");
-        });
-
-        dth.setOnClickListener(view -> {
-            Intent intent = new Intent(HomeScreen2.this, MultiTaskPayBills.class);
-            intent.putExtra("category", "DTH");
-            startActivity(intent);
-            commonOnClick("Pay Bills","DTH");
-        });
-
-        pipedgas.setOnClickListener(view -> {
-            Intent intent = new Intent(HomeScreen2.this, MultiTaskPayBills.class);
-            intent.putExtra("category", "Piped Gas");
-            startActivity(intent);
-            commonOnClick("Pay Bills","Piped Gas");
-        });
-
-        broadband.setOnClickListener(view -> {
-            Intent intent = new Intent(HomeScreen2.this, MultiTaskPayBills.class);
-            intent.putExtra("category", "Broadband");
-            startActivity(intent);
-            commonOnClick("Pay Bills","Broadband");
-        });
-
-        electricity.setOnClickListener(view -> {
-            Intent intent = new Intent(HomeScreen2.this, MultiTaskPayBills.class);
-            intent.putExtra("category", "Electricity");
-            startActivity(intent);
-            commonOnClick("Pay Bills","Electricity");
-        });
+        setIdViews();
+        setListners();
 
 
+        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
 
 
         prefs = getSharedPreferences("Login", MODE_PRIVATE);
         phoneNum =prefs.getString("Phone","NA");
         UserId = prefs.getString("Identity","default");
+        locationPermissionGranted = prefs.getBoolean("locationPermissionGranted",TRUE);
         cleveTapUtils=new CleveTapUtils(getApplicationContext());
         homeScreenEvt.put("Phone",phoneNum);
         homeScreenEvt.put("UserId",UserId);
         homeScreenEvt.put("Screen","HomeScreen");
 
-        CleverTapAPI clevertapDefaultInstance = CleverTapAPI.getDefaultInstance(getApplicationContext());
         if (clevertapDefaultInstance != null) {
             clevertapDefaultInstance.fetchVariables();
             try {
                 homeScreen = (Map<String, Object>) clevertapDefaultInstance.getVariableValue("HomeScreen");
+                J4U = (Map<String, Object>) homeScreen.get("J4U");
+//                JSONObject r4u = new JSONObject(String.valueOf(J4U.get("43")));
+//                String titleReco = r4u.getString("title_text");
+//                reco_card_1_text.setText(titleReco);
+
+
                 recoForU = (Map<String, Object>) homeScreen.get("RecommendedForU");
                 homeSlider = (Map<String, Object>) homeScreen.get("Bottom Carousel");
                 quickLinks = convertValuesToInteger((Map<String, Object>) homeScreen.get("QuickLinks"));
+                rapidoLinks = convertValuesToInteger((Map<String, Object>) homeScreen.get("rapidoLink"));
                 payBill = convertValuesToInteger((Map<String, Object>) homeScreen.get("Pay Bills"));
+                appType = String.valueOf(clevertapDefaultInstance.getVariableValue("appType"));
+                searchFlag = (Boolean) homeScreen.get("SearchIcon");
+
             }
             catch(Exception e){Log.e("PEException",String.valueOf(e));}
 
         }
-        searchFlag = (Boolean) homeScreen.get("SearchIcon");
+
+        if (appType.equals("rapido")){
+            recoSection.setVisibility(View.GONE);
+            verticalRow1.setVisibility(View.GONE);
+            verticalRow2.setVisibility(View.GONE);
+            rapidoOptions.setVisibility(View.VISIBLE);
+            mapLayout1.setVisibility(View.VISIBLE);
+
+            toolbar.setBackgroundColor(Color.parseColor("#f9c935"));
+
+            mapFragment = SupportMapFragment.newInstance();
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .add(R.id.mapLayout, mapFragment)
+                    .commit();
+            mapFragment.getMapAsync(this);
+
+        }
+
         if(recoForU.get("MaxCard") instanceof Double){
             recoCards = (Double) recoForU.get("MaxCard");
         }
         if(recoForU.get("MaxCard") instanceof Integer){
             recoCards = Double.valueOf(String.valueOf(recoForU.get("MaxCard")));
         }
-
-
 
         if (recoCards == 1.0){
             recoCard3.setVisibility(View.GONE);
@@ -262,76 +174,95 @@ public class HomeScreen2 extends AppCompatActivity implements CTInboxListener {
             payBillReorder(payBill);
         }
 
-        if (quickLinks != null){
+        if (quickLinks != null && !Objects.equals(appType, "rapido")){
             rearrangeInnerLinearLayouts(quickLinks);
         }
-
-        logout.setOnClickListener(view -> {
-            SharedPreferences.Editor editor = getSharedPreferences("Login", MODE_PRIVATE).edit();
-            editor.remove("LoggedIn").apply();
-            editor.remove("Identity").apply();
-
-            Intent di = new Intent(getApplicationContext(),MainActivity.class);
-            di.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            startActivity(di);
-        });
-
-        recoCardButton1.setOnClickListener(view -> {
-            homeScreenEvt.put("Action","Click");
-            homeScreenEvt.put("Label", "Card 1");
-            cleveTapUtils.raiseEvent("Recommended For You",homeScreenEvt);
-            homeScreenEvt.remove("Action");
-            homeScreenEvt.remove("Label");
-        });
-
-        recoCardButton2.setOnClickListener(view -> {
-            homeScreenEvt.put("Action","Click");
-            homeScreenEvt.put("Label", "Card 2");
-            cleveTapUtils.raiseEvent("Recommended For You",homeScreenEvt);
-            homeScreenEvt.remove("Action");
-            homeScreenEvt.remove("Label");
-
-            showPaymentSuccessPopup();
-
-        });
-
-        recoCardButton3.setOnClickListener(view -> {
-            homeScreenEvt.put("Action","Click");
-            homeScreenEvt.put("Label", "Card 3");
-            cleveTapUtils.raiseEvent("Recommended For You",homeScreenEvt);
-            homeScreenEvt.remove("Action");
-            homeScreenEvt.remove("Label");
-            System.out.println("Reco 3 raised");
-
-            //Redirection
-            HashMap<String, Object> redirectionDetails = new HashMap<>();
-            redirectionDetails.put("ServiceID", "123");
-            redirectionDetails.put("IsServiceActive", false);
-            redirectionDetails.put("Deeplink", "https://developer.clevertap.com/docs/android");
-            DeeplinkRedirection deeplinkRedirection = new DeeplinkRedirection(this);
-            deeplinkRedirection.handleRedirection(redirectionDetails);
-        });
-
-        cleveTapUtils.clevertapDefaultInstance.setCTNotificationInboxListener(this);
+        if (rapidoLinks != null){
+            rearrangeInnerLinearLayouts(rapidoLinks);
+        }
 
 
 
-        appInboxButton.setOnClickListener(view -> {
 
-            //Custom Inbox Logic
-            boolean customInboxEnabled = sharedPreferences.getBoolean(KEY_CUSTOM_INBOX_ENABLED, false);
-            Log.v("CUSTOM INBOX VALUE",customInboxEnabled + "");
 
-            if (customInboxEnabled) {
-                Intent intent = new Intent(HomeScreen2.this, CustomInboxActivity.class);
-                startActivity(intent);
-            } else {
 
-                cleveTapUtils.clevertapDefaultInstance.initializeInbox();
-            }
-        });
 
         cleveTapUtils.raiseEvent("Home Screen",homeScreenEvt);
+
+        getCurrentLocationforLatLong(clevertapDefaultInstance);
+
+    }
+
+    private void getCurrentLocationforLatLong(CleverTapAPI clevertapDefaultInstance) {
+
+        try {
+            if (locationPermissionGranted) {
+                Task<Location> locationResult = fusedLocationProviderClient.getLastLocation();
+                locationResult.addOnCompleteListener(this, new OnCompleteListener<Location>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Location> task) {
+                        if (task.isSuccessful()) {
+                            // Set the map's camera position to the current location of the device.
+                            Location lastKnownLocation = task.getResult();
+//                            Log.v("Location", lastKnownLocation.getLatitude() + " Longitude : " + lastKnownLocation.getLongitude());
+                            clevertapDefaultInstance.setLocation(lastKnownLocation);
+                        } else {
+                            Log.v("Location", "Current location is null. Using defaults.");
+                        }
+                    }
+                });
+            }
+        } catch (SecurityException e)  {
+            Log.e("Exception: %s", e.getMessage(), e);
+        }
+
+    }
+
+    private void setIdViews() {
+
+        //profile setting
+        profile_setting = findViewById(R.id.profile_icon);
+        //App Inbox
+        appInboxButton = findViewById(R.id.notification_icon);
+        toolbar = findViewById(R.id.toolbar);
+
+        logout = findViewById(R.id.logout_icon);
+        search = findViewById(R.id.search_icon);
+        recoSection = findViewById(R.id.recoSection);
+        verticalRow1 = findViewById(R.id.verticalrow1);
+        verticalRow2 = findViewById(R.id.verticalrow2);
+
+        recoCard1 = findViewById(R.id.reco_card_1);
+        recoCard2 = findViewById(R.id.reco_card_2);
+        recoCard3 = findViewById(R.id.reco_card_3);
+        recoCardButton1=findViewById(R.id.reco_card_1_button);
+        recoCardButton2=findViewById(R.id.reco_card_2_button);
+        recoCardButton3=findViewById(R.id.reco_card_3_button);
+        reco_card_1_text = findViewById(R.id.reco_card_1_text);
+
+        fastaglayout = findViewById(R.id.Fastag);
+        electricity = findViewById(R.id.Electricity);
+        dth = findViewById(R.id.DTH);
+        recharge = findViewById(R.id.Recharge);
+        pipedgas = findViewById(R.id.PipedGas);
+        broadband = findViewById(R.id.Broadband);
+
+        fdrdlayout = findViewById(R.id.FDRD);
+        investmentlayout = findViewById(R.id.Investments);
+        creditcardlayout = findViewById(R.id.CreditCard);
+        loanslayout = findViewById(R.id.Loans);
+        sendmoneylayout = findViewById(R.id.SendMoney);
+        serviceslayout = findViewById(R.id.Services);
+        billpaylayout = findViewById(R.id.BillPay);
+        fixedreturnslayout = findViewById(R.id.FixedReturns);
+
+        icoAuto = findViewById(R.id.icoAuto);
+        icoBike = findViewById(R.id.icoBike);
+        icoCar = findViewById(R.id.icoCar);
+        rapidoOptions = findViewById(R.id.rapidoOptions);
+        mapLayout1 = findViewById(R.id.mapLayout);
+
+        mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.mapLayout);
 
     }
 //    @Override
@@ -386,8 +317,11 @@ public class HomeScreen2 extends AppCompatActivity implements CTInboxListener {
     }
 
     private void rearrangeInnerLinearLayouts(Map<String, Integer> quickLinks) {
+
         LinearLayout parentLayout1 = findViewById(R.id.verticalrow1);
         LinearLayout parentLayout2 = findViewById(R.id.verticalrow2);
+        LinearLayout rapidoOptions = findViewById(R.id.rapidoOptions);
+
 
         // Create a list of Map entries sorted by their values
         List<Map.Entry<String, Integer>> sortedEntries = new ArrayList<>(quickLinks.entrySet());
@@ -399,12 +333,20 @@ public class HomeScreen2 extends AppCompatActivity implements CTInboxListener {
             LinearLayout layout = findViewById(getResources().getIdentifier(layoutId, "id", getPackageName()));
 
             // Remove the LinearLayout from its current position
-            parentLayout1.removeView(layout);
-            parentLayout2.removeView(layout);
+            if (appType.equals("rapido")){
+                if (layout.getParent() != null){((ViewGroup)layout.getParent()).removeView(layout);}
+
+            }
+            else {
+                parentLayout1.removeView(layout);
+                parentLayout2.removeView(layout);
+            }
+
 
             // Add the LinearLayout to the appropriate parent layout based on its position
             if (count < 4) {
-                parentLayout1.addView(layout);
+                if (appType.equals("rapido")){rapidoOptions.addView(layout);}else{parentLayout1.addView(layout);}
+
             } else {
                 parentLayout2.addView(layout);
             }
@@ -579,6 +521,257 @@ public class HomeScreen2 extends AppCompatActivity implements CTInboxListener {
     @Override
     public void inboxMessagesDidUpdate() {
 
+    }
+
+    private void setListners(){
+        profile_setting.setOnClickListener(view -> {
+            Intent intent = new Intent(HomeScreen2.this, Settings.class);
+            startActivity(intent);
+        });
+
+        fdrdlayout.setOnClickListener(view -> {
+            Intent intent = new Intent(HomeScreen2.this, FDHome.class);
+            startActivity(intent);
+            commonOnClick("Quick Links","FD/RD");
+
+        });
+
+        investmentlayout.setOnClickListener(view -> {
+            Intent intent = new Intent(HomeScreen2.this, FDHome.class);
+            startActivity(intent);
+            commonOnClick("Quick Links","Investments");
+
+        });
+
+        creditcardlayout.setOnClickListener(view -> {
+            Intent intent = new Intent(HomeScreen2.this, FDHome.class);
+            startActivity(intent);
+            commonOnClick("Quick Links","Credit Card");
+
+        });
+
+        loanslayout.setOnClickListener(view -> {
+            Intent intent = new Intent(HomeScreen2.this, FDHome.class);
+            startActivity(intent);
+            commonOnClick("Quick Links","Loans");
+
+        });
+
+        sendmoneylayout.setOnClickListener(view -> {
+            Intent intent = new Intent(HomeScreen2.this, FDHome.class);
+            startActivity(intent);
+            commonOnClick("Quick Links","Send Money");
+
+        });
+
+        serviceslayout.setOnClickListener(view -> {
+            Intent intent = new Intent(HomeScreen2.this, FDHome.class);
+            startActivity(intent);
+            commonOnClick("Quick Links","Services");
+
+        });
+
+        fixedreturnslayout.setOnClickListener(view -> {
+            Intent intent = new Intent(HomeScreen2.this, FDHome.class);
+            startActivity(intent);
+            commonOnClick("Quick Links","Fixed Returns");
+
+        });
+
+        billpaylayout.setOnClickListener(view -> {
+            Intent intent = new Intent(HomeScreen2.this, FDHome.class);
+            startActivity(intent);
+            commonOnClick("Quick Links","Bill Pay");
+        });
+
+        fastaglayout.setOnClickListener(view -> {
+            Intent intent = new Intent(HomeScreen2.this, MultiTaskPayBills.class);
+            intent.putExtra("category", "Fastag");
+            startActivity(intent);
+            commonOnClick("Pay Bills","Fastag");
+        });
+
+        recharge.setOnClickListener(view -> {
+            Intent intent = new Intent(HomeScreen2.this, MultiTaskPayBills.class);
+            intent.putExtra("category", "Recharge");
+            startActivity(intent);
+            commonOnClick("Pay Bills","Recharge");
+        });
+
+        dth.setOnClickListener(view -> {
+            Intent intent = new Intent(HomeScreen2.this, MultiTaskPayBills.class);
+            intent.putExtra("category", "DTH");
+            startActivity(intent);
+            commonOnClick("Pay Bills","DTH");
+        });
+
+        pipedgas.setOnClickListener(view -> {
+            Intent intent = new Intent(HomeScreen2.this, MultiTaskPayBills.class);
+            intent.putExtra("category", "Piped Gas");
+            startActivity(intent);
+            commonOnClick("Pay Bills","Piped Gas");
+        });
+
+        broadband.setOnClickListener(view -> {
+            Intent intent = new Intent(HomeScreen2.this, MultiTaskPayBills.class);
+            intent.putExtra("category", "Broadband");
+            startActivity(intent);
+            commonOnClick("Pay Bills","Broadband");
+        });
+
+        electricity.setOnClickListener(view -> {
+            Intent intent = new Intent(HomeScreen2.this, MultiTaskPayBills.class);
+            intent.putExtra("category", "Electricity");
+            startActivity(intent);
+            commonOnClick("Pay Bills","Electricity");
+        });
+
+
+        logout.setOnClickListener(view -> {
+            SharedPreferences.Editor editor = getSharedPreferences("Login", MODE_PRIVATE).edit();
+            editor.remove("LoggedIn").apply();
+            editor.remove("Identity").apply();
+
+            Intent di = new Intent(getApplicationContext(),MainActivity.class);
+            di.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(di);
+        });
+
+        recoCardButton1.setOnClickListener(view -> {
+            homeScreenEvt.put("Action","Click");
+            homeScreenEvt.put("Label", "Card 1");
+            cleveTapUtils.raiseEvent("Recommended For You",homeScreenEvt);
+            homeScreenEvt.remove("Action");
+            homeScreenEvt.remove("Label");
+        });
+
+        recoCardButton2.setOnClickListener(view -> {
+            homeScreenEvt.put("Action","Click");
+            homeScreenEvt.put("Label", "Card 2");
+            cleveTapUtils.raiseEvent("Recommended For You",homeScreenEvt);
+            homeScreenEvt.remove("Action");
+            homeScreenEvt.remove("Label");
+
+            showPaymentSuccessPopup();
+
+        });
+
+        recoCardButton3.setOnClickListener(view -> {
+            homeScreenEvt.put("Action","Click");
+            homeScreenEvt.put("Label", "Card 3");
+            cleveTapUtils.raiseEvent("Recommended For You",homeScreenEvt);
+            homeScreenEvt.remove("Action");
+            homeScreenEvt.remove("Label");
+            System.out.println("Reco 3 raised");
+
+            //Redirection
+            HashMap<String, Object> redirectionDetails = new HashMap<>();
+//            redirectionDetails.put("ServiceID", "123");
+            redirectionDetails.put("IsServiceActive", false);
+            redirectionDetails.put("Deeplink", "https://developer.clevertap.com/docs/android");
+            DeeplinkRedirection deeplinkRedirection = new DeeplinkRedirection(this);
+            deeplinkRedirection.handleRedirection(redirectionDetails);
+        });
+
+        appInboxButton.setOnClickListener(view -> {
+
+            //Custom Inbox Logic
+            boolean customInboxEnabled = sharedPreferences.getBoolean(KEY_CUSTOM_INBOX_ENABLED, false);
+            Log.v("CUSTOM INBOX VALUE",customInboxEnabled + "");
+
+            if (customInboxEnabled) {
+                Intent intent = new Intent(HomeScreen2.this, CustomInboxActivity.class);
+                startActivity(intent);
+            } else {
+
+                cleveTapUtils.clevertapDefaultInstance.initializeInbox();
+            }
+        });
+
+        icoBike.setOnClickListener(view -> {
+            Intent intent = new Intent(HomeScreen2.this, FDHome.class);
+            startActivity(intent);
+            commonOnClick("Bike","Quick Links");
+
+        });
+
+
+        icoAuto.setOnClickListener(view -> {
+            Intent intent = new Intent(HomeScreen2.this, FDHome.class);
+            startActivity(intent);
+            commonOnClick("Auto","Quick Links");
+        });
+
+
+        icoCar.setOnClickListener(view -> {
+            Intent intent = new Intent(HomeScreen2.this, FDHome.class);
+            startActivity(intent);
+            commonOnClick("Car","Quick Links");
+        });
+
+    }
+
+
+
+    @Override
+    public void onMapReady(@NonNull GoogleMap map) {
+
+        this.map = map;
+        // Turn on the My Location layer and the related control on the map.
+        updateLocationUI();
+
+        // Get the current location of the device and set the position of the map.
+        getDeviceLocation();
+    }
+
+    private void updateLocationUI() {
+        if (map == null) {
+            return;
+        }
+        try {
+                map.setMyLocationEnabled(true);
+                map.getUiSettings().setMyLocationButtonEnabled(true);
+
+        } catch (SecurityException e)  {
+            Log.e("Exception: %s", e.getMessage());
+        }
+    }
+
+    private void getDeviceLocation() {
+        /*
+         * Get the best and most recent location of the device, which may be null in rare
+         * cases when a location is not available.
+         */
+
+        LatLng sydney = new LatLng(-33.852, 151.211);
+        try {
+            if (locationPermissionGranted) {
+                Task<Location> locationResult = fusedLocationProviderClient.getLastLocation();
+                locationResult.addOnCompleteListener(this, new OnCompleteListener<Location>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Location> task) {
+                        if (task.isSuccessful()) {
+                            // Set the map's camera position to the current location of the device.
+                            Location lastKnownLocation = task.getResult();
+
+                            if (lastKnownLocation != null) {
+                                map.moveCamera(CameraUpdateFactory.newLatLngZoom(
+                                        new LatLng(lastKnownLocation.getLatitude(),
+                                                lastKnownLocation.getLongitude()),14F));
+                            }
+                        } else {
+                            Log.d("Location", "Current location is null. Using defaults.");
+                            Log.e("Location", "Exception: %s", task.getException());
+                            map.moveCamera(CameraUpdateFactory
+                                    .newLatLngZoom(sydney, 14F));
+                            map.getUiSettings().setMyLocationButtonEnabled(false);
+                        }
+                    }
+                });
+            }
+        } catch (SecurityException e)  {
+            Log.e("Exception: %s", e.getMessage(), e);
+        }
     }
 }
 

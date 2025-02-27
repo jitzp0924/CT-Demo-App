@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.app.Application;
 import android.app.NotificationManager;
 import android.content.Context;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
@@ -17,10 +16,8 @@ import androidx.room.Room;
 import com.clevertap.android.pushtemplates.PushTemplateNotificationHandler;
 import com.clevertap.android.sdk.ActivityLifecycleCallback;
 import com.clevertap.android.sdk.CleverTapAPI;
-import com.clevertap.android.sdk.interfaces.NotificationHandler;
 import com.clevertap.android.sdk.pushnotification.CTPushNotificationListener;
 import com.jitendract.jitdemo.CtPE.PEVariables;
-
 import java.util.HashMap;
 
 public class application extends MultiDexApplication implements Application.ActivityLifecycleCallbacks, CTPushNotificationListener {
@@ -31,16 +28,14 @@ public class application extends MultiDexApplication implements Application.Acti
 
         ActivityLifecycleCallback.register(this);
         CleverTapAPI.setDebugLevel(CleverTapAPI.LogLevel.VERBOSE);
-        CleverTapAPI.setNotificationHandler(new PushTemplateNotificationHandler());
         CleverTapAPI cleverTapAPI = CleverTapAPI.getDefaultInstance(getApplicationContext());
+
         assert cleverTapAPI != null;
+        PEInit(cleverTapAPI);
+        CleverTapAPI.setNotificationHandler(new PushTemplateNotificationHandler());
         cleverTapAPI.setCTPushNotificationListener(this);
         CleverTapAPI.getDefaultInstance(this).enableDeviceNetworkInfoReporting(true);
-        PEInit(cleverTapAPI);
-
         cleverTapAPI.enableDeviceNetworkInfoReporting(true);
-
-
 
         super.onCreate();
         database = Room.databaseBuilder(getApplicationContext(), AppDatabase.class, "transactions-db").build();

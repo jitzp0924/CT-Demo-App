@@ -16,18 +16,23 @@ public class PEVariables {
     @Variable
     public Map<String,Object> HomeScreen;
 
-    public Map<String,Object> RecommendedForU;
+    public Map<String,Object> RecommendedForU,J4U;
     public Map<String,Object> RecoCard1;
     public Map<String,Object> RecoCard2;
     public Map<String,Object> RecoCard3;
     public Map<String,Object> HomeSlider;
-    public Map<String,Integer>quicklinks,PayBill;
+    public Map<String,Integer>quicklinks,PayBill,rapidoLink;
+    @Variable
+    public String appType;
 
 
 
 
 
     public PEVariables(Context applicationContext) {
+
+        appType = "basic";
+
         LoginScreen = new HashMap<>();
         LoginScreen.put("Top BannerImage","null");
         LoginScreen.put("Active",false);
@@ -85,13 +90,39 @@ public class PEVariables {
         PayBill.put("Broadband", 6);
 
 
+        rapidoLink = new HashMap<>();
+        rapidoLink.put("icoBike",1);
+        rapidoLink.put("icoCar",2);
+        rapidoLink.put("icoAuto",3);
+        rapidoLink.put("icoCycle",4);
+
+        J4U = new HashMap<>();
+        J4U.put("41","");
+        J4U.put("42","");
+        J4U.put("43","");
+        J4U.put("44","");
+        J4U.put("45","");
+        J4U.put("46","");
+
+
+
         HomeScreen = new HashMap<>();
         HomeScreen.put("SearchIcon",true);
         HomeScreen.put("RecommendedForU",RecommendedForU);
         HomeScreen.put("Bottom Carousel",HomeSlider);
         HomeScreen.put("QuickLinks",quicklinks);
         HomeScreen.put("Pay Bills", PayBill);
+        HomeScreen.put("Rapido Link", rapidoLink);
+        HomeScreen.put("J4U", J4U);
 
+//
+//        R4U = new HashMap<>();
+//        R4U.put("R4U.51","");
+//        R4U.put("R4U.52","");
+//        R4U.put("R4U.53","");
+//        R4U.put("R4U.54","");
+//        R4U.put("R4U.55","");
+//        R4U.put("R4U.56","");
 
     }
 }

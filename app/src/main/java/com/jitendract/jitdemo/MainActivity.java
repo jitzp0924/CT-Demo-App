@@ -1,19 +1,19 @@
 package com.jitendract.jitdemo;
 
 import static android.content.ContentValues.TAG;
+import static android.graphics.Color.rgb;
 
 import static com.clevertap.android.geofence.Logger.VERBOSE;
-
+import static java.lang.Boolean.TRUE;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.NotificationManager;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.net.Uri;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
@@ -27,23 +27,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.clevertap.android.geofence.CTGeofenceAPI;
 import com.clevertap.android.geofence.CTGeofenceSettings;
 import com.clevertap.android.sdk.CleverTapAPI;
-import com.clevertap.android.sdk.CleverTapInstanceConfig;
-import com.clevertap.android.sdk.Constants;
 import com.clevertap.android.sdk.PushPermissionResponseListener;
-import com.clevertap.android.sdk.inapp.CTLocalInApp;
 import com.clevertap.android.sdk.pushnotification.CTPushNotificationListener;
-import com.clevertap.android.sdk.pushnotification.PushConstants;
-import com.clevertap.android.sdk.variables.callbacks.FetchVariablesCallback;
 import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
-import com.jitendract.jitdemo.CleveTapUtils;
-
-import org.json.JSONObject;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -55,14 +47,15 @@ public class MainActivity extends AppCompatActivity implements CTPushNotificatio
     TextInputEditText identity,phone;
     CleverTapAPI clevertapDefaultInstance;
 
-    String userID, phoneNum,topBannerUrl;
-    Boolean topBannerStatus;
+    String userID, phoneNum,topBannerUrl,appType;
+    Boolean topBannerStatus, locationPermissionGranted;
     Map <String, Object>LoginSceen;
     ImageView topBanner;
 
-    TextView signInText;
+    TextView signInText,loginBtnText,mainText;
 
 
+    @SuppressLint("ResourceAsColor")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -73,6 +66,8 @@ public class MainActivity extends AppCompatActivity implements CTPushNotificatio
         phoneLayout = findViewById(R.id.numTextL);
 
         signInText = findViewById(R.id.signInText);
+        loginBtnText = findViewById(R.id.loginBtnText);
+        mainText = findViewById(R.id.mainText);
 
         identity = findViewById(R.id.identity);
         phone = findViewById(R.id.phone);
@@ -86,25 +81,43 @@ public class MainActivity extends AppCompatActivity implements CTPushNotificatio
 
         clevertapDefaultInstance.fetchVariables();
 
+        appType = String.valueOf(clevertapDefaultInstance.getVariableValue("appType"));
+        LoginSceen = (Map<String, Object>) clevertapDefaultInstance.getVariableValue("LoginScreen");
+        topBannerStatus = (Boolean) LoginSceen.get("Active");
+        topBannerUrl = (String) LoginSceen.get("Top BannerImage");
+
         signInText.setOnClickListener(view -> {
             Intent intent = new Intent(MainActivity.this,SignInPage.class);
             startActivity(intent);
         });
 
-        LoginSceen = (Map<String, Object>) clevertapDefaultInstance.getVariableValue("LoginScreen");
-        topBannerStatus = (Boolean) LoginSceen.get("Active");
-        topBannerUrl = (String) LoginSceen.get("Top BannerImage");
 
-        if (Boolean.TRUE.equals(topBannerStatus)){
+        if (TRUE.equals(topBannerStatus)){
             try {
-                Glide.with(this).load(topBannerUrl).placeholder(R.drawable.login_banner).fitCenter().into(topBanner);
+                topBanner.setVisibility(View.VISIBLE);
+
+                Glide.with(this).load(topBannerUrl).skipMemoryCache(true).diskCacheStrategy(DiskCacheStrategy.NONE).fitCenter().into(topBanner);
 //                topBanner.setImageURI(Uri.parse(topBannerUrl));
             }
             catch (Exception e){
                 Log.e("PE_Exception",String.valueOf(e));
             }
 
+        }else {topBanner.setVisibility(View.GONE);}
+
+        if (appType.equals("rapido")){
+            loginbtn.setCardBackgroundColor(Color.parseColor("#f9c935"));
+            loginBtnText.setTextColor(rgb(255,255,255));
+            mainText.setTextColor(Color.parseColor("#f9c935"));
+
         }
+        else {
+            loginbtn.setCardBackgroundColor(Color.parseColor("#ad5154"));
+            loginBtnText.setTextColor(rgb(0,0,0));
+            mainText.setTextColor(rgb(255,255,255));
+            topBanner.setVisibility(View.GONE);
+        }
+
 
         identity.addTextChangedListener(new TextWatcher() {
             @Override
@@ -168,6 +181,7 @@ public class MainActivity extends AppCompatActivity implements CTPushNotificatio
 
                 HashMap<String, Object> loginMap = new HashMap<>();
                 loginMap.put("Identity",userID);      // String or number
+                if(userID.contains("rapido")){loginMap.put("AppType","rapido");}else loginMap.put("AppType","basic");
                 loginMap.put("Phone",phoneNum);
                 loginMap.put("MSG-whatsapp",commsUpdate.isChecked());
                 loginMap.put("T&C",conditions.isChecked());
@@ -182,6 +196,7 @@ public class MainActivity extends AppCompatActivity implements CTPushNotificatio
                 editor.putBoolean("LoggedIn",true);
                 editor.putString("Identity",userID);
                 editor.putString("Phone",phoneNum);
+                editor.putBoolean("locationPermissionGranted",locationPermissionGranted);
                 editor.apply();
 
                 Intent di = new Intent(getApplicationContext(),HomeScreen2.class);
@@ -202,6 +217,7 @@ public class MainActivity extends AppCompatActivity implements CTPushNotificatio
                                     Manifest.permission.ACCESS_COARSE_LOCATION,false);
                             if (fineLocationGranted != null && fineLocationGranted) {
                                 // Precise location access granted.
+                                locationPermissionGranted =TRUE;
                             } else if (coarseLocationGranted != null && coarseLocationGranted) {
                                 // Only approximate location access granted.
                             } else {
@@ -257,7 +273,8 @@ public class MainActivity extends AppCompatActivity implements CTPushNotificatio
 
         }
         else{
-            CleverTapAPI.createNotificationChannel(getApplicationContext(),"r2d2","r2d2","r2d2 sound bad", NotificationManager.IMPORTANCE_MAX,true,"r2d2.mp3");
+            CleverTapAPI.createNotificationChannel(getApplicationContext(),"r2d2","r2d2","r2d2", NotificationManager.IMPORTANCE_MAX,true);
+            CleverTapAPI.createNotificationChannel(getApplicationContext(),"jiosound","jiosound","For Jio", NotificationManager.IMPORTANCE_MAX,true,"jiosound.mp3");
         }
 
         clevertapDefaultInstance.promptForPushPermission(true);
@@ -274,7 +291,8 @@ public class MainActivity extends AppCompatActivity implements CTPushNotificatio
         if(accepted){
             //For Android 13+ we need to create notification channel after notification permission is accepted
             CleverTapAPI.createNotificationChannel(getApplicationContext(),"JitDemo","JitDemo","JitDemo", NotificationManager.IMPORTANCE_MAX,true);
-            CleverTapAPI.createNotificationChannel(getApplicationContext(),"r2d2","r2d2","r2d2 sound bad", NotificationManager.IMPORTANCE_MAX,true,"r2d2.mp3");
+            CleverTapAPI.createNotificationChannel(getApplicationContext(),"r2d2","r2d2","r2d2 sound bad", NotificationManager.IMPORTANCE_MAX,true);
+            CleverTapAPI.createNotificationChannel(getApplicationContext(),"jiosound","jiosound","For JIO", NotificationManager.IMPORTANCE_MAX,true,"jiosound.mp3");
             clevertapDefaultInstance.pushEvent("Push Opted-in");
         }
         else{

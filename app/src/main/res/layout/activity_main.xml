@@ -17,7 +17,7 @@
             android:layout_height="wrap_content"
             android:adjustViewBounds="true"
             android:scaleType="centerInside"
-            android:src="@drawable/login_banner" />
+            />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -29,9 +29,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/cnl_bold"
-                android:text="Login to CleverTap Bank"
+                android:text="Login to CleverTap"
                 android:textColor="@color/bank_dark_primary"
-                android:textSize="34sp" />
+                android:textSize="34sp"
+                android:id="@+id/mainText"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -161,10 +162,9 @@
                 android:id="@+id/loginbtn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                app:cardBackgroundColor="@color/bank_light_primary"
                 android:layout_alignParentBottom="true"
                 android:layout_marginTop="10dp"
-                android:backgroundTint="@color/bank_light_primary"
-                android:outlineSpotShadowColor="#AD5154"
                 app:cardCornerRadius="26dp"
                 app:cardElevation="1dp"
                 app:strokeColor="@color/bank_dark_primary"
@@ -181,7 +181,8 @@
                     android:textAllCaps="true"
                     android:textColor="@color/white"
                     android:textSize="20sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:id="@+id/loginBtnText"/>
             </com.google.android.material.card.MaterialCardView>
 
 

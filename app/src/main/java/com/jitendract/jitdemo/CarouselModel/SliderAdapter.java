@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.jitendract.jitdemo.R;
 import com.smarteist.autoimageslider.SliderViewAdapter;
 
@@ -49,7 +50,7 @@ public class SliderAdapter extends SliderViewAdapter<SliderAdapter.SliderAdapter
         // Glide is use to load image
         // from url in your imageview.
         Glide.with(viewHolder.itemView)
-                .load(sliderItem.getImgUrl())
+                .load(sliderItem.getImgUrl()).diskCacheStrategy(DiskCacheStrategy.NONE).skipMemoryCache(true)
 //                .fitCenter()
                 .into(viewHolder.imageViewBackground);
 
