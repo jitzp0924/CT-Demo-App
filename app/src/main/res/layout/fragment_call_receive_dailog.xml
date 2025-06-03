@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/Widget.Material3.BottomSheet"
+    app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="10dp"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/receiverIdText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:hint="Add Receiver Details"
+        app:boxBackgroundColor="@color/white"
+        app:boxStrokeColor="@color/bank_light_primary"
+        app:boxStrokeWidth="2dp"
+        app:hintTextColor="@color/bank_dark_primary"
+        tools:ignore="HardcodedText"
+        >
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/receiverId"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:textColor="@color/bank_dark_secondary" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!--            submit Button -->
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/callnow"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="30dp"
+        android:layout_marginTop="30dp"
+        android:backgroundTint="@color/bank_light_primary"
+        android:outlineSpotShadowColor="#AD5154"
+        app:cardCornerRadius="26dp"
+        app:cardElevation="1dp"
+        app:strokeColor="@color/bank_dark_primary"
+        app:strokeWidth="1dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginVertical="15dp"
+            android:fontFamily="@font/cnl_bold"
+            android:letterSpacing="1.2"
+            android:text="Call"
+            android:textAllCaps="true"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+    </com.google.android.material.card.MaterialCardView>
+
+</LinearLayout>

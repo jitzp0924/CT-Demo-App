@@ -4,7 +4,8 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:cardCornerRadius="24dp"
-    app:strokeColor="@color/bank_dark_primary"
+    android:outlineSpotShadowColor="@color/bank_dark_primary"
+    app:cardElevation="10dp"
     android:layout_margin="12dp"
     app:strokeWidth="1dp">
 

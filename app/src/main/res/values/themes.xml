@@ -1,10 +1,11 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.JitDemo" parent="Theme.MaterialComponents.Light.NoActionBar">
+    <style name="Theme.JitDemo" parent="Theme.Material3.Light.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/bank_dark_primary</item>
         <item name="colorPrimaryVariant">@color/bank_dark_secondary</item>
         <item name="colorOnPrimary">@color/bank_light_blue</item>
+        <item name="android:colorBackground">@color/white</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/bank_light_primary</item>
         <item name="colorSecondaryVariant">@color/bank_light_secondary</item>

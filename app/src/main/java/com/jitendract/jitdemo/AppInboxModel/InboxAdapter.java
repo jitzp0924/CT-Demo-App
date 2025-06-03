@@ -70,6 +70,7 @@ public class InboxAdapter extends RecyclerView.Adapter<InboxAdapter.InboxViewHol
             String imageURL = dataHelper.getImageUrl();
             String iconUrl = dataHelper.getIconUrl();
 
+
             if (isRead) {
                 itemView.setBackgroundResource(R.drawable.card_background_read);
             } else {

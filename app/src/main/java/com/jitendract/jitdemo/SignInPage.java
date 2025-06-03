@@ -23,14 +23,14 @@ public class SignInPage extends AppCompatActivity {
     CheckBox conditions, commsUpdate;
     TextInputEditText fullName, phone, email, referral;
     TextInputLayout idLayout, phoneLayout, emailLayout, referralLayout;
-    CleveTapUtils cleveTapUtils;
+    CleverTapUtils cleverTapUtils;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in_page);
 
-        cleveTapUtils=new CleveTapUtils(getApplicationContext());
+        cleverTapUtils= CleverTapUtils.getInstance();
 
         signInButton = findViewById(R.id.signInbtn);
         loginText = findViewById(R.id.LoginText);
@@ -97,13 +97,13 @@ public class SignInPage extends AppCompatActivity {
                 if(!emailText.isEmpty()) {
                     signInData.put("Email", emailText);
                 }
-                cleveTapUtils.login(signInData);
+                cleverTapUtils.login(signInData);
 
                 if(!referralCode.isEmpty()){
                     HashMap<String,Object> propertydata = new HashMap<>();
                     propertydata.put("Referal Code",referralCode);
-                    cleveTapUtils.clevertapDefaultInstance.pushProfile(propertydata);
-                    cleveTapUtils.clevertapDefaultInstance.pushEvent("Referral Code Used",propertydata);
+                    cleverTapUtils.getDefaultInstance().pushProfile(propertydata);
+                    cleverTapUtils.raiseEvent("Referral Code Used",propertydata);
                 }
 
                 Intent intent = new Intent(SignInPage.this, HomeScreen2.class);

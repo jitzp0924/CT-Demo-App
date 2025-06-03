@@ -3,12 +3,15 @@ package com.jitendract.jitdemo;
 import static java.lang.Boolean.TRUE;
 
 import android.app.Dialog;
+import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.location.Location;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.TypedValue;
@@ -20,13 +23,22 @@ import android.widget.ImageView;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
+import android.Manifest;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
+import androidx.multidex.BuildConfig;
 
 import com.clevertap.android.sdk.CTInboxListener;
 import com.clevertap.android.sdk.CTInboxStyleConfig;
 import com.clevertap.android.sdk.CleverTapAPI;
+import com.clevertap.android.signedcall.exception.InitException;
+import com.clevertap.android.signedcall.init.SignedCallAPI;
+import com.clevertap.android.signedcall.init.SignedCallInitConfiguration;
+import com.clevertap.android.signedcall.init.p2p.FCMProcessingNotification;
+import com.clevertap.android.signedcall.interfaces.SignedCallInitResponse;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -41,6 +53,7 @@ import com.jitendract.jitdemo.CarouselModel.SliderAdapter;
 import com.jitendract.jitdemo.CarouselModel.SliderData;
 import com.smarteist.autoimageslider.SliderView;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -56,14 +69,14 @@ public class HomeScreen2 extends AppCompatActivity implements CTInboxListener,On
 
     Map<String,Object> homeScreen, homeSlider, recoForU,J4U;
     Map<String,Integer> payBill,quickLinks,rapidoLinks;
-    HashMap<String, Object> homeScreenEvt, slidermap;
+    HashMap<String, Object> homeScreenEvt, slidermap,pushPer;
     private static final String PREF_NAME = "MyPrefs";
     private static final String KEY_CUSTOM_INBOX_ENABLED = "custom_inbox_enabled";
     String phoneNum,UserId,appType;
     androidx.appcompat.widget.Toolbar toolbar;
     Double recoCards,counter;
-    ImageView logout,search,profile_setting,appInboxButton;
-    Boolean searchFlag,locationPermissionGranted;
+    ImageView logout,search,profile_setting,appInboxButton,callIcon;
+    Boolean searchFlag,locationPermissionGranted,callFlag;
     LinearLayout fdrdlayout,investmentlayout,creditcardlayout,loanslayout,sendmoneylayout,serviceslayout,fixedreturnslayout,billpaylayout, fastaglayout,recharge,electricity,pipedgas,dth,broadband ;
     LinearLayout verticalRow1, verticalRow2;
     MaterialCardView recoCard1,recoCard2,recoCard3;
@@ -72,8 +85,8 @@ public class HomeScreen2 extends AppCompatActivity implements CTInboxListener,On
     LinearLayout recoSection,icoCar,icoAuto,icoBike,rapidoOptions,mapLayout1;
     SupportMapFragment mapFragment;
     TextView reco_card_1_text;
-
-    CleveTapUtils cleveTapUtils;
+    private ActivityResultLauncher<String> requestPermissionLauncher;
+    CleverTapUtils cleverTapUtils;
     private GoogleMap map;
     FusedLocationProviderClient fusedLocationProviderClient;
     Intent intent;
@@ -81,26 +94,30 @@ public class HomeScreen2 extends AppCompatActivity implements CTInboxListener,On
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         homeScreenEvt = new HashMap<>(); // Added initialization
+        pushPer = new HashMap<>();
         slidermap = new HashMap<>();
         sharedPreferences = getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
         CleverTapAPI clevertapDefaultInstance = CleverTapAPI.getDefaultInstance(getApplicationContext());
-        clevertapDefaultInstance.setCTNotificationInboxListener(this);
+        if (clevertapDefaultInstance != null) {
+            clevertapDefaultInstance.setCTNotificationInboxListener(this);
+            clevertapDefaultInstance.initializeInbox();
+        }
+
+        prefs = getSharedPreferences("Login", MODE_PRIVATE);
+        phoneNum =prefs.getString("Phone","NA");
+        UserId = prefs.getString("Identity","default");
 
         setContentView(R.layout.activity_home_screen2);
         super.onCreate(savedInstanceState);
 
         setIdViews();
         setListners();
+//        callingInit(clevertapDefaultInstance,UserId);
 
 
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
-
-
-        prefs = getSharedPreferences("Login", MODE_PRIVATE);
-        phoneNum =prefs.getString("Phone","NA");
-        UserId = prefs.getString("Identity","default");
         locationPermissionGranted = prefs.getBoolean("locationPermissionGranted",TRUE);
-        cleveTapUtils=new CleveTapUtils(getApplicationContext());
+        cleverTapUtils= CleverTapUtils.getInstance();
         homeScreenEvt.put("Phone",phoneNum);
         homeScreenEvt.put("UserId",UserId);
         homeScreenEvt.put("Screen","HomeScreen");
@@ -122,6 +139,7 @@ public class HomeScreen2 extends AppCompatActivity implements CTInboxListener,On
                 payBill = convertValuesToInteger((Map<String, Object>) homeScreen.get("Pay Bills"));
                 appType = String.valueOf(clevertapDefaultInstance.getVariableValue("appType"));
                 searchFlag = (Boolean) homeScreen.get("SearchIcon");
+                callFlag = (Boolean) homeScreen.get("Call");
 
             }
             catch(Exception e){Log.e("PEException",String.valueOf(e));}
@@ -166,6 +184,10 @@ public class HomeScreen2 extends AppCompatActivity implements CTInboxListener,On
             search.setVisibility(View.INVISIBLE);
         }
 
+        if (!callFlag){
+            callIcon.setVisibility(View.INVISIBLE);
+        }
+
         if (homeSlider != null) {
             sliderInit(clevertapDefaultInstance,homeSlider);
         }
@@ -187,11 +209,42 @@ public class HomeScreen2 extends AppCompatActivity implements CTInboxListener,On
 
 
 
-        cleveTapUtils.raiseEvent("Home Screen",homeScreenEvt);
+        cleverTapUtils.raiseEvent("Home Screen",homeScreenEvt);
+        requestPermissionLauncher = registerForActivityResult(
+                new ActivityResultContracts.RequestPermission(),
+                isGranted -> {
+                    if (isGranted) {
+                        pushPer.put("Status","Accepted");
+                        cleverTapUtils.raiseEvent("Permission Request",pushPer);
+                        CleverTapAPI.createNotificationChannel(getApplicationContext(),"JitDemo","JitDemo","JitDemo", NotificationManager.IMPORTANCE_MAX,true);
+                        CleverTapAPI.createNotificationChannel(getApplicationContext(),"r2d2","r2d2","r2d2 sound bad", NotificationManager.IMPORTANCE_MAX,true);
+                        CleverTapAPI.createNotificationChannel(getApplicationContext(),"jiosound","jiosound","For JIO", NotificationManager.IMPORTANCE_MAX,true,"jiosound.mp3");
+                        // Permission granted: You can show notifications
+                    } else {
+                        pushPer.put("Status","Denied");
+                        cleverTapUtils.raiseEvent("Permission Request",pushPer);
+                        // Permission denied: Inform user that notifications won't work
+                    }
+                }
+        );
+        askNotificationPermission();
 
         getCurrentLocationforLatLong(clevertapDefaultInstance);
 
     }
+
+    private void askNotificationPermission() {
+        pushPer.put("Type","PUSH");
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS)
+                    != PackageManager.PERMISSION_GRANTED) {
+                // Request the permission
+                cleverTapUtils.raiseEvent("Permission Request",pushPer);
+                requestPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS);
+            }
+        }
+    }
+
 
     private void getCurrentLocationforLatLong(CleverTapAPI clevertapDefaultInstance) {
 
@@ -228,6 +281,7 @@ public class HomeScreen2 extends AppCompatActivity implements CTInboxListener,On
 
         logout = findViewById(R.id.logout_icon);
         search = findViewById(R.id.search_icon);
+        callIcon = findViewById(R.id.call_icon);
         recoSection = findViewById(R.id.recoSection);
         verticalRow1 = findViewById(R.id.verticalrow1);
         verticalRow2 = findViewById(R.id.verticalrow2);
@@ -265,6 +319,71 @@ public class HomeScreen2 extends AppCompatActivity implements CTInboxListener,On
         mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.mapLayout);
 
     }
+
+
+    private void callingInit(CleverTapAPI cleverTapAPI, @NonNull String UserId) {
+
+        JSONObject initOptions = new JSONObject();
+        Boolean allowPersistSocketConnection = true;
+        FCMProcessingNotification fcmProcessingNotification = null;
+        String notiTitle = "Hey" + UserId.toUpperCase();
+        String notiSubtitle = "You have an incoming call ....";
+        int fcmNotificationLargeIcon = R.drawable.smicon1;
+        String cancelCta = "Reject";
+
+        try {
+            initOptions.put("accountId","67a9ead27be487e18d1681ed");
+            initOptions.put("apiKey","M9eULHgg2CgJP4wJ53jKpCUYQMu14FemJLXH4WLuQvN35u3VRxuUDW8zP8SEZRJV");
+            initOptions.put("cuid",UserId);
+            initOptions.put("appId", BuildConfig.APPLICATION_ID);
+            initOptions.put("name",UserId.toUpperCase());
+//            initOptions.put("ringtone", <string / optional>);
+        } catch (JSONException e) {
+            e.printStackTrace();
+            Log.e("SignedCAll","Error in SignedCall InitOptions");
+        }
+
+        try {
+            fcmProcessingNotification = new FCMProcessingNotification.Builder(notiTitle, notiSubtitle)
+                    .setLargeIcon(fcmNotificationLargeIcon)
+                    .setCancelCtaLabel(cancelCta)
+                    .build();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            Log.e("SignedCAll","Error in SignedCall FCMProcessingNotification");
+        }
+
+        SignedCallInitResponse signedCallInitResponse = new SignedCallInitResponse() {
+            @Override
+            public void onSuccess() {
+                Log.v("SignedCAll","Successful in SignedCall Listener");
+
+            }
+
+            @Override
+            public void onFailure(@NonNull InitException initException) {
+                Log.d("SignedCall: ", "error code: " + initException.getErrorCode()
+                        + "\n error message: " + initException.getMessage()
+                        + "\n error explanation: " + initException.getExplanation());
+
+                if (initException.getErrorCode() == InitException.SdkNotInitializedException.getErrorCode()) {
+                    //Handle this error here
+                }
+            }
+        };
+
+
+
+        //Create a Builder instance of SignedCallInitConfiguration and pass it inside the init() method
+        SignedCallInitConfiguration initConfiguration = new SignedCallInitConfiguration.Builder(initOptions, allowPersistSocketConnection)
+                .promptReceiverReadPhoneStatePermission(true)
+                .setFCMProcessingMode(SignedCallInitConfiguration.FCMProcessingMode.BACKGROUND,fcmProcessingNotification)
+                .build();
+
+        SignedCallAPI.getInstance().init(getApplicationContext(), initConfiguration, cleverTapAPI, signedCallInitResponse);
+    }
+
 //    @Override
 //    protected void onResume() {
 //        super.onResume();
@@ -281,8 +400,8 @@ public class HomeScreen2 extends AppCompatActivity implements CTInboxListener,On
 
 
     public void commonOnClick(String text1, String text2) {
-        if (cleveTapUtils != null) {
-            cleveTapUtils.raiseEvent(text1, createEventProperties(text2));
+        if (cleverTapUtils != null) {
+            cleverTapUtils.raiseEvent(text1, createEventProperties(text2));
         }
     }
 
@@ -316,7 +435,7 @@ public class HomeScreen2 extends AppCompatActivity implements CTInboxListener,On
         return resultMap;
     }
 
-    private void rearrangeInnerLinearLayouts(Map<String, Integer> quickLinks) {
+    private void rearrangeInnerLinearLayouts(@NonNull Map<String, Integer> quickLinks) {
 
         LinearLayout parentLayout1 = findViewById(R.id.verticalrow1);
         LinearLayout parentLayout2 = findViewById(R.id.verticalrow2);
@@ -496,26 +615,6 @@ public class HomeScreen2 extends AppCompatActivity implements CTInboxListener,On
 
     @Override
     public void inboxDidInitialize() {
-            ArrayList<String> tabs = new ArrayList<>();
-            tabs.add("Promotions");
-            tabs.add("Offers");//We support upto 2 tabs only. Additional tabs will be ignored
-
-            CTInboxStyleConfig styleConfig = new CTInboxStyleConfig();
-            styleConfig.setFirstTabTitle("First Tab");
-            styleConfig.setTabs(tabs);//Do not use this if you don't want to use tabs
-            styleConfig.setTabBackgroundColor("#FF0000");
-            styleConfig.setSelectedTabIndicatorColor("#0000FF");
-            styleConfig.setSelectedTabColor("#0000FF");
-            styleConfig.setUnselectedTabColor("#FFFFFF");
-            styleConfig.setBackButtonColor("#FF0000");
-            styleConfig.setNavBarTitleColor("#FF0000");
-            styleConfig.setNavBarTitle("MY INBOX");
-            styleConfig.setNavBarColor("#FFFFFF");
-            styleConfig.setInboxBackgroundColor("#ADD8E6");
-            if (cleveTapUtils.clevertapDefaultInstance != null) {
-                cleveTapUtils.clevertapDefaultInstance.showAppInbox(styleConfig); //With Tabs
-            }
-            //ct.showAppInbox();//Opens Activity with default style configs
     }
 
     @Override
@@ -524,6 +623,12 @@ public class HomeScreen2 extends AppCompatActivity implements CTInboxListener,On
     }
 
     private void setListners(){
+
+        callIcon.setOnClickListener(view -> {
+            CallReceiveDailog callReceiveDailog = new CallReceiveDailog();
+            callReceiveDailog.show(getSupportFragmentManager(),"CallReceiveDailog");
+        });
+
         profile_setting.setOnClickListener(view -> {
             Intent intent = new Intent(HomeScreen2.this, Settings.class);
             startActivity(intent);
@@ -632,6 +737,9 @@ public class HomeScreen2 extends AppCompatActivity implements CTInboxListener,On
             editor.remove("LoggedIn").apply();
             editor.remove("Identity").apply();
 
+            Log.i("SignedCall","Calling Logout for Signed Call");
+            SignedCallAPI.getInstance().logout(getApplicationContext());
+
             Intent di = new Intent(getApplicationContext(),MainActivity.class);
             di.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(di);
@@ -640,7 +748,7 @@ public class HomeScreen2 extends AppCompatActivity implements CTInboxListener,On
         recoCardButton1.setOnClickListener(view -> {
             homeScreenEvt.put("Action","Click");
             homeScreenEvt.put("Label", "Card 1");
-            cleveTapUtils.raiseEvent("Recommended For You",homeScreenEvt);
+            cleverTapUtils.raiseEvent("Recommended For You",homeScreenEvt);
             homeScreenEvt.remove("Action");
             homeScreenEvt.remove("Label");
         });
@@ -648,7 +756,7 @@ public class HomeScreen2 extends AppCompatActivity implements CTInboxListener,On
         recoCardButton2.setOnClickListener(view -> {
             homeScreenEvt.put("Action","Click");
             homeScreenEvt.put("Label", "Card 2");
-            cleveTapUtils.raiseEvent("Recommended For You",homeScreenEvt);
+            cleverTapUtils.raiseEvent("Recommended For You",homeScreenEvt);
             homeScreenEvt.remove("Action");
             homeScreenEvt.remove("Label");
 
@@ -659,7 +767,7 @@ public class HomeScreen2 extends AppCompatActivity implements CTInboxListener,On
         recoCardButton3.setOnClickListener(view -> {
             homeScreenEvt.put("Action","Click");
             homeScreenEvt.put("Label", "Card 3");
-            cleveTapUtils.raiseEvent("Recommended For You",homeScreenEvt);
+            cleverTapUtils.raiseEvent("Recommended For You",homeScreenEvt);
             homeScreenEvt.remove("Action");
             homeScreenEvt.remove("Label");
             System.out.println("Reco 3 raised");
@@ -673,20 +781,6 @@ public class HomeScreen2 extends AppCompatActivity implements CTInboxListener,On
             deeplinkRedirection.handleRedirection(redirectionDetails);
         });
 
-        appInboxButton.setOnClickListener(view -> {
-
-            //Custom Inbox Logic
-            boolean customInboxEnabled = sharedPreferences.getBoolean(KEY_CUSTOM_INBOX_ENABLED, false);
-            Log.v("CUSTOM INBOX VALUE",customInboxEnabled + "");
-
-            if (customInboxEnabled) {
-                Intent intent = new Intent(HomeScreen2.this, CustomInboxActivity.class);
-                startActivity(intent);
-            } else {
-
-                cleveTapUtils.clevertapDefaultInstance.initializeInbox();
-            }
-        });
 
         icoBike.setOnClickListener(view -> {
             Intent intent = new Intent(HomeScreen2.this, FDHome.class);
@@ -707,6 +801,38 @@ public class HomeScreen2 extends AppCompatActivity implements CTInboxListener,On
             Intent intent = new Intent(HomeScreen2.this, FDHome.class);
             startActivity(intent);
             commonOnClick("Car","Quick Links");
+        });
+
+        appInboxButton.setOnClickListener(view -> {
+
+            //Custom Inbox Logic
+            boolean customInboxEnabled = sharedPreferences.getBoolean(KEY_CUSTOM_INBOX_ENABLED, false);
+            Log.v("CUSTOM INBOX VALUE",customInboxEnabled + "");
+
+            if (customInboxEnabled) {
+                Intent intent = new Intent(HomeScreen2.this, CustomInboxActivity.class);
+                startActivity(intent);
+            } else {
+                if (cleverTapUtils.getDefaultInstance() != null) {
+                    ArrayList<String> tabs = new ArrayList<>();
+                    tabs.add("Promotions");
+                    tabs.add("Offers");//We support upto 2 tabs only. Additional tabs will be ignored
+
+                    CTInboxStyleConfig styleConfig = new CTInboxStyleConfig();
+                    styleConfig.setFirstTabTitle("First Tab");
+                    styleConfig.setTabs(tabs);//Do not use this if you don't want to use tabs
+                    styleConfig.setTabBackgroundColor("#FF0000");
+                    styleConfig.setSelectedTabIndicatorColor("#0000FF");
+                    styleConfig.setSelectedTabColor("#0000FF");
+                    styleConfig.setUnselectedTabColor("#FFFFFF");
+                    styleConfig.setBackButtonColor("#FF0000");
+                    styleConfig.setNavBarTitleColor("#FF0000");
+                    styleConfig.setNavBarTitle("MY INBOX");
+                    styleConfig.setNavBarColor("#FFFFFF");
+                    styleConfig.setInboxBackgroundColor("#ADD8E6");
+                    cleverTapUtils.getDefaultInstance().showAppInbox(styleConfig); //With Tabs
+                }
+            }
         });
 
     }

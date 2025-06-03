@@ -60,6 +60,8 @@ public class CustomInboxActivity extends AppCompatActivity {
             dataHandler = new DataHandler();
             dataHandler.categorizeMessages(inboxMessages);
 
+            inboxMessages.get(0).getMessageId();
+
             // Initialize adapter with all inbox messages initially
             inboxAdapter = new InboxAdapter(dataHandler.getAllInboxMessages(), cleverTapDefaultInstance);
             recyclerView.setAdapter(inboxAdapter);

@@ -9,27 +9,28 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.jitendract.jitdemo.CleverTapUtils;
 import com.jitendract.jitdemo.R;
 import com.smarteist.autoimageslider.SliderViewAdapter;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import com.jitendract.jitdemo.CleveTapUtils;
+
 
 public class SliderAdapter extends SliderViewAdapter<SliderAdapter.SliderAdapterViewHolder> {
 
     // list for storing urls of images.
     private final List<SliderData> mSliderItems;
     HashMap<String,Object> homescreenEvt,sliderMap;
-    CleveTapUtils cleveTapUtils;
+    CleverTapUtils cleverTapUtils;
 
     // Constructor
     public SliderAdapter(Context context, ArrayList<SliderData> sliderDataArrayList, HashMap<String,Object> slidermap, HashMap<String,Object> homescreenEvt) {
         this.mSliderItems = sliderDataArrayList;
         this.sliderMap = slidermap;
         this.homescreenEvt = homescreenEvt;
-        cleveTapUtils = new CleveTapUtils(context);
+        cleverTapUtils = CleverTapUtils.getInstance();
     }
 
     // We are inflating the slider_layout
@@ -59,7 +60,7 @@ public class SliderAdapter extends SliderViewAdapter<SliderAdapter.SliderAdapter
             public void onClick(View v) {
                 homescreenEvt.put("Clicked Position",String.valueOf(position + 1));
                 homescreenEvt.put("Image Url",sliderMap.get(String.valueOf(position + 1)));
-                cleveTapUtils.raiseEvent(String.valueOf(sliderMap.get("eventName")),homescreenEvt);
+                cleverTapUtils.raiseEvent(String.valueOf(sliderMap.get("eventName")),homescreenEvt);
                 Log.d("homescreenEvt", String.valueOf(homescreenEvt));
 
             }

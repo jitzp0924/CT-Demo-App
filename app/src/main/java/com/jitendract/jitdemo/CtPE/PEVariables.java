@@ -43,6 +43,7 @@ public class PEVariables {
         RecoCard1.put("deeplink", "https://jits-clever.github.io/TestWeb/");
         RecoCard1.put("icon","null");
 
+
         RecoCard2 = new HashMap<>();
         RecoCard2.put("Card Text", applicationContext.getString(R.string.peronal_insurance_text));
         RecoCard2.put("Card Button", applicationContext.getString(R.string.buy_now));
@@ -108,6 +109,7 @@ public class PEVariables {
 
         HomeScreen = new HashMap<>();
         HomeScreen.put("SearchIcon",true);
+        HomeScreen.put("Call",false);
         HomeScreen.put("RecommendedForU",RecommendedForU);
         HomeScreen.put("Bottom Carousel",HomeSlider);
         HomeScreen.put("QuickLinks",quicklinks);

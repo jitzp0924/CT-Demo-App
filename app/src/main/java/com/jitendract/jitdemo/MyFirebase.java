@@ -8,7 +8,6 @@ import androidx.annotation.NonNull;
 
 
 import com.clevertap.android.sdk.CleverTapAPI;
-import com.clevertap.android.sdk.pushnotification.PushNotificationHandler;
 import com.clevertap.android.sdk.pushnotification.fcm.CTFcmMessageHandler;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -21,7 +20,7 @@ import java.util.Map;
 import java.util.Objects;
 
 public class MyFirebase extends FirebaseMessagingService {
-    CleveTapUtils cleveTapUtils;
+    CleverTapUtils cleverTapUtils;
 
     @Override
     public void onMessageReceived(@NonNull RemoteMessage remoteMessage) {
@@ -40,9 +39,9 @@ public class MyFirebase extends FirebaseMessagingService {
                         payload.put(key, extras.get(key));
                     }
 
-                    CleveTapUtils cleveTapUtils = new CleveTapUtils(this.getApplicationContext());
+                    CleverTapUtils cleverTapUtils = CleverTapUtils.getInstance();
 
-                    cleveTapUtils.raiseEvent("Silent Push",payload);
+//                    cleverTapUtils.raiseEvent("Silent Push",payload);
                 }
                 
                 if (extras.containsKey("prog")) {

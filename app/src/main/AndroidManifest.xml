@@ -10,6 +10,12 @@
     <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+<!--    Signed Call Permissions-->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MICROPHONE" />
+    <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
+    <uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_DATA_SYNC"
+        tools:node="remove" />
 
     <application
         android:name=".application"
@@ -125,7 +131,17 @@
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
-        <service android:name=".ProgressTimer" />
+        <provider
+            android:name="com.google.firebase.provider.FirebaseInitProvider"
+            android:authorities="your.app.package.name.firebaseinitprovider"
+            android:enabled="true"
+            android:exported="false"
+            tools:node="remove" />
+        <service
+            android:name=".ProgressTimer"
+            android:foregroundServiceType="dataSync"
+            android:process=":progress"
+            />
 
         <meta-data
             android:name="CLEVERTAP_NOTIFICATION_ICON"

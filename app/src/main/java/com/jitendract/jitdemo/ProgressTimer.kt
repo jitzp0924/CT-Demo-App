@@ -1,32 +1,64 @@
 package com.jitendract.jitdemo
 
-import android.app.Application
 import android.app.NotificationManager
 import android.app.Service
 import android.content.Context
-import android.content.Context.NOTIFICATION_SERVICE
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import android.os.*
+import android.os.Bundle
+import android.os.IBinder
+import android.os.SystemClock
 import android.util.Log
 import androidx.core.app.NotificationCompat
+import com.clevertap.android.sdk.CleverTapAPI
+import com.google.firebase.FirebaseApp
+import com.google.firebase.messaging.FirebaseMessaging
 import java.util.concurrent.Executors
 
 class ProgressTimer : Service() {
     var nb: NotificationCompat.Builder? = null
     var progressMax =100
 
+
     override fun onStartCommand(intent: Intent, flags: Int, startId: Int): Int {
-        val extras = intent.extras
-        if (extras != null) {
-            setVariable(applicationContext, extras)
+        Log.e("Progress Service","background Process Start")
+        startForegroundWithNotification()
+        FirebaseApp.initializeApp(this)
+        FirebaseMessaging.getInstance().token.addOnCompleteListener { task ->
+            val fcmtoken = task.result
+            Log.e("Progress Service","Token Generated : "+fcmtoken.toString())
         }
+        val extras = intent.extras
+        if (extras != null && extras.containsKey("looperTime")) {
+            var looperTime = extras.getString("looperTime", 10.toString()).toInt()
+            looperTimer(looperTime)
+        }
+        else if(extras != null && extras.containsKey("prog")){setVariable(applicationContext, extras)}
         return START_STICKY
+    }
+
+    private fun looperTimer(looperTime: Int) {
+        Thread.sleep(looperTime.toLong())
+        Log.e("Progress Service","Inside the looperTimer() after delay of "+looperTime.toString())
+        val eventProps = hashMapOf(
+            "Page" to "Background",
+            "Date" to System.currentTimeMillis(),
+            "delayTime" to looperTime
+        )
+
+        val ct: CleverTapAPI? = CleverTapAPI.getDefaultInstance(this)
+//        val cleverTapUtils: CleverTapUtils? = CleverTapUtils.getInstance()
+        ct?.pushEvent("Background",eventProps as HashMap<String, Any>)
+
     }
 
     override fun onBind(intent: Intent?): IBinder? {
         TODO("Not yet implemented")
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
     }
 
     private fun setVariable(context: Context, extras: Bundle) {
@@ -94,4 +126,16 @@ class ProgressTimer : Service() {
         return threshold.times(10)
 
     }
+
+    private fun startForegroundWithNotification() {
+        val notification = NotificationCompat.Builder(this, "r2d2")
+            .setContentTitle("Starting Progress Timer")
+            .setContentText("Please wait...")
+            .setSmallIcon(R.drawable.smicon1)
+            .setPriority(NotificationCompat.PRIORITY_LOW)
+            .build()
+
+        startForeground(1,notification)
+    }
+
 }
