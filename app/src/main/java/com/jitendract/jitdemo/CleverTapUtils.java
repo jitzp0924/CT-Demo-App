@@ -1,59 +1,155 @@
 package com.jitendract.jitdemo;
 
 import android.content.Context;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.clevertap.android.sdk.CleverTapAPI;
 import com.clevertap.android.sdk.CleverTapInstanceConfig;
 
 import java.util.HashMap;
 
+/**
+ * Utility class to manage CleverTap SDK instances and provide a simplified interface for common operations.
+ * This class supports both a default instance and an optional secondary instance.
+ */
 public class CleverTapUtils {
 
-    private static CleverTapUtils instance;
-    private CleverTapAPI clevertapDefaultInstance;
+    private static CleverTapUtils sInstance;
+    private final CleverTapAPI mDefaultInstance;
+    private CleverTapAPI mAdditionalInstance;
 
-    // Private constructor
-    private CleverTapUtils(Context applicationContext) {
-        // Initialize CleverTap default instance
-        this.clevertapDefaultInstance = CleverTapAPI.getDefaultInstance(applicationContext);
+    // --- Singleton Management ---
+
+    /**
+     * Private constructor to initialize the default CleverTap instance.
+     */
+    private CleverTapUtils(@NonNull Context applicationContext) {
+        this.mDefaultInstance = CleverTapAPI.getDefaultInstance(applicationContext);
     }
 
-    // Public static method to initialize the singleton instance
-    public static synchronized void init(Context applicationContext) {
-        if (instance == null) {
-            instance = new CleverTapUtils(applicationContext.getApplicationContext());
+    /**
+     * Initializes the CleverTapUtils singleton. Should be called from the Application class.
+     *
+     * @param applicationContext The application context.
+     */
+    public static synchronized void init(@NonNull Context applicationContext) {
+        if (sInstance == null) {
+            sInstance = new CleverTapUtils(applicationContext.getApplicationContext());
         }
     }
 
-    // Method to get the singleton instance
+    /**
+     * Returns the singleton instance of CleverTapUtils.
+     *
+     * @return The CleverTapUtils instance.
+     * @throws IllegalStateException If init() has not been called.
+     */
+    @NonNull
     public static CleverTapUtils getInstance() {
-        if (instance == null) {
-            throw new IllegalStateException("CleverTapUtils is not initialized. Call init() first from your Application class.");
+        if (sInstance == null) {
+            throw new IllegalStateException("CleverTapUtils is not initialized. Call init(Context) first.");
         }
-        return instance;
+        return sInstance;
     }
 
-    public CleverTapAPI getDefaultInstance() {
-        return clevertapDefaultInstance;
+    // --- Configuration & Setup ---
+
+    /**
+     * Initializes an additional CleverTap instance with the provided credentials.
+     *
+     * @param context   The context.
+     * @param accountId The CleverTap Account ID.
+     * @param token     The CleverTap Account Token.
+     */
+    public void initAdditionalInstance(@NonNull Context context, @NonNull String accountId, @NonNull String token) {
+        CleverTapInstanceConfig config = CleverTapInstanceConfig.createInstance(context, accountId, token);
+        this.mAdditionalInstance = CleverTapAPI.instanceWithConfig(context, config);
     }
 
-    // Method to log in user
-    public void login(HashMap<String, Object> loginMap) {
-        if (clevertapDefaultInstance != null) {
-            clevertapDefaultInstance.onUserLogin(loginMap);
-        }
-    }
-
-    // Method to raise event
-    public void raiseEvent(String evtName, HashMap<String, Object> evtMap) {
-        if (clevertapDefaultInstance != null) {
-            clevertapDefaultInstance.pushEvent(evtName, evtMap);
-        }
-    }
-
-    // Optional: Method to initialize a multi-instance (if needed)
-    public CleverTapAPI createSecondaryInstance(Context context, String accountId, String token) {
+    /**
+     * Factory method to create a new CleverTap instance without storing it in the utility.
+     *
+     * @param context   The context.
+     * @param accountId The CleverTap Account ID.
+     * @param token     The CleverTap Account Token.
+     * @return A configured CleverTapAPI instance.
+     */
+    @NonNull
+    public CleverTapAPI createSecondaryInstance(@NonNull Context context, @NonNull String accountId, @NonNull String token) {
         CleverTapInstanceConfig config = CleverTapInstanceConfig.createInstance(context, accountId, token);
         return CleverTapAPI.instanceWithConfig(context, config);
+    }
+
+    // --- Getters ---
+
+    /**
+     * Returns the default CleverTap instance.
+     */
+    @Nullable
+    public CleverTapAPI getDefaultInstance() {
+        return mDefaultInstance;
+    }
+
+    /**
+     * Returns the additional CleverTap instance, if initialized.
+     */
+    @Nullable
+    public CleverTapAPI getAdditionalInstance() {
+        return mAdditionalInstance;
+    }
+
+    // --- Tracking Methods ---
+
+    /**
+     * Logs a user login event.
+     *
+     * @param loginMap   The user profile properties.
+     * @param sendToBoth Whether to send the event to both default and additional instances.
+     */
+    public void login(@NonNull HashMap<String, Object> loginMap, boolean sendToBoth) {
+        if (mDefaultInstance != null) {
+            mDefaultInstance.onUserLogin(loginMap);
+        }
+
+        if (sendToBoth && mAdditionalInstance != null) {
+            mAdditionalInstance.onUserLogin(loginMap);
+        }
+    }
+
+    /**
+     * Logs a user login event to the default instance.
+     *
+     * @param loginMap The user profile properties.
+     */
+    public void login(@NonNull HashMap<String, Object> loginMap) {
+        login(loginMap, false);
+    }
+
+    /**
+     * Raises a custom event.
+     *
+     * @param eventName  The name of the event.
+     * @param eventMap   The event properties.
+     * @param sendToBoth Whether to send the event to both default and additional instances.
+     */
+    public void raiseEvent(@NonNull String eventName, @Nullable HashMap<String, Object> eventMap, boolean sendToBoth) {
+        if (mDefaultInstance != null) {
+            mDefaultInstance.pushEvent(eventName, eventMap);
+        }
+
+        if (sendToBoth && mAdditionalInstance != null) {
+            mAdditionalInstance.pushEvent(eventName, eventMap);
+        }
+    }
+
+    /**
+     * Raises a custom event to the default instance.
+     *
+     * @param eventName The name of the event.
+     * @param eventMap  The event properties.
+     */
+    public void raiseEvent(@NonNull String eventName, @Nullable HashMap<String, Object> eventMap) {
+        raiseEvent(eventName, eventMap, false);
     }
 }

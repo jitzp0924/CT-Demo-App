@@ -24,6 +24,8 @@ public class PEVariables {
     public Map<String,Integer>quicklinks,PayBill,rapidoLink;
     @Variable
     public String appType;
+    @Variable
+    public String PIPVideo,BulletNudge;
 
 
 
@@ -32,6 +34,10 @@ public class PEVariables {
     public PEVariables(Context applicationContext) {
 
         appType = "basic";
+
+        PIPVideo = "{\"enabled\":false,\"video_url\":\"NA\",\"position\":\"NA\",\"redirect_url\":\"NA\"}";
+        BulletNudge = "{\"enabled\":false,\"title\":\"EOSSale\",\"time\":\"\",\"redirect_url\":\"https://jits-clever.github.io/TestWeb/\",\"bg_colour\":\"\",\"icon_url\":\"\",\"title_color\":\"\",\"timer_color\":\"\"}";
+
 
         LoginScreen = new HashMap<>();
         LoginScreen.put("Top BannerImage","null");
@@ -116,6 +122,7 @@ public class PEVariables {
         HomeScreen.put("Pay Bills", PayBill);
         HomeScreen.put("Rapido Link", rapidoLink);
         HomeScreen.put("J4U", J4U);
+        HomeScreen.put("Profile_Icon","{\"enabled\":\"false\",\"profile_url\":\"https://shopifyctjt.s3.ap-south-1.amazonaws.com/app_profile.png\"}" );
 
 //
 //        R4U = new HashMap<>();

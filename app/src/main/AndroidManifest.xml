@@ -104,8 +104,11 @@
         <meta-data
             android:name="CLEVERTAP_TOKEN"
             android:value="TEST-456-25a" />
+        <meta-data
+            android:name="CLEVERTAP_IDENTIFIER"
+            android:value="Phone,Identity" />
 
-<!--        JIO AZURE DETAILS-->
+<!--        JIO AZURE DETAILS JIO Infosec Dashboard-->
 <!--        <meta-data-->
 <!--            android:name="CLEVERTAP_ACCOUNT_ID"-->
 <!--            android:value="TEST-6K9-K8Z-RK7Z" />-->
@@ -114,7 +117,7 @@
 <!--            android:value="TEST-1b3-c36" />-->
 <!--        <meta-data-->
 <!--            android:name="CLEVERTAP_REGION"-->
-<!--            android:value="j1"/>-->
+<!--            android:value="in1"/>-->
 
         <!-- <meta-data -->
         <!-- android:name="CLEVERTAP_BACKGROUND_SYNC" -->

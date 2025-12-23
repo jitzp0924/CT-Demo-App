@@ -1,6 +1,6 @@
 plugins {
     id 'com.android.application'
-    id 'kotlin-android'
+    id 'org.jetbrains.kotlin.android'
 }
 //
 android {
@@ -12,7 +12,7 @@ android {
         //noinspection ExpiringTargetSdkVersion
         targetSdk 33
         versionCode 1
-        versionName "1.8"
+        versionName "1.9"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
@@ -32,6 +32,7 @@ android {
     buildFeatures {
         viewBinding true
     }
+
     namespace 'com.jitendract.jitdemo'
 }
 
@@ -49,7 +50,6 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.2.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.6.1'
     implementation 'com.google.android.material:material:1.12.0'
-    implementation 'com.github.bumptech.glide:glide:4.13.2'
     implementation 'androidx.core:core:1.16.0'
     implementation 'androidx.core:core-ktx:1.16.0'
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
@@ -61,9 +61,9 @@ dependencies {
 
 
     //Clevertap Related Codes
-    implementation 'com.clevertap.android:clevertap-android-sdk:7.4.0'
-    implementation 'com.google.firebase:firebase-messaging:24.1.1'
-    implementation "com.clevertap.android:push-templates:1.4.0"
+    implementation 'com.clevertap.android:clevertap-android-sdk:7.6.0'
+    implementation 'com.google.firebase:firebase-messaging:25.0.1'
+    implementation "com.clevertap.android:push-templates:2.2.0"
     implementation  'com.google.firebase:firebase-iid:21.1.0'
     implementation 'com.android.installreferrer:installreferrer:2.2'
 
@@ -93,14 +93,27 @@ dependencies {
         exclude group: 'org.json', module: 'json'
     }
 
+    //Compose for NudgeJT
+    implementation "androidx.compose.ui:ui:1.8.3"
+    implementation "androidx.activity:activity-compose:1.10.1"
+    implementation "androidx.lifecycle:lifecycle-runtime-compose:2.9.1"
+
 
     //Roooom Shables
     implementation "androidx.room:room-runtime:2.7.1" // Replace with the latest version
     annotationProcessor "androidx.room:room-compiler:2.7.1" // Replace with the latest version
-    implementation "androidx.room:room-ktx:2.7.1"
+    implementation "androidx.room:room-ktx:2.7.2"
 
     //maps
-    implementation "androidx.fragment:fragment:1.8.7"
+    implementation "androidx.fragment:fragment:1.8.8"
+
+
+    implementation 'com.github.bumptech.glide:glide:4.16.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.16.0'
+    implementation 'com.github.bumptech.glide:gifdecoder:4.16.0'
+
+
+
 
 }
 apply plugin: 'com.google.gms.google-services'

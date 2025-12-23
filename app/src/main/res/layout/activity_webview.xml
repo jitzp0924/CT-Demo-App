@@ -7,43 +7,43 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="@color/bank_dark_primary"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-        app:titleTextColor="@android:color/white">
+<!--    <androidx.appcompat.widget.Toolbar-->
+<!--        android:id="@+id/toolbar"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="?attr/actionBarSize"-->
+<!--        android:background="@color/bank_dark_primary"-->
+<!--        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"-->
+<!--        app:titleTextColor="@android:color/white">-->
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical">
+<!--        <LinearLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:orientation="horizontal"-->
+<!--            android:gravity="center_vertical">-->
 
-            <!-- Profile Icon -->
-            <ImageView
-                android:id="@+id/back_icon"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:padding="10dp"
-                android:src="@drawable/back_button" />
+<!--            &lt;!&ndash; Profile Icon &ndash;&gt;-->
+<!--            <ImageView-->
+<!--                android:id="@+id/back_icon"-->
+<!--                android:layout_width="40dp"-->
+<!--                android:layout_height="40dp"-->
+<!--                android:padding="10dp"-->
+<!--                android:src="@drawable/back_button" />-->
 
-            <!-- Spacer View to push icons to the right -->
-            <View
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1" />
+<!--            &lt;!&ndash; Spacer View to push icons to the right &ndash;&gt;-->
+<!--            <View-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_weight="1" />-->
 
-            <!-- Logout Icon -->
-            <ImageView
-                android:id="@+id/logout_icon"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:padding="10dp"
-                android:src="@drawable/logout" />
-        </LinearLayout>
-    </androidx.appcompat.widget.Toolbar>
+<!--            &lt;!&ndash; Logout Icon &ndash;&gt;-->
+<!--            <ImageView-->
+<!--                android:id="@+id/logout_icon"-->
+<!--                android:layout_width="40dp"-->
+<!--                android:layout_height="40dp"-->
+<!--                android:padding="10dp"-->
+<!--                android:src="@drawable/logout" />-->
+<!--        </LinearLayout>-->
+<!--    </androidx.appcompat.widget.Toolbar>-->
 
     <WebView
         android:id="@+id/webview"

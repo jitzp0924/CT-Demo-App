@@ -22,6 +22,7 @@ import android.view.Window;
 import android.widget.ImageView;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.Manifest;
 import androidx.activity.result.ActivityResultLauncher;
@@ -29,8 +30,10 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+import androidx.core.widget.NestedScrollView;
 import androidx.multidex.BuildConfig;
 
+import com.bumptech.glide.Glide;
 import com.clevertap.android.sdk.CTInboxListener;
 import com.clevertap.android.sdk.CTInboxStyleConfig;
 import com.clevertap.android.sdk.CleverTapAPI;
@@ -51,6 +54,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.card.MaterialCardView;
 import com.jitendract.jitdemo.CarouselModel.SliderAdapter;
 import com.jitendract.jitdemo.CarouselModel.SliderData;
+import com.jitendract.jitdemo.nudge.FloatingBullet;
+import com.jitendract.jitdemo.nudge.showPipOverlay;
 import com.smarteist.autoimageslider.SliderView;
 
 import org.json.JSONException;
@@ -69,10 +74,10 @@ public class HomeScreen2 extends AppCompatActivity implements CTInboxListener,On
 
     Map<String,Object> homeScreen, homeSlider, recoForU,J4U;
     Map<String,Integer> payBill,quickLinks,rapidoLinks;
-    HashMap<String, Object> homeScreenEvt, slidermap,pushPer;
+    HashMap<String, Object> homeScreenEvt, slidermap,pushPer, identityMap;
     private static final String PREF_NAME = "MyPrefs";
     private static final String KEY_CUSTOM_INBOX_ENABLED = "custom_inbox_enabled";
-    String phoneNum,UserId,appType;
+    String phoneNum,UserId,appType,pip_video,nudgeBullet;
     androidx.appcompat.widget.Toolbar toolbar;
     Double recoCards,counter;
     ImageView logout,search,profile_setting,appInboxButton,callIcon;
@@ -89,13 +94,17 @@ public class HomeScreen2 extends AppCompatActivity implements CTInboxListener,On
     CleverTapUtils cleverTapUtils;
     private GoogleMap map;
     FusedLocationProviderClient fusedLocationProviderClient;
+    ScrollView homeScroll;
     Intent intent;
+    JSONObject profileIcon;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         homeScreenEvt = new HashMap<>(); // Added initialization
         pushPer = new HashMap<>();
         slidermap = new HashMap<>();
+        identityMap = new HashMap<>();
+
         sharedPreferences = getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
         CleverTapAPI clevertapDefaultInstance = CleverTapAPI.getDefaultInstance(getApplicationContext());
         if (clevertapDefaultInstance != null) {
@@ -118,9 +127,14 @@ public class HomeScreen2 extends AppCompatActivity implements CTInboxListener,On
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
         locationPermissionGranted = prefs.getBoolean("locationPermissionGranted",TRUE);
         cleverTapUtils= CleverTapUtils.getInstance();
+        cleverTapUtils.initAdditionalInstance(this, "65R-654-5Z6Z", "456-256");
         homeScreenEvt.put("Phone",phoneNum);
         homeScreenEvt.put("UserId",UserId);
+        homeScreenEvt.put("Source","MyJio");
         homeScreenEvt.put("Screen","HomeScreen");
+
+        identityMap.put("Identity",UserId);
+        cleverTapUtils.login(identityMap,true);
 
         if (clevertapDefaultInstance != null) {
             clevertapDefaultInstance.fetchVariables();
@@ -140,10 +154,42 @@ public class HomeScreen2 extends AppCompatActivity implements CTInboxListener,On
                 appType = String.valueOf(clevertapDefaultInstance.getVariableValue("appType"));
                 searchFlag = (Boolean) homeScreen.get("SearchIcon");
                 callFlag = (Boolean) homeScreen.get("Call");
+                pip_video = (String) clevertapDefaultInstance.getVariableValue("PIPVideo");
+                nudgeBullet = (String) clevertapDefaultInstance.getVariableValue("BulletNudge");
+                profileIcon = new JSONObject(String.valueOf(homeScreen.get("Profile_Icon")));
+
+
 
             }
             catch(Exception e){Log.e("PEException",String.valueOf(e));}
 
+        }
+
+
+        try {
+            JSONObject profileIcon = new JSONObject(String.valueOf(homeScreen.get("Profile_Icon")));
+
+            if (profileIcon.has("enabled") &&
+                    profileIcon.getString("enabled").equalsIgnoreCase("true")) {
+
+                String profileUrl = profileIcon.optString("profile_url", "");
+
+                if (!profileUrl.isEmpty()) {
+                    ImageView profile_setting = findViewById(R.id.profile_icon);
+
+                    // Use Glide to download and set the image
+                    Glide.with(this)
+                            .load(profileUrl)
+                            .circleCrop() // optional - makes it circular
+                            .into(profile_setting);
+                }
+
+            } else {
+                System.out.println("Profile icon disabled or missing.");
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
 
         if (appType.equals("rapido")){
@@ -164,6 +210,18 @@ public class HomeScreen2 extends AppCompatActivity implements CTInboxListener,On
 
         }
 
+        JSONObject pipConfig = null;
+        JSONObject nudgeConfig = null;
+        try {
+            pipConfig = new JSONObject(pip_video);
+            nudgeConfig = new JSONObject(nudgeBullet);
+            showPipOverlay.getInstance().show(this,pipConfig);
+            FloatingBullet.show(this, nudgeConfig);
+
+        } catch (JSONException e) {
+            throw new RuntimeException(e);
+        }
+
         if(recoForU.get("MaxCard") instanceof Double){
             recoCards = (Double) recoForU.get("MaxCard");
         }
@@ -181,11 +239,11 @@ public class HomeScreen2 extends AppCompatActivity implements CTInboxListener,On
         }
 
         if (!searchFlag){
-            search.setVisibility(View.INVISIBLE);
+            search.setVisibility(View.GONE);
         }
 
         if (!callFlag){
-            callIcon.setVisibility(View.INVISIBLE);
+            callIcon.setVisibility(View.GONE);
         }
 
         if (homeSlider != null) {
@@ -318,6 +376,8 @@ public class HomeScreen2 extends AppCompatActivity implements CTInboxListener,On
 
         mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.mapLayout);
 
+        homeScroll = findViewById(R.id.homeScroll);
+
     }
 
 
@@ -401,7 +461,7 @@ public class HomeScreen2 extends AppCompatActivity implements CTInboxListener,On
 
     public void commonOnClick(String text1, String text2) {
         if (cleverTapUtils != null) {
-            cleverTapUtils.raiseEvent(text1, createEventProperties(text2));
+            cleverTapUtils.raiseEvent(text1, createEventProperties(text2),true);
         }
     }
 
@@ -635,7 +695,7 @@ public class HomeScreen2 extends AppCompatActivity implements CTInboxListener,On
         });
 
         fdrdlayout.setOnClickListener(view -> {
-            Intent intent = new Intent(HomeScreen2.this, FDHome.class);
+            Intent intent = new Intent(HomeScreen2.this, webview.class);
             startActivity(intent);
             commonOnClick("Quick Links","FD/RD");
 
@@ -801,6 +861,14 @@ public class HomeScreen2 extends AppCompatActivity implements CTInboxListener,On
             Intent intent = new Intent(HomeScreen2.this, FDHome.class);
             startActivity(intent);
             commonOnClick("Car","Quick Links");
+        });
+
+        homeScroll.setOnScrollChangeListener((View.OnScrollChangeListener) (v, scrollX, scrollY, oldScrollX, oldScrollY) -> {
+            if (scrollY > oldScrollY + 10) {
+                FloatingBullet.collapse();
+            } else if (scrollY < oldScrollY - 10) {
+                FloatingBullet.expand();
+            }
         });
 
         appInboxButton.setOnClickListener(view -> {

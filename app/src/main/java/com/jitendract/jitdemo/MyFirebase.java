@@ -41,9 +41,10 @@ public class MyFirebase extends FirebaseMessagingService {
 
                     CleverTapUtils cleverTapUtils = CleverTapUtils.getInstance();
 
+
 //                    cleverTapUtils.raiseEvent("Silent Push",payload);
                 }
-                
+
                 if (extras.containsKey("prog")) {
 
                     Intent intent = new Intent(this, ProgressTimer.class);
@@ -54,6 +55,7 @@ public class MyFirebase extends FirebaseMessagingService {
                 } else {
                     // NOt a progress bar timer template
                     new CTFcmMessageHandler().createNotification(getApplicationContext(), remoteMessage);
+                    
 
 
                 }
