@@ -9,12 +9,12 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
-<!--    Signed Call Permissions-->
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" /> <!-- Signed Call Permissions -->
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MICROPHONE" />
     <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
     <uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT" />
-    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_DATA_SYNC"
+    <uses-permission
+        android:name="android.permission.FOREGROUND_SERVICE_DATA_SYNC"
         tools:node="remove" />
 
     <application
@@ -25,6 +25,11 @@
         android:roundIcon="@drawable/smicon1"
         android:supportsRtl="true"
         android:theme="@style/Theme.JitDemo">
+        <activity
+            android:name=".homescreen.home"
+            android:exported="false"
+            android:label="@string/title_activity_home"
+            android:theme="@style/Theme.JitDemo" />
         <activity
             android:name=".MultiTaskPayBills"
             android:exported="false" />
@@ -39,7 +44,7 @@
             android:exported="false" />
         <activity
             android:name=".HomeScreen2"
-            android:exported="true" >
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
@@ -47,9 +52,8 @@
                 <category android:name="android.intent.category.BROWSABLE" />
 
                 <data
-                    android:host="www.jitdemo.jitendract.com"
-                    android:pathPrefix="/*x"
-                    android:scheme="https" />
+                    android:host="home"
+                    android:scheme="jitdemo" />
             </intent-filter>
         </activity>
         <activity
@@ -76,28 +80,25 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
 
                 <data
-                    android:host="www.jitdemo.jitendract.com"
-                    android:pathPrefix="/webview"
-                    android:scheme="https" />
+                    android:host="webview"
+                    android:scheme="jitdemo" />
             </intent-filter>
         </activity>
         <activity
             android:name=".MainActivity"
-            android:exported="true" />
-
-<!--        Axis PE Demo-->
-<!--        <meta-data-->
-<!--            android:name="CLEVERTAP_ACCOUNT_ID"-->
-<!--            android:value="TEST-R5K-84Z-686Z" />-->
-<!--        <meta-data-->
-<!--            android:name="CLEVERTAP_TOKEN"-->
-<!--            android:value="TEST-14b-352" />-->
-
-<!--        Test Jitendra Clev-->
+            android:exported="true" /> <!-- Axis PE Demo -->
+        <!-- <meta-data -->
+        <!-- android:name="CLEVERTAP_ACCOUNT_ID" -->
+        <!-- android:value="TEST-R5K-84Z-686Z" /> -->
+        <!-- <meta-data -->
+        <!-- android:name="CLEVERTAP_TOKEN" -->
+        <!-- android:value="TEST-14b-352" /> -->
+        <!-- Test Jitendra Clev -->
         <meta-data
             android:name="CLEVERTAP_ACCOUNT_ID"
             android:value="TEST-75R-654-5Z6Z" />
@@ -106,19 +107,21 @@
             android:value="TEST-456-25a" />
         <meta-data
             android:name="CLEVERTAP_IDENTIFIER"
-            android:value="Phone,Identity" />
-
-<!--        JIO AZURE DETAILS JIO Infosec Dashboard-->
-<!--        <meta-data-->
-<!--            android:name="CLEVERTAP_ACCOUNT_ID"-->
-<!--            android:value="TEST-6K9-K8Z-RK7Z" />-->
-<!--        <meta-data-->
-<!--            android:name="CLEVERTAP_TOKEN"-->
-<!--            android:value="TEST-1b3-c36" />-->
-<!--        <meta-data-->
-<!--            android:name="CLEVERTAP_REGION"-->
-<!--            android:value="in1"/>-->
-
+            android:value="Phone,Identity" /> <!-- <meta-data -->
+        <!-- android:name="CLEVERTAP_ENCRYPTION_IN_TRANSIT" -->
+        <!-- android:value="1" /> -->
+        <meta-data
+            android:name="CLEVERTAP_ENCRYPTION_LEVEL"
+            android:value="2" /> <!-- JIO AZURE DETAILS JIO Infosec Dashboard -->
+        <!-- <meta-data -->
+        <!-- android:name="CLEVERTAP_ACCOUNT_ID" -->
+        <!-- android:value="TEST-6K9-K8Z-RK7Z" /> -->
+        <!-- <meta-data -->
+        <!-- android:name="CLEVERTAP_TOKEN" -->
+        <!-- android:value="TEST-1b3-c36" /> -->
+        <!-- <meta-data -->
+        <!-- android:name="CLEVERTAP_REGION" -->
+        <!-- android:value="in1"/> -->
         <!-- <meta-data -->
         <!-- android:name="CLEVERTAP_BACKGROUND_SYNC" -->
         <!-- android:value="1" /> -->
@@ -134,30 +137,28 @@
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
+
         <provider
             android:name="com.google.firebase.provider.FirebaseInitProvider"
             android:authorities="your.app.package.name.firebaseinitprovider"
             android:enabled="true"
             android:exported="false"
             tools:node="remove" />
+
         <service
             android:name=".ProgressTimer"
             android:foregroundServiceType="dataSync"
-            android:process=":progress"
-            />
+            android:process=":progress" />
 
         <meta-data
             android:name="CLEVERTAP_NOTIFICATION_ICON"
             android:value="jfs" />
         <meta-data
             android:name="CLEVERTAP_INAPP_EXCLUDE"
-            android:value="SplashScreen" />
-
-<!--        Map Calls-->
+            android:value="SplashScreen" /> <!-- Map Calls -->
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
-
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyDu8Bgay2rSYaLh3HnJGxRWOkxkKL8Fc7I" />

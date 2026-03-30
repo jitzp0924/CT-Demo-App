@@ -1,7 +1,6 @@
 package com.jitendract.jitdemo;
 
 import static java.lang.Boolean.TRUE;
-
 import android.app.Dialog;
 import android.app.NotificationManager;
 import android.content.Context;
@@ -30,18 +29,13 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
-import androidx.core.widget.NestedScrollView;
-import androidx.multidex.BuildConfig;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.clevertap.android.sdk.CTInboxListener;
 import com.clevertap.android.sdk.CTInboxStyleConfig;
 import com.clevertap.android.sdk.CleverTapAPI;
-import com.clevertap.android.signedcall.exception.InitException;
-import com.clevertap.android.signedcall.init.SignedCallAPI;
-import com.clevertap.android.signedcall.init.SignedCallInitConfiguration;
-import com.clevertap.android.signedcall.init.p2p.FCMProcessingNotification;
-import com.clevertap.android.signedcall.interfaces.SignedCallInitResponse;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -54,13 +48,13 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.card.MaterialCardView;
 import com.jitendract.jitdemo.CarouselModel.SliderAdapter;
 import com.jitendract.jitdemo.CarouselModel.SliderData;
+import com.jitendract.jitdemo.Reco.RecommendationAdapter;
+import com.jitendract.jitdemo.Reco.RecommendationCard;
 import com.jitendract.jitdemo.nudge.FloatingBullet;
 import com.jitendract.jitdemo.nudge.showPipOverlay;
 import com.smarteist.autoimageslider.SliderView;
-
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -73,7 +67,7 @@ public class HomeScreen2 extends AppCompatActivity implements CTInboxListener,On
 
 
     Map<String,Object> homeScreen, homeSlider, recoForU,J4U;
-    Map<String,Integer> payBill,quickLinks,rapidoLinks;
+    Map<String,Integer> payBill,quickLinks,rapidoLinks,homeLayout;
     HashMap<String, Object> homeScreenEvt, slidermap,pushPer, identityMap;
     private static final String PREF_NAME = "MyPrefs";
     private static final String KEY_CUSTOM_INBOX_ENABLED = "custom_inbox_enabled";
@@ -86,8 +80,7 @@ public class HomeScreen2 extends AppCompatActivity implements CTInboxListener,On
     LinearLayout verticalRow1, verticalRow2;
     MaterialCardView recoCard1,recoCard2,recoCard3;
     SharedPreferences prefs,sharedPreferences;
-    Button recoCardButton1,recoCardButton2,recoCardButton3;
-    LinearLayout recoSection,icoCar,icoAuto,icoBike,rapidoOptions,mapLayout1;
+    LinearLayout recoSection,icoCar,icoAuto,icoBike,rapidoOptions,mapLayout1,homeSectionsContainer;
     SupportMapFragment mapFragment;
     TextView reco_card_1_text;
     private ActivityResultLauncher<String> requestPermissionLauncher;
@@ -97,6 +90,10 @@ public class HomeScreen2 extends AppCompatActivity implements CTInboxListener,On
     ScrollView homeScroll;
     Intent intent;
     JSONObject profileIcon;
+    RecyclerView recyclerView;
+    LinearLayoutManager layoutManager;
+    RecommendationAdapter adapter;
+    List<RecommendationCard> recommendationList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -146,6 +143,7 @@ public class HomeScreen2 extends AppCompatActivity implements CTInboxListener,On
 //                reco_card_1_text.setText(titleReco);
 
 
+//                homeLayout = convertValuesToInteger((Map<String, Object>) homeScreen.get("Home Layout"));
                 recoForU = (Map<String, Object>) homeScreen.get("RecommendedForU");
                 homeSlider = (Map<String, Object>) homeScreen.get("Bottom Carousel");
                 quickLinks = convertValuesToInteger((Map<String, Object>) homeScreen.get("QuickLinks"));
@@ -164,6 +162,7 @@ public class HomeScreen2 extends AppCompatActivity implements CTInboxListener,On
             catch(Exception e){Log.e("PEException",String.valueOf(e));}
 
         }
+        Log.e("ReCO Tag",String.valueOf(homeScreen));
 
 
         try {
@@ -210,6 +209,10 @@ public class HomeScreen2 extends AppCompatActivity implements CTInboxListener,On
 
         }
 
+        if(homeLayout != null){
+//            reorderHomeSections(homeLayout);
+        }
+
         JSONObject pipConfig = null;
         JSONObject nudgeConfig = null;
         try {
@@ -222,21 +225,8 @@ public class HomeScreen2 extends AppCompatActivity implements CTInboxListener,On
             throw new RuntimeException(e);
         }
 
-        if(recoForU.get("MaxCard") instanceof Double){
-            recoCards = (Double) recoForU.get("MaxCard");
-        }
-        if(recoForU.get("MaxCard") instanceof Integer){
-            recoCards = Double.valueOf(String.valueOf(recoForU.get("MaxCard")));
-        }
+        recoForYouSetup(recoForU);
 
-        if (recoCards == 1.0){
-            recoCard3.setVisibility(View.GONE);
-            recoCard2.setVisibility(View.GONE);
-        } else if (recoCards == 2.0) {
-            recoCard3.setVisibility(View.GONE);
-        }else {
-            Log.v("PEException","All Recommended for you Cards are visible");
-        }
 
         if (!searchFlag){
             search.setVisibility(View.GONE);
@@ -291,6 +281,73 @@ public class HomeScreen2 extends AppCompatActivity implements CTInboxListener,On
 
     }
 
+    private void reorderHomeSections(Map<String, Integer> homeLayout) {
+        LinearLayout container = findViewById(R.id.homeSectionsContainer);
+
+        View quickLinks = findViewById(R.id.quickLinksSection);
+        View reco = findViewById(R.id.recoSection);
+        View carousel = findViewById(R.id.carouselSection);
+        View payBills = findViewById(R.id.parentPayBills);
+
+        container.removeAllViews();
+
+        List<Map.Entry<String, Integer>> sortedSections =
+                new ArrayList<>(homeLayout.entrySet());
+
+        Collections.sort(sortedSections,
+                (a, b) -> a.getValue().compareTo(b.getValue()));
+
+        for (Map.Entry<String, Integer> entry : sortedSections) {
+
+            switch (entry.getKey()) {
+
+                case "QuickLinks":
+                    container.addView(quickLinks);
+                    break;
+
+                case "Recommended":
+                    container.addView(reco);
+                    break;
+
+                case "Carousel":
+                    container.addView(carousel);
+                    break;
+
+                case "PayBills":
+                    container.addView(payBills);
+                    break;
+            }
+        }
+    }
+
+    private void recoForYouSetup(Map<String, Object> recoForU) {
+        Number maxCardNumber = (Number) recoForU.get("MaxCard");
+        int maxCards = maxCardNumber.intValue();
+
+        for (int i = 1; i <= maxCards; i++) {
+
+            String key = "Recommendation Card " + i;
+
+            Map<String, Object> cardData =
+                    (Map<String, Object>) recoForU.get(key);
+
+            if (cardData == null) continue;
+
+            String title = String.valueOf(cardData.get("Card Text"));
+            String button = String.valueOf(cardData.get("Card Button"));
+            String deeplink = String.valueOf(cardData.get("deeplink"));
+            String icon = String.valueOf(cardData.get("icon"));
+
+            recommendationList.add(
+                    new RecommendationCard(title, button, deeplink, icon)
+            );
+        }
+
+        adapter = new RecommendationAdapter(this, recommendationList);
+        recyclerView.setAdapter(adapter);
+
+    }
+
     private void askNotificationPermission() {
         pushPer.put("Type","PUSH");
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
@@ -336,6 +393,12 @@ public class HomeScreen2 extends AppCompatActivity implements CTInboxListener,On
         //App Inbox
         appInboxButton = findViewById(R.id.notification_icon);
         toolbar = findViewById(R.id.toolbar);
+        homeSectionsContainer = findViewById(R.id.homeSectionsContainer);
+
+        View quickLinksSection = findViewById(R.id.quickLinksSection);
+        View recoSection = findViewById(R.id.recoSection);
+        View carouselSection = findViewById(R.id.carouselSection);
+        View payBillsSection = findViewById(R.id.parentPayBills);
 
         logout = findViewById(R.id.logout_icon);
         search = findViewById(R.id.search_icon);
@@ -344,13 +407,11 @@ public class HomeScreen2 extends AppCompatActivity implements CTInboxListener,On
         verticalRow1 = findViewById(R.id.verticalrow1);
         verticalRow2 = findViewById(R.id.verticalrow2);
 
-        recoCard1 = findViewById(R.id.reco_card_1);
-        recoCard2 = findViewById(R.id.reco_card_2);
-        recoCard3 = findViewById(R.id.reco_card_3);
-        recoCardButton1=findViewById(R.id.reco_card_1_button);
-        recoCardButton2=findViewById(R.id.reco_card_2_button);
-        recoCardButton3=findViewById(R.id.reco_card_3_button);
-        reco_card_1_text = findViewById(R.id.reco_card_1_text);
+        recyclerView = findViewById(R.id.recommendationRecycler);
+        recommendationList = new ArrayList<>();
+        layoutManager =
+                new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+        recyclerView.setLayoutManager(layoutManager);
 
         fastaglayout = findViewById(R.id.Fastag);
         electricity = findViewById(R.id.Electricity);
@@ -381,69 +442,6 @@ public class HomeScreen2 extends AppCompatActivity implements CTInboxListener,On
     }
 
 
-    private void callingInit(CleverTapAPI cleverTapAPI, @NonNull String UserId) {
-
-        JSONObject initOptions = new JSONObject();
-        Boolean allowPersistSocketConnection = true;
-        FCMProcessingNotification fcmProcessingNotification = null;
-        String notiTitle = "Hey" + UserId.toUpperCase();
-        String notiSubtitle = "You have an incoming call ....";
-        int fcmNotificationLargeIcon = R.drawable.smicon1;
-        String cancelCta = "Reject";
-
-        try {
-            initOptions.put("accountId","67a9ead27be487e18d1681ed");
-            initOptions.put("apiKey","M9eULHgg2CgJP4wJ53jKpCUYQMu14FemJLXH4WLuQvN35u3VRxuUDW8zP8SEZRJV");
-            initOptions.put("cuid",UserId);
-            initOptions.put("appId", BuildConfig.APPLICATION_ID);
-            initOptions.put("name",UserId.toUpperCase());
-//            initOptions.put("ringtone", <string / optional>);
-        } catch (JSONException e) {
-            e.printStackTrace();
-            Log.e("SignedCAll","Error in SignedCall InitOptions");
-        }
-
-        try {
-            fcmProcessingNotification = new FCMProcessingNotification.Builder(notiTitle, notiSubtitle)
-                    .setLargeIcon(fcmNotificationLargeIcon)
-                    .setCancelCtaLabel(cancelCta)
-                    .build();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            Log.e("SignedCAll","Error in SignedCall FCMProcessingNotification");
-        }
-
-        SignedCallInitResponse signedCallInitResponse = new SignedCallInitResponse() {
-            @Override
-            public void onSuccess() {
-                Log.v("SignedCAll","Successful in SignedCall Listener");
-
-            }
-
-            @Override
-            public void onFailure(@NonNull InitException initException) {
-                Log.d("SignedCall: ", "error code: " + initException.getErrorCode()
-                        + "\n error message: " + initException.getMessage()
-                        + "\n error explanation: " + initException.getExplanation());
-
-                if (initException.getErrorCode() == InitException.SdkNotInitializedException.getErrorCode()) {
-                    //Handle this error here
-                }
-            }
-        };
-
-
-
-        //Create a Builder instance of SignedCallInitConfiguration and pass it inside the init() method
-        SignedCallInitConfiguration initConfiguration = new SignedCallInitConfiguration.Builder(initOptions, allowPersistSocketConnection)
-                .promptReceiverReadPhoneStatePermission(true)
-                .setFCMProcessingMode(SignedCallInitConfiguration.FCMProcessingMode.BACKGROUND,fcmProcessingNotification)
-                .build();
-
-        SignedCallAPI.getInstance().init(getApplicationContext(), initConfiguration, cleverTapAPI, signedCallInitResponse);
-    }
-
 //    @Override
 //    protected void onResume() {
 //        super.onResume();
@@ -461,7 +459,7 @@ public class HomeScreen2 extends AppCompatActivity implements CTInboxListener,On
 
     public void commonOnClick(String text1, String text2) {
         if (cleverTapUtils != null) {
-            cleverTapUtils.raiseEvent(text1, createEventProperties(text2),true);
+            cleverTapUtils. raiseEvent(text1, createEventProperties(text2),true);
         }
     }
 
@@ -543,7 +541,7 @@ public class HomeScreen2 extends AppCompatActivity implements CTInboxListener,On
         Collections.sort(sortedEntries, (entry1, entry2) -> entry1.getValue().compareTo(entry2.getValue()));
 
 
-        LinearLayout parentLayout = findViewById(R.id.parentLayout);
+        LinearLayout parentLayout = findViewById(R.id.parentPayBills);
 
         // Bharatpay watermark
         LinearLayout lastLinearLayout = new LinearLayout(this);
@@ -684,11 +682,6 @@ public class HomeScreen2 extends AppCompatActivity implements CTInboxListener,On
 
     private void setListners(){
 
-        callIcon.setOnClickListener(view -> {
-            CallReceiveDailog callReceiveDailog = new CallReceiveDailog();
-            callReceiveDailog.show(getSupportFragmentManager(),"CallReceiveDailog");
-        });
-
         profile_setting.setOnClickListener(view -> {
             Intent intent = new Intent(HomeScreen2.this, Settings.class);
             startActivity(intent);
@@ -797,49 +790,29 @@ public class HomeScreen2 extends AppCompatActivity implements CTInboxListener,On
             editor.remove("LoggedIn").apply();
             editor.remove("Identity").apply();
 
-            Log.i("SignedCall","Calling Logout for Signed Call");
-            SignedCallAPI.getInstance().logout(getApplicationContext());
-
             Intent di = new Intent(getApplicationContext(),MainActivity.class);
             di.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(di);
         });
 
-        recoCardButton1.setOnClickListener(view -> {
-            homeScreenEvt.put("Action","Click");
-            homeScreenEvt.put("Label", "Card 1");
-            cleverTapUtils.raiseEvent("Recommended For You",homeScreenEvt);
-            homeScreenEvt.remove("Action");
-            homeScreenEvt.remove("Label");
-        });
 
-        recoCardButton2.setOnClickListener(view -> {
-            homeScreenEvt.put("Action","Click");
-            homeScreenEvt.put("Label", "Card 2");
-            cleverTapUtils.raiseEvent("Recommended For You",homeScreenEvt);
-            homeScreenEvt.remove("Action");
-            homeScreenEvt.remove("Label");
 
-            showPaymentSuccessPopup();
-
-        });
-
-        recoCardButton3.setOnClickListener(view -> {
-            homeScreenEvt.put("Action","Click");
-            homeScreenEvt.put("Label", "Card 3");
-            cleverTapUtils.raiseEvent("Recommended For You",homeScreenEvt);
-            homeScreenEvt.remove("Action");
-            homeScreenEvt.remove("Label");
-            System.out.println("Reco 3 raised");
-
-            //Redirection
-            HashMap<String, Object> redirectionDetails = new HashMap<>();
-//            redirectionDetails.put("ServiceID", "123");
-            redirectionDetails.put("IsServiceActive", false);
-            redirectionDetails.put("Deeplink", "https://developer.clevertap.com/docs/android");
-            DeeplinkRedirection deeplinkRedirection = new DeeplinkRedirection(this);
-            deeplinkRedirection.handleRedirection(redirectionDetails);
-        });
+//        recoCardButton3.setOnClickListener(view -> {
+//            homeScreenEvt.put("Action","Click");
+//            homeScreenEvt.put("Label", "Card 3");
+//            cleverTapUtils.raiseEvent("Recommended For You",homeScreenEvt);
+//            homeScreenEvt.remove("Action");
+//            homeScreenEvt.remove("Label");
+//            System.out.println("Reco 3 raised");
+//
+//            //Redirection
+//            HashMap<String, Object> redirectionDetails = new HashMap<>();
+////            redirectionDetails.put("ServiceID", "123");
+//            redirectionDetails.put("IsServiceActive", false);
+//            redirectionDetails.put("Deeplink", "https://developer.clevertap.com/docs/android");
+//            DeeplinkRedirection deeplinkRedirection = new DeeplinkRedirection(this);
+//            deeplinkRedirection.handleRedirection(redirectionDetails);
+//        });
 
 
         icoBike.setOnClickListener(view -> {

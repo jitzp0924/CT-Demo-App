@@ -176,10 +176,10 @@ public class MainActivity extends AppCompatActivity implements CTPushNotificatio
                 HashMap<String, Object> loginMap = new HashMap<>();
                 loginMap.put("Identity",userID);      // String or number
                 if(userID.contains("rapido")){loginMap.put("AppType","rapido");}else loginMap.put("AppType","basic");
-                loginMap.put("Phone","+91"+phoneNum);
+                loginMap.put("Phone",phoneNum);
                 loginMap.put("MSG-whatsapp",commsUpdate.isChecked());
                 loginMap.put("T&C",conditions.isChecked());
-                cleverTapUtils.login(loginMap);
+                cleverTapUtils.login(loginMap,true);
 
                 HashMap<String, Object> evtMAp = new HashMap<>();
                 evtMAp.put("Screen","Login");      // String or number

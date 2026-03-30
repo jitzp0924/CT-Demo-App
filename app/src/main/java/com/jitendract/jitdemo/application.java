@@ -16,23 +16,18 @@ import androidx.room.Room;
 import com.clevertap.android.geofence.CTGeofenceAPI;
 import com.clevertap.android.geofence.CTGeofenceSettings;
 import com.clevertap.android.geofence.Logger;
+import com.clevertap.android.pushtemplates.PTConstants;
 import com.clevertap.android.pushtemplates.PushTemplateNotificationHandler;
 import com.clevertap.android.sdk.ActivityLifecycleCallback;
 import com.clevertap.android.sdk.CleverTapAPI;
 import com.clevertap.android.sdk.InAppNotificationButtonListener;
 import com.clevertap.android.sdk.interfaces.OnInitCleverTapIDListener;
 import com.clevertap.android.sdk.pushnotification.CTPushNotificationListener;
-import com.clevertap.android.signedcall.fcm.SignedCallNotificationHandler;
-import com.clevertap.android.signedcall.init.SignedCallAPI;
-import com.clevertap.android.signedcall.interfaces.SCNetworkQualityHandler;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.jitendract.jitdemo.CtPE.PEVariables;
-import com.jitendract.jitdemo.nudge.CustomTemplates;
-
 import java.util.HashMap;
 import java.util.concurrent.TimeUnit;
-
 import static com.clevertap.android.geofence.CTGeofenceSettings.ACCURACY_HIGH;
 import static com.clevertap.android.geofence.CTGeofenceSettings.FETCH_CURRENT_LOCATION_PERIODIC;
 
@@ -98,19 +93,19 @@ public class application extends Application implements Application.ActivityLife
 
     @Override
     public void onActivityPaused(@NonNull Activity activity) {
-        trackAppBackground("Paused");
+        trackAppBackground("Background");
     }
 
     @Override
     public void onActivityStopped(@NonNull Activity activity) {
-        trackAppBackground("Stopped");
+//        trackAppBackground("Stopped");
     }
 
     @Override public void onActivitySaveInstanceState(@NonNull Activity activity, @NonNull Bundle outState) {}
 
     @Override
     public void onActivityDestroyed(@NonNull Activity activity) {
-        trackAppBackground("Destroyed");
+        trackAppBackground("Killed");
     }
 
     /* ---------------------------------- */
@@ -146,13 +141,24 @@ public class application extends Application implements Application.ActivityLife
 
         Bundle payload = intent.getExtras();
         String ptId = payload.getString("pt_id");
-
         if (ptId == null) return;
+
+        String ptDismiss = payload.getString(PTConstants.PT_DISMISS_ON_CLICK);
+        boolean autoCancel = false;
+        String actionId = payload.getString("actionId");
+        int notificationId = payload.getInt("notificationId", -1);
+        if (actionId != null) {
+            Log.d("ACTION_ID", actionId);
+            autoCancel = payload.getBoolean("autoCancel", true);
+        }
+
+//        if ((autoCancel || ptDismiss.equals(true)) && nm!=null && notificationId>-1)
+
 
         NotificationManager nm =
                 (NotificationManager) activity.getSystemService(Context.NOTIFICATION_SERVICE);
 
-        if (nm != null && payload.containsKey("notificationId")) {
+        if (autoCancel || notificationId > -1 && nm != null && payload.containsKey("notificationId")) {
             nm.cancel(payload.getInt("notificationId"));
         }
     }
@@ -165,7 +171,6 @@ public class application extends Application implements Application.ActivityLife
         ActivityLifecycleCallback.register(this);
         CleverTapUtils.init(this);
         CleverTapAPI.setNotificationHandler(new PushTemplateNotificationHandler());
-        CleverTapAPI.setSignedCallNotificationHandler(new SignedCallNotificationHandler());
 
         ct.setCTPushNotificationListener(this);
         ct.setInAppNotificationButtonListener(this);
@@ -176,14 +181,6 @@ public class application extends Application implements Application.ActivityLife
             @Override
             public void onInitCleverTapID(String cleverTapID) {
                 firebaseAnalytics.setUserProperty("ct_objectId", cleverTapID);
-            }
-        });
-
-        SignedCallAPI.getInstance().setNetworkQualityCheckHandler(new SCNetworkQualityHandler() {
-            @Override
-            public boolean onNetworkQualityResponse(int score) {
-                Log.d("SignedCall", "Network score: " + score);
-                return false;
             }
         });
     }

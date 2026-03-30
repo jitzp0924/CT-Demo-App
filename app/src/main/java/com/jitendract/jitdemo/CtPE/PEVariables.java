@@ -21,7 +21,7 @@ public class PEVariables {
     public Map<String,Object> RecoCard2;
     public Map<String,Object> RecoCard3;
     public Map<String,Object> HomeSlider;
-    public Map<String,Integer>quicklinks,PayBill,rapidoLink;
+    public Map<String,Integer>quicklinks,PayBill,rapidoLink,homeLayout;
     @Variable
     public String appType;
     @Variable
@@ -42,6 +42,14 @@ public class PEVariables {
         LoginScreen = new HashMap<>();
         LoginScreen.put("Top BannerImage","null");
         LoginScreen.put("Active",false);
+
+
+        homeLayout = new HashMap<>();
+        homeLayout.put("Recommended For You",1);
+        homeLayout.put("Quick Links",2);
+        homeLayout.put("Bill Pay",3);
+        homeLayout.put("Bottom Carousel",4);
+
 
         RecoCard1 = new HashMap<>();
         RecoCard1.put("Card Text", applicationContext.getString(R.string.health_insurance_text));
@@ -123,15 +131,9 @@ public class PEVariables {
         HomeScreen.put("Rapido Link", rapidoLink);
         HomeScreen.put("J4U", J4U);
         HomeScreen.put("Profile_Icon","{\"enabled\":\"false\",\"profile_url\":\"https://shopifyctjt.s3.ap-south-1.amazonaws.com/app_profile.png\"}" );
+        HomeScreen.put("Home Layout",homeLayout);
 
-//
-//        R4U = new HashMap<>();
-//        R4U.put("R4U.51","");
-//        R4U.put("R4U.52","");
-//        R4U.put("R4U.53","");
-//        R4U.put("R4U.54","");
-//        R4U.put("R4U.55","");
-//        R4U.put("R4U.56","");
+
 
     }
 }

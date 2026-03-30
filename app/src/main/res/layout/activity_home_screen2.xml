@@ -82,10 +82,11 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginHorizontal="10dp"
+            android:id="@+id/homeSectionsContainer"
             android:orientation="vertical">
 
 
-            <!--Recommended For You Section-->
+            <!--Recommended For You Section -->
             <LinearLayout
                 android:id="@+id/recoSection"
                 android:layout_width="match_parent"
@@ -119,196 +120,16 @@
                         android:textSize="12sp" />
                 </RelativeLayout>
 
-                <LinearLayout
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recommendationRecycler"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <!-- Card 1 -->
-                    <com.google.android.material.card.MaterialCardView
-                        android:id="@+id/reco_card_1"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:backgroundTint="@color/bank_light_orange"
-                        app:cardCornerRadius="10dp"
-                        >
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal">
-
-                            <!-- Image -->
-
-                            <!-- Text and Button Container -->
-                            <ImageView
-                                android:id="@+id/reco_card_1_img"
-                                android:layout_width="100dp"
-                                android:layout_height="125dp"
-                                android:scaleType="centerCrop"
-                                android:src="@drawable/healthinsurance" />
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:orientation="vertical"
-                                android:padding="6dp">
-
-                                <!-- Text -->
-                                <TextView
-                                    android:id="@+id/reco_card_1_text"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:padding="6dp"
-                                    android:text="@string/health_insurance_text"
-                                    android:textSize="14sp"
-                                    android:textStyle="bold" />
-
-                                <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="0dp"
-                                    android:layout_weight="1"
-                                    android:gravity="bottom">
-                                    <!-- Button -->
-                                    <Button
-                                        android:id="@+id/reco_card_1_button"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:background="@android:color/transparent"
-                                        android:gravity="end"
-                                        android:padding="6dp"
-                                        android:text="Buy Now"
-                                        android:textColor="#1D72EF" />
-                                </LinearLayout>
-                            </LinearLayout>
-                        </LinearLayout>
-                    </com.google.android.material.card.MaterialCardView>
-
-                    <!-- Card 2 -->
-                    <com.google.android.material.card.MaterialCardView
-                        android:id="@+id/reco_card_2"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:backgroundTint="@color/bank_light_blue"
-                        app:cardCornerRadius="10dp">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal">
-
-                            <!-- Image -->
-                            <ImageView
-                                android:id="@+id/reco_card_2_img"
-                                android:layout_width="100dp"
-                                android:layout_height="125dp"
-                                android:scaleType="centerCrop"
-                                android:src="@drawable/personalinsurance" />
-
-                            <!-- Text and Button Container -->
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:orientation="vertical"
-                                android:padding="6dp">
-
-                                <!-- Text -->
-                                <TextView
-                                    android:id="@+id/reco_card_2_text"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:padding="6dp"
-                                    android:text="@string/peronal_insurance_text"
-                                    android:textSize="14sp"
-                                    android:textStyle="bold" />
-
-                                <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="0dp"
-                                    android:layout_weight="1"
-                                    android:gravity="bottom">
-
-                                    <!-- Button -->
-                                    <Button
-                                        android:id="@+id/reco_card_2_button"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:background="@android:color/transparent"
-                                        android:gravity="end"
-                                        android:padding="6dp"
-                                        android:text="Buy Now"
-                                        android:textColor="#1D72EF" />
-                                </LinearLayout>
-                            </LinearLayout>
-                        </LinearLayout>
-                    </com.google.android.material.card.MaterialCardView>
-
-                    <!-- Card 3 -->
-                    <com.google.android.material.card.MaterialCardView
-                        android:id="@+id/reco_card_3"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:backgroundTint="@color/bank_light_orange"
-                        app:cardCornerRadius="10dp">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal">
-
-                            <!-- Image -->
-                            <ImageView
-                                android:id="@+id/reco_card_3_img"
-                                android:layout_width="100dp"
-                                android:layout_height="125dp"
-                                android:scaleType="centerCrop"
-                                android:src="@drawable/card" />
-
-                            <!-- Text and Button Container -->
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:orientation="vertical"
-                                android:padding="6dp">
-
-                                <!-- Text -->
-                                <TextView
-                                    android:id="@+id/reco_card_3_text"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:padding="6dp"
-                                    android:text="@string/credit_card_text"
-                                    android:textSize="14sp"
-                                    android:textStyle="bold" />
-
-                                <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="0dp"
-                                    android:layout_weight="1"
-                                    android:gravity="bottom">
-                                    <!-- Button -->
-                                    <Button
-                                        android:id="@+id/reco_card_3_button"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:background="@android:color/transparent"
-                                        android:gravity="end"
-                                        android:padding="6dp"
-                                        android:text="Buy Now"
-                                        android:textColor="#1D72EF" />
-                                </LinearLayout>
-
-                            </LinearLayout>
-                        </LinearLayout>
-                    </com.google.android.material.card.MaterialCardView>
-
-                </LinearLayout>
+                    android:layout_marginTop="10dp"
+                    />
 
             </LinearLayout>
 
-            <!--            MapLayout-->
+            <!--            MapLayout -->
             <LinearLayout
                 android:id="@+id/mapLayout"
                 android:layout_width="match_parent"
@@ -318,7 +139,13 @@
 
             </LinearLayout>
 
-            <!--            QUICK LINKS SECTION-->
+            <!--            QUICK LINKS SECTION -->
+            <LinearLayout
+                android:layout_height="match_parent"
+                android:layout_width="match_parent"
+                android:orientation="vertical"
+                android:id="@+id/quickLinksSection"
+                >
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -751,10 +578,11 @@
 
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
+            </LinearLayout>
 
-            <!--            BILL PAY SECTION-->
+            <!--            BILL PAY SECTION -->
             <LinearLayout
-                android:id="@+id/parentLayout"
+                android:id="@+id/parentPayBills"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="20dp"
@@ -1012,6 +840,13 @@
 
             </LinearLayout>
 
+            <!--            Bottom Carousel -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/carouselSection"
+                >
+
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -1026,7 +861,7 @@
                     android:layout_height="220dp"
                     android:layout_centerInParent="true" />
             </com.google.android.material.card.MaterialCardView>
-
+            </LinearLayout>
 
         </LinearLayout>
 

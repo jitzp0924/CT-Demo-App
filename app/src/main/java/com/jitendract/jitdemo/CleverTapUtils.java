@@ -25,6 +25,9 @@ public class CleverTapUtils {
      * Private constructor to initialize the default CleverTap instance.
      */
     private CleverTapUtils(@NonNull Context applicationContext) {
+        CleverTapInstanceConfig config = CleverTapInstanceConfig.createInstance(applicationContext, "65R-654-5Z6Z", "456-256");
+        config.setEncryptionInTransit(true);
+        this.mAdditionalInstance = CleverTapAPI.instanceWithConfig(applicationContext, config);
         this.mDefaultInstance = CleverTapAPI.getDefaultInstance(applicationContext);
     }
 
@@ -63,7 +66,8 @@ public class CleverTapUtils {
      * @param token     The CleverTap Account Token.
      */
     public void initAdditionalInstance(@NonNull Context context, @NonNull String accountId, @NonNull String token) {
-        CleverTapInstanceConfig config = CleverTapInstanceConfig.createInstance(context, accountId, token);
+        CleverTapInstanceConfig config = CleverTapInstanceConfig.createInstance(context, accountId, token,"in1");
+        config.setEncryptionInTransit(true);
         this.mAdditionalInstance = CleverTapAPI.instanceWithConfig(context, config);
     }
 
