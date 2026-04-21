@@ -43,6 +43,9 @@
             android:name=".Settings"
             android:exported="false" />
         <activity
+            android:name=".HomeScreenV2"
+            android:exported="false" />
+        <activity
             android:name=".HomeScreen2"
             android:exported="true">
             <intent-filter>

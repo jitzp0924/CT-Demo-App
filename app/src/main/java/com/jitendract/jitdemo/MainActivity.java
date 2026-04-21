@@ -193,7 +193,7 @@ public class MainActivity extends AppCompatActivity implements CTPushNotificatio
                 editor.putBoolean("locationPermissionGranted",locationPermissionGranted);
                 editor.apply();
 
-                Intent di = new Intent(getApplicationContext(),HomeScreen2.class);
+                Intent di = HomeRouter.getHomeIntent(getApplicationContext());
                 di.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(di);
 

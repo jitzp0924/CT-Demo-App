@@ -106,7 +106,7 @@ public class SignInPage extends AppCompatActivity {
                     cleverTapUtils.raiseEvent("Referral Code Used",propertydata);
                 }
 
-                Intent intent = new Intent(SignInPage.this, HomeScreen2.class);
+                Intent intent = HomeRouter.getHomeIntent(SignInPage.this);
                 startActivity(intent);
             }
 
