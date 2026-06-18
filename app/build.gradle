@@ -68,9 +68,9 @@ dependencies {
 
 
     //Clevertap Related Codes
-    implementation 'com.clevertap.android:clevertap-android-sdk:8.0.0'
-    implementation 'com.google.firebase:firebase-messaging:25.0.1'
-    implementation "com.clevertap.android:push-templates:2.3.0"
+    implementation 'com.clevertap.android:clevertap-android-sdk:8.1.0'
+    implementation 'com.google.firebase:firebase-messaging:25.0.2'
+    implementation "com.clevertap.android:push-templates:2.4.0"
     implementation  'com.google.firebase:firebase-iid:21.1.0'
     implementation 'com.android.installreferrer:installreferrer:2.2'
 

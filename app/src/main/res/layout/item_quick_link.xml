@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:paddingVertical="14dp"
+    android:paddingHorizontal="4dp"
+    android:foreground="?attr/selectableItemBackgroundBorderless">
+
+    <!-- Tinted circle behind the icon, like GPay / PhonePe / HDFC app -->
+    <ImageView
+        android:id="@+id/ql_icon"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:padding="10dp"
+        android:background="@drawable/bg_quick_link_icon"
+        android:scaleType="fitCenter" />
+
+    <TextView
+        android:id="@+id/ql_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:ellipsize="end"
+        android:gravity="center"
+        android:maxWidth="72dp"
+        android:maxLines="2"
+        android:textColor="@color/black"
+        android:textSize="11sp" />
+
+</LinearLayout>

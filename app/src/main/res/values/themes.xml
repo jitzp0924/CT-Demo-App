@@ -16,4 +16,18 @@
         <item name="android:forceDarkAllowed" tools:targetApi="q">false</item>
     </style>
 
+
+    <!--
+      Splash screen theme.
+      Sets windowBackground to the brand colour so the very first frame Android
+      draws (before setContentView runs) already matches the splash layout.
+      This eliminates the white flash that appears when the default app theme
+      is inherited.
+    -->
+    <style name="Theme.JitDemo.Splash" parent="Theme.JitDemo">
+        <item name="android:windowBackground">@color/bank_dark_primary</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:statusBarColor">@color/bank_dark_primary</item>
+    </style>
+
 </resources>

@@ -101,6 +101,7 @@ public class HomeScreen2 extends AppCompatActivity implements CTInboxListener,On
         pushPer = new HashMap<>();
         slidermap = new HashMap<>();
         identityMap = new HashMap<>();
+        Log.e("HomeScreenV1","rendered from HomeScreen Version 1");
 
         sharedPreferences = getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
         CleverTapAPI clevertapDefaultInstance = CleverTapAPI.getDefaultInstance(getApplicationContext());

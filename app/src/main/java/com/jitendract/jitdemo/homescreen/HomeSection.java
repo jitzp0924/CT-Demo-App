@@ -2,13 +2,19 @@ package com.jitendract.jitdemo.homescreen;
 
 public class HomeSection {
 
-    public String sectionName;
-    public int order;
-    public Object data;
+    public enum SectionType { RECO, QUICK_LINKS, PAY_BILLS, CAROUSEL }
 
-    public HomeSection(String sectionName, int order, Object data) {
+    public final String sectionName;
+    public final int order;
+    public final boolean visible;
+    public final SectionType type;
+    public final Object data;
+
+    public HomeSection(String sectionName, int order, boolean visible, SectionType type, Object data) {
         this.sectionName = sectionName;
         this.order = order;
+        this.visible = visible;
+        this.type = type;
         this.data = data;
     }
 }

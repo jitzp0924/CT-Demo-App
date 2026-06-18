@@ -43,6 +43,13 @@ public class application extends Application implements Application.ActivityLife
     private CleverTapAPI cleverTapAPI;
     private FirebaseAnalytics firebaseAnalytics;
 
+    /**
+     * Counts activities that are Started but not yet Stopped.
+     * Navigating A→B: B.onStart fires before A.onStop → count goes 1→2→1, never 0.
+     * Pressing Home:  A.onStop fires with nothing starting → count drops to 0 → true background.
+     */
+    private int activeActivityCount = 0;
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -82,7 +89,9 @@ public class application extends Application implements Application.ActivityLife
 
     @Override
     public void onActivityStarted(@NonNull Activity activity) {
-        Log.v(TAG_LIFECYCLE, "Started: " + activity.getClass().getSimpleName());
+        activeActivityCount++;
+        Log.v(TAG_LIFECYCLE, "Started: " + activity.getClass().getSimpleName()
+                + " (active=" + activeActivityCount + ")");
     }
 
     @Override
@@ -93,19 +102,27 @@ public class application extends Application implements Application.ActivityLife
 
     @Override
     public void onActivityPaused(@NonNull Activity activity) {
-        trackAppBackground("Background");
+        Log.v(TAG_LIFECYCLE, "Paused: " + activity.getClass().getSimpleName());
+        // Do NOT raise background here — onPaused fires on every screen transition within the app.
     }
 
     @Override
     public void onActivityStopped(@NonNull Activity activity) {
-//        trackAppBackground("Stopped");
+        activeActivityCount--;
+        Log.v(TAG_LIFECYCLE, "Stopped: " + activity.getClass().getSimpleName()
+                + " (active=" + activeActivityCount + ")");
+        if (activeActivityCount == 0) {
+            // All activities are stopped — user pressed Home or switched apps.
+            trackAppBackground();
+        }
     }
 
     @Override public void onActivitySaveInstanceState(@NonNull Activity activity, @NonNull Bundle outState) {}
 
     @Override
     public void onActivityDestroyed(@NonNull Activity activity) {
-        trackAppBackground("Killed");
+        // Destroyed fires during normal back-navigation too — not a background signal.
+        Log.v(TAG_LIFECYCLE, "Destroyed: " + activity.getClass().getSimpleName());
     }
 
     /* ---------------------------------- */
@@ -207,14 +224,12 @@ public class application extends Application implements Application.ActivityLife
     /* Analytics Helpers                   */
     /* ---------------------------------- */
 
-    private void trackAppBackground(String state) {
+    private void trackAppBackground() {
         if (cleverTapAPI == null) return;
-
         HashMap<String, Object> props = new HashMap<>();
-        props.put("state", state);
-        props.put("reason", "background");
-
+        props.put("state", "background");
         cleverTapAPI.pushEvent("App_Background", props);
+        Log.d(TAG_LIFECYCLE, "App_Background event raised");
     }
 
     /* ---------------------------------- */
