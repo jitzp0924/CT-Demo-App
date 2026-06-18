@@ -16,6 +16,9 @@ public class PEVariables {
     @Variable
     public Map<String,Object> HomeScreen;
 
+    @Variable
+    public Map<String,Object> FDJourney;
+
     public Map<String,Object> RecommendedForU,J4U;
     public Map<String,Object> RecoCard1;
     public Map<String,Object> RecoCard2;
@@ -49,6 +52,7 @@ public class PEVariables {
         homeLayout.put("Quick Links",2);
         homeLayout.put("Bill Pay",3);
         homeLayout.put("Bottom Carousel",4);
+
 
 
         RecoCard1 = new HashMap<>();
@@ -132,6 +136,11 @@ public class PEVariables {
         HomeScreen.put("J4U", J4U);
         HomeScreen.put("Profile_Icon","{\"enabled\":\"false\",\"profile_url\":\"https://shopifyctjt.s3.ap-south-1.amazonaws.com/app_profile.png\"}" );
         HomeScreen.put("Home Layout",homeLayout);
+        HomeScreen.put("newHomeEnabled","V1");
+
+        FDJourney = new HashMap<>();
+        FDJourney.put("version","V1"); // "V1" = single-screen booking, "V2" = multi-step flow
+        FDJourney.put("interest_rates","[{\"max_months\":6,\"rate\":4.50},{\"max_months\":18,\"rate\":5.00},{\"max_months\":36,\"rate\":5.25},{\"max_months\":999,\"rate\":6.00}]");
 
 
 

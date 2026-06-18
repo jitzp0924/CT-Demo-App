@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
@@ -59,6 +60,7 @@ public class HomeScreenV2 extends AppCompatActivity implements CTInboxListener {
 
     private ImageView profileIcon, callIcon, searchIcon, notificationIcon, logoutIcon;
     private RecyclerView sectionsRecycler;
+    private TextView greetingText;
 
     // -------------------------------------------------------------------------
     // Lifecycle
@@ -73,6 +75,7 @@ public class HomeScreenV2 extends AppCompatActivity implements CTInboxListener {
         appPrefs = getSharedPreferences(PREF_APP, Context.MODE_PRIVATE);
         phoneNum = loginPrefs.getString("Phone", "NA");
         userId = loginPrefs.getString("Identity", "default");
+        Log.e("HomeScreenV2","rendered from HomeScreen Version 2");
 
         ct = CleverTapAPI.getDefaultInstance(getApplicationContext());
         if (ct != null) {
@@ -118,6 +121,12 @@ public class HomeScreenV2 extends AppCompatActivity implements CTInboxListener {
         searchIcon = findViewById(R.id.v2_search_icon);
         notificationIcon = findViewById(R.id.v2_notification_icon);
         logoutIcon = findViewById(R.id.v2_logout_icon);
+        greetingText = findViewById(R.id.v2_greeting);
+
+        // Personalise greeting with the user's stored identity
+        if (greetingText != null && userId != null && !userId.equals("default")) {
+            greetingText.setText("Hello, " + userId + "!");
+        }
     }
 
     // -------------------------------------------------------------------------
@@ -163,19 +172,23 @@ public class HomeScreenV2 extends AppCompatActivity implements CTInboxListener {
     // -------------------------------------------------------------------------
 
     /**
-     * Parses HomeScreen.HomeLayout (a JSON string) into a keyed map of SectionConfig.
-     * Expected JSON shape:
-     * {
-     *   "RecommendedForYou": { "order": 1, "visible": true },
-     *   "QuickLinks":        { "order": 2, "visible": true, "maxItems": 8 },
-     *   "PayBills":          { "order": 3, "visible": true },
-     *   "Carousel":          { "order": 4, "visible": false }
-     * }
+     * Parses HomeScreen."Home Layout" into a keyed map of SectionConfig.
+     *
+     * Two formats are supported, matching the PEVariables hierarchy:
+     *
+     * 1. Map<String, Integer> — local default from PEVariables (order values only).
+     *    Keys: "Recommended For You", "Quick Links", "Bill Pay", "Bottom Carousel"
+     *
+     * 2. JSON String — backend override with full control (order + visible + maxItems).
+     *    Keys: "RecommendedForYou", "QuickLinks", "PayBills", "Carousel"
+     *    Shape: { "QuickLinks": { "order": 2, "visible": true, "maxItems": 8 }, ... }
      */
     private Map<String, SectionConfig> parseHomeLayout(Map<String, Object> homeScreen) {
         try {
-            Object raw = homeScreen.get("HomeLayout");
+            Object raw = homeScreen.get("Home Layout");
+
             if (raw instanceof String) {
+                // Backend override: full JSON string with order + visible + maxItems
                 JSONObject layout = new JSONObject((String) raw);
                 Map<String, SectionConfig> result = new LinkedHashMap<>();
                 Iterator<String> keys = layout.keys();
@@ -189,11 +202,36 @@ public class HomeScreenV2 extends AppCompatActivity implements CTInboxListener {
                     ));
                 }
                 return result;
+
+            } else if (raw instanceof Map) {
+                // Local default from PEVariables: Map<String, Integer> order values only
+                Map<String, Object> layoutMap = (Map<String, Object>) raw;
+                Map<String, SectionConfig> result = new LinkedHashMap<>();
+                for (Map.Entry<String, Object> entry : layoutMap.entrySet()) {
+                    String normalizedKey = normalizeSectionKey(entry.getKey());
+                    result.put(normalizedKey, new SectionConfig(toInt(entry.getValue(), 99), true, -1));
+                }
+                return result;
             }
+
         } catch (Exception e) {
-            Log.e(TAG, "HomeLayout parse error — using defaults", e);
+            Log.e(TAG, "Home Layout parse error — using defaults", e);
         }
         return defaultLayout();
+    }
+
+    /**
+     * Maps PEVariables section names (human-readable) to the switch-case keys
+     * used in buildSections(). Only needed when reading from the local Map default.
+     */
+    private static String normalizeSectionKey(String peKey) {
+        switch (peKey) {
+            case "Recommended For You": return "RecommendedForYou";
+            case "Quick Links":         return "QuickLinks";
+            case "Bill Pay":            return "PayBills";
+            case "Bottom Carousel":     return "Carousel";
+            default:                    return peKey;
+        }
     }
 
     private static Map<String, SectionConfig> defaultLayout() {
@@ -388,9 +426,12 @@ public class HomeScreenV2 extends AppCompatActivity implements CTInboxListener {
 
     private void handleQuickLinkClick(QuickLinkItem item) {
         cleverTapUtils.raiseEvent("Quick Links", makeEvt(item.label), true);
-        Intent intent = "webview".equals(item.destination)
-                ? new Intent(this, webview.class)
-                : new Intent(this, FDHome.class);
+        Intent intent;
+        switch (item.destination) {
+            case "webview": intent = new Intent(this, webview.class); break;
+            case "fdHome":  intent = FDRouter.getFDIntent(this); break;
+            default:        intent = new Intent(this, FDHome.class); break;
+        }
         startActivity(intent);
     }
 

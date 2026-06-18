@@ -87,6 +87,7 @@ class ProgressTimer : Service() {
         val progressIncr = threshold?.let { progressCounter(it) }
         nb = NotificationCompat.Builder(context, channelid!!)
         nb!!.setContentTitle(title)
+            .setExtras(extras)
             .setContentText(msg)
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
             .setOnlyAlertOnce(true)

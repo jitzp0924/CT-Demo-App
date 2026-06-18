@@ -4,20 +4,21 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:layout_marginVertical="16dp">
+    android:layout_marginTop="20dp"
+    android:layout_marginBottom="8dp">
 
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardCornerRadius="10dp"
-        app:cardElevation="4dp"
-        app:strokeColor="@color/teal_700"
+        app:cardCornerRadius="12dp"
+        app:cardElevation="2dp"
+        app:strokeColor="@color/bank_light_orange"
         app:strokeWidth="1dp">
 
         <com.smarteist.autoimageslider.SliderView
             android:id="@+id/carousel_slider"
             android:layout_width="match_parent"
-            android:layout_height="220dp" />
+            android:layout_height="180dp" />
 
     </com.google.android.material.card.MaterialCardView>
 

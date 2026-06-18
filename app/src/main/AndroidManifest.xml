@@ -26,11 +26,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.JitDemo">
         <activity
-            android:name=".homescreen.home"
-            android:exported="false"
-            android:label="@string/title_activity_home"
-            android:theme="@style/Theme.JitDemo" />
-        <activity
             android:name=".MultiTaskPayBills"
             android:exported="false" />
         <activity
@@ -66,12 +61,22 @@
             android:name=".FDHome"
             android:exported="false" />
         <activity
+            android:name=".FDBookingActivity"
+            android:exported="false" />
+        <activity
+            android:name=".FDMpinActivity"
+            android:exported="false" />
+        <activity
+            android:name=".FDSuccessActivity"
+            android:exported="false" />
+        <activity
             android:name=".ControlCenter"
             android:exported="false"
             android:label="@string/title_activity_control_center" />
         <activity
             android:name=".SplashScreen"
-            android:exported="true">
+            android:exported="true"
+            android:theme="@style/Theme.JitDemo.Splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
