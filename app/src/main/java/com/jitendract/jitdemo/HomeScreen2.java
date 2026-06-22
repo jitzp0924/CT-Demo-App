@@ -703,7 +703,7 @@ public class HomeScreen2 extends AppCompatActivity implements CTInboxListener,On
         });
 
         creditcardlayout.setOnClickListener(view -> {
-            Intent intent = new Intent(HomeScreen2.this, FDHome.class);
+            Intent intent = new Intent(HomeScreen2.this, CreditCardActivity.class);
             startActivity(intent);
             commonOnClick("Quick Links","Credit Card");
 

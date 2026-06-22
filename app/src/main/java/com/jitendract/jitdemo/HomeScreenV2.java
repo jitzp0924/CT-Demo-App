@@ -14,7 +14,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -173,12 +172,9 @@ public class HomeScreenV2 extends AppCompatActivity implements CTInboxListener {
 
     /**
      * Parses HomeScreen."Home Layout" into a keyed map of SectionConfig.
-     *
-     * Two formats are supported, matching the PEVariables hierarchy:
-     *
+     * Two formats are supported, matching the PEVariables hierarchy
      * 1. Map<String, Integer> — local default from PEVariables (order values only).
      *    Keys: "Recommended For You", "Quick Links", "Bill Pay", "Bottom Carousel"
-     *
      * 2. JSON String — backend override with full control (order + visible + maxItems).
      *    Keys: "RecommendedForYou", "QuickLinks", "PayBills", "Carousel"
      *    Shape: { "QuickLinks": { "order": 2, "visible": true, "maxItems": 8 }, ... }
@@ -428,9 +424,10 @@ public class HomeScreenV2 extends AppCompatActivity implements CTInboxListener {
         cleverTapUtils.raiseEvent("Quick Links", makeEvt(item.label), true);
         Intent intent;
         switch (item.destination) {
-            case "webview": intent = new Intent(this, webview.class); break;
-            case "fdHome":  intent = FDRouter.getFDIntent(this); break;
-            default:        intent = new Intent(this, FDHome.class); break;
+            case "webview":     intent = new Intent(this, webview.class); break;
+            case "fdHome":      intent = FDRouter.getFDIntent(this); break;
+            case "creditCard":  intent = new Intent(this, CreditCardActivity.class); break;
+            default:            intent = new Intent(this, FDHome.class); break;
         }
         startActivity(intent);
     }
@@ -543,7 +540,7 @@ public class HomeScreenV2 extends AppCompatActivity implements CTInboxListener {
         QUICK_LINK_CATALOG = new LinkedHashMap<>();
         QUICK_LINK_CATALOG.put("FDRD",         new QuickLinkItem("FDRD",         "FD/RD",          R.drawable.fd,               "webview"));
         QUICK_LINK_CATALOG.put("Investments",  new QuickLinkItem("Investments",  "Investments",    R.drawable.investment,       "fdHome"));
-        QUICK_LINK_CATALOG.put("CreditCard",   new QuickLinkItem("CreditCard",   "Credit Card",    R.drawable.creditcard,       "fdHome"));
+        QUICK_LINK_CATALOG.put("CreditCard",   new QuickLinkItem("CreditCard",   "Credit Card",    R.drawable.creditcard,       "creditCard"));
         QUICK_LINK_CATALOG.put("Loans",        new QuickLinkItem("Loans",        "Loans",          R.drawable.loans,            "fdHome"));
         QUICK_LINK_CATALOG.put("SendMoney",    new QuickLinkItem("SendMoney",    "Send Money",     R.drawable.sendmoney,        "fdHome"));
         QUICK_LINK_CATALOG.put("Services",     new QuickLinkItem("Services",     "Services",       R.drawable.services,         "fdHome"));

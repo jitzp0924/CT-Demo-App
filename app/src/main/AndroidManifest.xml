@@ -64,6 +64,18 @@
             android:name=".FDBookingActivity"
             android:exported="false" />
         <activity
+            android:name=".CreditCardActivity"
+            android:exported="false"
+            android:label="My Credit Card" />
+        <activity
+            android:name=".CreditCardTransactionActivity"
+            android:exported="false"
+            android:label="Transactions" />
+        <activity
+            android:name=".CreditCardControlCenterActivity"
+            android:exported="false"
+            android:label="Card Controls" />
+        <activity
             android:name=".FDMpinActivity"
             android:exported="false" />
         <activity
