@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/fd_mpin_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/bank_dark_primary"
+        app:navigationIcon="@drawable/backbutton"
+        app:title="Confirm Booking"
+        app:titleTextColor="@color/white" />
+
+    <!-- Booking summary strip -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/bank_light_orange"
+        android:paddingHorizontal="20dp"
+        android:paddingVertical="14dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/mpin_summary_amount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="₹50,000"
+                android:textColor="@color/bank_dark_primary"
+                android:textSize="22sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/mpin_summary_detail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:text="12 months · 5.00% p.a."
+                android:textColor="@color/bank_light_primary"
+                android:textSize="13sp" />
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/bank_dark_secondary"
+            android:paddingHorizontal="10dp"
+            android:paddingVertical="4dp"
+            android:text="FD Booking"
+            android:textColor="@color/white"
+            android:textSize="11sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <!-- PIN entry section -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:paddingBottom="16dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Enter your MPIN"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:text="6-digit MPIN to authenticate this transaction"
+            android:textColor="#888888"
+            android:textSize="12sp" />
+
+        <!-- 6 pin dots -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="36dp">
+
+            <ImageView android:id="@+id/pin_dot_1" android:layout_width="20dp" android:layout_height="20dp" android:layout_marginHorizontal="10dp" android:background="@drawable/pin_dot_empty" />
+            <ImageView android:id="@+id/pin_dot_2" android:layout_width="20dp" android:layout_height="20dp" android:layout_marginHorizontal="10dp" android:background="@drawable/pin_dot_empty" />
+            <ImageView android:id="@+id/pin_dot_3" android:layout_width="20dp" android:layout_height="20dp" android:layout_marginHorizontal="10dp" android:background="@drawable/pin_dot_empty" />
+            <ImageView android:id="@+id/pin_dot_4" android:layout_width="20dp" android:layout_height="20dp" android:layout_marginHorizontal="10dp" android:background="@drawable/pin_dot_empty" />
+            <ImageView android:id="@+id/pin_dot_5" android:layout_width="20dp" android:layout_height="20dp" android:layout_marginHorizontal="10dp" android:background="@drawable/pin_dot_empty" />
+            <ImageView android:id="@+id/pin_dot_6" android:layout_width="20dp" android:layout_height="20dp" android:layout_marginHorizontal="10dp" android:background="@drawable/pin_dot_empty" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <!-- Numeric keypad -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingBottom="8dp"
+        android:background="#FAFAFA">
+
+        <!-- Row 1: 1 2 3 -->
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal">
+            <TextView android:id="@+id/key_1" android:layout_width="0dp" android:layout_height="68dp" android:layout_weight="1" android:text="1" android:gravity="center" android:textSize="24sp" android:textColor="@color/black" android:foreground="?attr/selectableItemBackground" />
+            <TextView android:id="@+id/key_2" android:layout_width="0dp" android:layout_height="68dp" android:layout_weight="1" android:text="2" android:gravity="center" android:textSize="24sp" android:textColor="@color/black" android:foreground="?attr/selectableItemBackground" />
+            <TextView android:id="@+id/key_3" android:layout_width="0dp" android:layout_height="68dp" android:layout_weight="1" android:text="3" android:gravity="center" android:textSize="24sp" android:textColor="@color/black" android:foreground="?attr/selectableItemBackground" />
+        </LinearLayout>
+
+        <!-- Row 2: 4 5 6 -->
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal">
+            <TextView android:id="@+id/key_4" android:layout_width="0dp" android:layout_height="68dp" android:layout_weight="1" android:text="4" android:gravity="center" android:textSize="24sp" android:textColor="@color/black" android:foreground="?attr/selectableItemBackground" />
+            <TextView android:id="@+id/key_5" android:layout_width="0dp" android:layout_height="68dp" android:layout_weight="1" android:text="5" android:gravity="center" android:textSize="24sp" android:textColor="@color/black" android:foreground="?attr/selectableItemBackground" />
+            <TextView android:id="@+id/key_6" android:layout_width="0dp" android:layout_height="68dp" android:layout_weight="1" android:text="6" android:gravity="center" android:textSize="24sp" android:textColor="@color/black" android:foreground="?attr/selectableItemBackground" />
+        </LinearLayout>
+
+        <!-- Row 3: 7 8 9 -->
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal">
+            <TextView android:id="@+id/key_7" android:layout_width="0dp" android:layout_height="68dp" android:layout_weight="1" android:text="7" android:gravity="center" android:textSize="24sp" android:textColor="@color/black" android:foreground="?attr/selectableItemBackground" />
+            <TextView android:id="@+id/key_8" android:layout_width="0dp" android:layout_height="68dp" android:layout_weight="1" android:text="8" android:gravity="center" android:textSize="24sp" android:textColor="@color/black" android:foreground="?attr/selectableItemBackground" />
+            <TextView android:id="@+id/key_9" android:layout_width="0dp" android:layout_height="68dp" android:layout_weight="1" android:text="9" android:gravity="center" android:textSize="24sp" android:textColor="@color/black" android:foreground="?attr/selectableItemBackground" />
+        </LinearLayout>
+
+        <!-- Row 4: backspace · 0 · (blank) -->
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal">
+            <TextView android:id="@+id/key_backspace" android:layout_width="0dp" android:layout_height="68dp" android:layout_weight="1" android:text="⌫" android:gravity="center" android:textSize="24sp" android:textColor="@color/bank_dark_secondary" android:foreground="?attr/selectableItemBackground" />
+            <TextView android:id="@+id/key_0"         android:layout_width="0dp" android:layout_height="68dp" android:layout_weight="1" android:text="0" android:gravity="center" android:textSize="24sp" android:textColor="@color/black"             android:foreground="?attr/selectableItemBackground" />
+            <View                                      android:layout_width="0dp" android:layout_height="68dp" android:layout_weight="1" />
+        </LinearLayout>
+
+        <!-- Confirm button -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_mpin_confirm"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="8dp"
+            android:enabled="false"
+            android:text="Confirm Booking"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            app:backgroundTint="@color/bank_dark_primary"
+            app:cornerRadius="12dp" />
+
+    </LinearLayout>
+
+</LinearLayout>

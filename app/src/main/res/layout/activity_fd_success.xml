@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#F5F5F5">
+
+    <!-- Scrollable content fills all space above the button row -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            android:padding="24dp">
+
+            <!-- Success icon -->
+            <ImageView
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_marginTop="32dp"
+                android:src="@drawable/ic_success_check"
+                android:contentDescription="Success" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="FD Booked Successfully!"
+                android:textColor="@color/bank_dark_primary"
+                android:textSize="22sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/success_ref_number"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:text="Ref: FD00000000"
+                android:textColor="#888888"
+                android:textSize="13sp" />
+
+            <!-- FD Details card -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="28dp"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="1dp"
+                app:strokeColor="@color/bank_light_orange"
+                app:strokeWidth="1dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="20dp">
+
+                    <!-- Deposit Amount row -->
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:layout_marginBottom="14dp">
+                        <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="Deposit Amount" android:textColor="#888888" android:textSize="13sp" />
+                        <TextView android:id="@+id/success_amount"  android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="₹50,000"     android:textColor="@color/black" android:textSize="13sp" android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <!-- Tenure row -->
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:layout_marginBottom="14dp">
+                        <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="Tenure"         android:textColor="#888888" android:textSize="13sp" />
+                        <TextView android:id="@+id/success_tenure" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="12 months"   android:textColor="@color/black" android:textSize="13sp" android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <!-- Interest Rate row -->
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:layout_marginBottom="14dp">
+                        <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="Interest Rate"  android:textColor="#888888" android:textSize="13sp" />
+                        <TextView android:id="@+id/success_rate"   android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="5.00% p.a."  android:textColor="@color/black" android:textSize="13sp" android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <View android:layout_width="match_parent" android:layout_height="1dp" android:background="@color/bank_light_orange" android:layout_marginBottom="14dp" />
+
+                    <!-- Maturity Amount row — highlighted -->
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal">
+                        <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="Maturity Amount" android:textColor="@color/bank_dark_primary" android:textSize="15sp" android:textStyle="bold" />
+                        <TextView android:id="@+id/success_maturity" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="₹52,500" android:textColor="@color/bank_dark_primary" android:textSize="15sp" android:textStyle="bold" />
+                    </LinearLayout>
+
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+        </LinearLayout>
+    </ScrollView>
+
+    <!-- Bottom action buttons -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="16dp">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_view_fd"
+            android:layout_width="0dp"
+            android:layout_height="52dp"
+            android:layout_weight="1"
+            android:layout_marginEnd="8dp"
+            android:text="View FD"
+            android:textColor="@color/bank_dark_primary"
+            android:textSize="14sp"
+            app:backgroundTint="@color/white"
+            app:strokeColor="@color/bank_dark_primary"
+            app:strokeWidth="1dp"
+            app:cornerRadius="12dp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_go_home"
+            android:layout_width="0dp"
+            android:layout_height="52dp"
+            android:layout_weight="1"
+            android:layout_marginStart="8dp"
+            android:text="Go to Home"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            app:backgroundTint="@color/bank_dark_primary"
+            app:cornerRadius="12dp" />
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Shared brand header — Login and SignIn screens.
+
+  Structure:
+    ┌─────────────────────────────────────┐  ← bank_dark_primary bg
+    │  [logo]  CleverTap Bank             │
+    │          Your one stop companion    │
+    ├─────────────────────────────────────┤
+    │  [PE top banner — fixed 140dp tall] │  ← only visible when LoginScreen.Active=true
+    └─────────────────────────────────────┘
+
+  Banner is edge-to-edge (no horizontal padding) and capped at 140dp so a
+  tall image never collapses the form area. scaleType=centerCrop fills the
+  fixed slot without distortion.
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@color/bank_dark_primary">
+
+    <!-- Logo on the left, app name + tagline stacked on the right -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingHorizontal="24dp"
+        android:paddingTop="24dp"
+        android:paddingBottom="20dp">
+
+        <ImageView
+            android:layout_width="52dp"
+            android:layout_height="52dp"
+            android:src="@mipmap/ic_launcher"
+            android:scaleType="fitCenter"
+            android:contentDescription="App logo" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:layout_marginStart="14dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="CleverTap Bank"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                android:text="Your one stop financial companion"
+                android:textColor="#AAFFFFFF"
+                android:textSize="12sp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <!--
+      PE-controlled top banner.
+      Fixed height = 140dp — a tall source image never overflows this slot.
+      Edge-to-edge (no horizontal padding on this view).
+      Hidden by default; MainActivity makes it VISIBLE when LoginScreen.Active=true.
+    -->
+    <ImageView
+        android:id="@+id/loginTopBanner"
+        android:layout_width="match_parent"
+        android:layout_height="140dp"
+        android:scaleType="centerCrop"
+        android:visibility="gone" />
+
+</LinearLayout>
